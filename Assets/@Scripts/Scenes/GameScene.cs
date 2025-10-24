@@ -22,17 +22,10 @@ public class GameScene : BaseScene
         base.Init();
         SceneType = Define.EScene.GameScene;
 
-        Managers.UI.ShowSceneUI<UI_GameScene>();    
-
     }
 
 
     private void Update()
-    {
-
-    }
-
-    void EndGame()
     {
 
     }
