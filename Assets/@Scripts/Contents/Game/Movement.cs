@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
     public ParticleSystem _moveParticle;
     Rigidbody2D _rb;
 
+    bool _wasOnGround = false;
     public int _gravity = 1;
     public bool _isClickProcessed = false;
     private void Start()
@@ -25,8 +26,33 @@ public class Movement : MonoBehaviour
     {
         transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
         Invoke(_currentGameMode.ToString(), 0);
+
+
+        PaticleControl();
     }
 
+    void PaticleControl()
+    {
+
+        //  Cube 모드일 때 파티클 제어
+        if (_currentGameMode == EGameMode.Cube)
+        {
+            bool isGrounded = OnGround();
+
+            if (!_wasOnGround && isGrounded)
+            {
+                // 착지했을 때 다시 켜기
+                _moveParticle.Play();
+            }
+            else if (_wasOnGround && !isGrounded)
+            {
+                // 점프 순간에 끄기
+                _moveParticle.Stop();
+            }
+
+            _wasOnGround = isGrounded;
+        }
+    }
 
 
     public bool OnGround()

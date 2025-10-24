@@ -9,7 +9,7 @@ public class FollowPlayer : MonoBehaviour
     public float interpolationTime = 0.1f;
 
     public Transform _player;
-    public Transform _groundCamera;
+    public Transform _groundCamera;   //
     public Transform _topGround;
     public Transform _backGround;
     public Movement _movement;
