@@ -221,8 +221,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 214359178186903565, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
+      propertyPath: _groundCheckRadius
+      value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 214359178186903565, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: _groundMask.m_Bits
-      value: 0
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 858108434463729965, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: m_Name
@@ -449,7 +453,7 @@ MonoBehaviour:
   mapCsvFile: {fileID: 4900000, guid: c5734c76431e25b4f9a8e3ea10bd5a86, type: 3}
   mapParent: {fileID: 314171050}
   playerSpeed: 10.4
-  prefabManager: {fileID: 11400000, guid: 7f11528a8a6231c40a88d1e5e56801da, type: 2}
+  prefabManager: {fileID: 11400000, guid: e042d6683ea1cfd46bb68c6ba366fa6a, type: 2}
 --- !u!4 &357127879
 Transform:
   m_ObjectHideFlags: 0
@@ -845,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5032eb29b4ecd94ca5a2d7af7a6a651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffset: {x: 0, y: 0}
+  cameraOffset: {x: 3, y: 0}
   interpolationTime: 0.1
   _player: {fileID: 815637696}
   _groundCamera: {fileID: 325647515}
