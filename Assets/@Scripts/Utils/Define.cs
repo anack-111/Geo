@@ -45,7 +45,8 @@ public class Define
         PT_UFO,
         PT_Wave,
         Block_10x2,
-        Block_10x1
+        Block_10x1,
+        Star,
 
     }
 
