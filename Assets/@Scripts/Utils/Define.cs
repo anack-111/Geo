@@ -47,7 +47,9 @@ public class Define
         Block_10x2,
         Block_10x1,
         Star,
-
+        Block_3x3,
+        Block_4x2,
+        Block_6x3
     }
 
 
