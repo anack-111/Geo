@@ -4939,10 +4939,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentGameMode: 0
   _currentSpeed: 1
-  _groundCheckRadius: 0
+  _groundCheckRadius: -0.03
   _groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _sprite: {fileID: 4373627387369635276}
   _moveParticle: {fileID: 3796831890569871447}
   _gravity: 1
@@ -5104,7 +5104,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 50
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
