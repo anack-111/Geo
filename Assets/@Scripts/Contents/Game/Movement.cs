@@ -120,6 +120,7 @@ public class Movement : MonoBehaviour
             case 2:
                 _gravity = gravity;
                 _rb.gravityScale = Mathf.Abs(_rb.gravityScale) * gravity;
+                _sprite.gameObject.GetComponent<SpriteRenderer>().flipY = gravity == 1 ? false : true;
                 MoveParticleOffset(_gravity);
 
                 break;
