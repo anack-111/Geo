@@ -17,6 +17,12 @@ public class FollowPlayer : MonoBehaviour
     Vector3 newVector;
     bool firstFrame = true; //첫 프레임에 순간적으로 이동할지, 부드럽게 이동할지 결정하는 플래그
 
+    public void Init()
+    {
+        _player = Managers.Object.Player.gameObject.transform;
+        _movement = Managers.Object.Player.GetComponent<Movement>();
+    }
+
     void FixedUpdate()
     {
         newVector = new Vector3(_player.position.x + cameraOffset.x, newVector.y, -10);

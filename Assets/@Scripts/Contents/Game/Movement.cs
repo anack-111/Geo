@@ -24,7 +24,10 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
+        //sif(!Managers.Game._isPlay)
+            transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
+
+
         Invoke(_currentGameMode.ToString(), 0);
 
 

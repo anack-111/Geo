@@ -56,9 +56,9 @@ public class Managers : MonoBehaviour
             s_instance = go.GetComponent<Managers>();
 
             // GameManager 컴포넌트가 없으면 추가하고 초기화한다.
-            s_instance._game = go.GetComponent<GameManager>();
-            if (s_instance._game == null)
-                s_instance._game = go.AddComponent<GameManager>();
+            //s_instance._game = go.GetComponent<GameManager>();
+            //if (s_instance._game == null)
+            //    s_instance._game = go.AddComponent<GameManager>();
 
             s_instance._sound.Init();
 

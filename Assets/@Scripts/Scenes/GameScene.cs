@@ -4,9 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class GameScene : BaseScene
 {
+    public FollowPlayer _playerCamera;
     private void Awake()
     {
         Init();
@@ -15,7 +17,8 @@ public class GameScene : BaseScene
 
     private void Start()
     {
-       // Managers.Game.Init(GameObject.Find("FirePos").transform);
+        //PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0,-2.3f,0)); 
+        //_playerCamera.Init();
     }
     protected override void Init()
     {
