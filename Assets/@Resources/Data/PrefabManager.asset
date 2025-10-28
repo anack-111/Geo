@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778b155db40964a4b99a0e1efb4aa0a2, type: 3}
   m_Name: PrefabManager
   m_EditorClassIdentifier: 
-  prefabFolder: Assets/@Resources/Prefabs/Object
+  prefabLabel: PreLoad
+  editorPrefabFolder: Assets/@Resources/Prefabs/Object

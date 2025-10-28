@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Globalization;
 using UnityEngine;
 
@@ -13,20 +14,16 @@ public class MapLoader : MonoBehaviour
     [Header("Managers")]
     public PrefabManager prefabManager; // ScriptableObject 버전
 
-    void Start()
+    private IEnumerator Start()
     {
-        if (mapCsvFile == null)
-        {
-            Debug.LogError(" Map CSV 파일이 지정되지 않았습니다!");
-            return;
-        }
+        if (mapCsvFile == null) { Debug.LogError("Map CSV 미지정"); yield break; }
+        if (prefabManager == null) { Debug.LogError("PrefabManager 미지정"); yield break; }
 
-        if (prefabManager == null)
-        {
-            Debug.LogError(" PrefabManager(ScriptableObject)가 지정되지 않았습니다!");
-            return;
-        }
+        //  Addressables 프리팹 로드 완료 대기
+        if (!prefabManager.IsReady)
+            yield return prefabManager.Initialize(); // 필요하면 (p)=>progressBar.value=p 전달
 
+        // 이제 맵 파싱 & 스폰
         LoadMapCSV(mapCsvFile);
     }
 

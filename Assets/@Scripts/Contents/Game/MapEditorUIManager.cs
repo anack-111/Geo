@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
+#if UNITY_EDITOR
 public class MapEditorUIManager : MonoBehaviour
 {
     [Header("Audio")]
@@ -39,7 +42,7 @@ public class MapEditorUIManager : MonoBehaviour
     private void Awake()
     {
 #if UNITY_EDITOR
-        prefabManager = AssetDatabase.LoadAssetAtPath<PrefabManager>("Assets/Editor/PrefabManager.asset");
+        prefabManager = AssetDatabase.LoadAssetAtPath<PrefabManager>("Assets/@Resources/Data/PrefabManager.asset");
         if (prefabManager == null)
         {
             Debug.LogError("PrefabManager.asset을 찾을 수 없습니다! 경로를 확인하세요.");
@@ -237,7 +240,7 @@ public class MapEditorUIManager : MonoBehaviour
         Debug.Log(" 맵 불러오기 완료");
     }
 }
-
+#endif
 // ------------------------------------
 // 데이터 구조
 // ------------------------------------

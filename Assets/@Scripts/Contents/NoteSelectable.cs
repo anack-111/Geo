@@ -1,5 +1,5 @@
 using UnityEngine;
-
+#if UNITY_EDITOR
 public class NoteSelectable : MonoBehaviour
 {
     private void OnMouseDown()
@@ -18,3 +18,4 @@ public class NoteSelectable : MonoBehaviour
         }
     }
 }
+#endif
