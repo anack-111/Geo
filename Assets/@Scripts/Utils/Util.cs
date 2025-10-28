@@ -92,24 +92,22 @@ public static class Util
             }
         }
 
+
+
         if (host.OnGround() || !onGroundRequired)
-            host._sprite.rotation = Quaternion.Euler(0, 0, Mathf.Round(host._sprite.rotation.z / 90) * 90);
-        else
-            host._sprite.Rotate(Vector3.back, rotationMod * Time.deltaTime * host._gravity);
+            host._sprite.rotation = Quaternion.Euler(0, 0, 0);
+ 
 
 
-        //추후에 함수이동
-        if(host._currentGameMode == Define.EGameMode.Cube)
-        {
-            host._sprite.gameObject.GetComponent<TrailRenderer>().enabled = false;
-            
-        }
-        else
-        {
-            host._sprite.gameObject.GetComponent<TrailRenderer>().enabled = true;
-           
-        }
-            
+        // 캐릭터 회전 함수
+        //if (host.OnGround() || !onGroundRequired)
+        //    host._sprite.rotation = Quaternion.Euler(0, 0, Mathf.Round(host._sprite.rotation.z / 90) * 90);
+        //else
+        //    host._sprite.Rotate(Vector3.back, rotationMod * Time.deltaTime * host._gravity);
+
+
+
+
     }
 
 }

@@ -101,7 +101,12 @@ public class Movement : MonoBehaviour
     void Spider()
     {
         Util.CreateGamemode(_rb, this, true, 238.29f, 6.2f, false, true, 0, 238.29f);
-    }
+
+        if (_gravity == 1)
+            _sprite.gameObject.GetComponent<SpriteRenderer>().flipY = false;
+        else
+            _sprite.gameObject.GetComponent<SpriteRenderer>().flipY = true;
+    }   
 
     #endregion
     public void ChangeThroughPortal(EGameMode gameMode, ESpeed speed, int gravity, int State, float yPortal)
@@ -133,12 +138,7 @@ public class Movement : MonoBehaviour
     {
         var trail = _sprite.gameObject.GetComponent<TrailRenderer>();
 
-        if (_currentGameMode == EGameMode.Ship)
-        {
-            trail.enabled = true;
-            _moveParticle.gameObject.SetActive(false);
-        }
-        else if (_currentGameMode == EGameMode.Cube)
+        if(_currentGameMode == EGameMode.Cube)
         {
             trail.enabled = false;
             _moveParticle.gameObject.SetActive(true);
@@ -146,13 +146,14 @@ public class Movement : MonoBehaviour
         else
         {
             // 다른 모드가 생길 때 기본값
-            trail.enabled = false;
+            trail.enabled = true;
             _moveParticle.gameObject.SetActive(false);
+
         }
     }
 
 
-    void MoveParticleOffset(int gravity) //파티클 오프셋 설정
+    void MoveParticleOffset(int gravity) //뒤집혔을 때 파티클 오프셋 설정
     {
         var shape = _moveParticle.shape;
         if (_gravity == 1)
