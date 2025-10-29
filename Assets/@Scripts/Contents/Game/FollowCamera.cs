@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
-using static Define;
 
 public class FollowPlayer : MonoBehaviour
 {
@@ -9,13 +7,32 @@ public class FollowPlayer : MonoBehaviour
     public float interpolationTime = 0.1f;
 
     public Transform _player;
-    public Transform _groundCamera;   //
+    public Transform _groundCamera;
     public Transform _topGround;
     public Transform _backGround;
-    public Movement _movement;
 
+    [Header("Background Layer 설정")]
+    public Transform _background;   // 구름 앞 배경
+    public Transform _cloudFrontBackground;   // 구름 앞 배경
+    public Transform _cloudBackBackground;   // 구름 뒤 배경
+    public Transform _moonBackground;    // 달 배경
+    public Transform _buildingBackground; // 앞 건물 배경
+    public Transform _buildingFrontBackground; // 뒷 건물 배경
+    public Transform _BuildingSecondBackground; // 뒷 건물 배경
+    public Transform _fogBackground; // 뒷 건물 배경
+
+    public float background = 0.5f;      // 구름 배경 이동 속도 (느림)
+    public float frontcloudSpeed = 0.5f;      // 구름 배경 이동 속도 (느림)
+    public float backcloudSpeed = 0.5f;      // 구름 배경 이동 속도 (느림)
+    public float moonSpeed = 1.0f;       // 달 배경 이동 속도 (중간)
+    public float backbuildingSpeed = 2.0f;   // 건물 배경 이동 속도 (빠름)
+    public float secondBuildingSpeed = 2.0f;
+    public float frontbuildingSpeed = 2.0f;   // 건물 배경 이동 속도 (빠름)
+    public float fogSpeed = 1.0f;       // 달 배경 이동 속도 (중간)
+
+    public Movement _movement;
     Vector3 newVector;
-    bool firstFrame = true; //첫 프레임에 순간적으로 이동할지, 부드럽게 이동할지 결정하는 플래그
+    bool firstFrame = true;
 
     public void Init()
     {
@@ -32,9 +49,31 @@ public class FollowPlayer : MonoBehaviour
         else
             StaticCam(firstFrame, _movement._yLastPortal, Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode]);
 
-        _backGround.localPosition = new Vector3((-_player.position.x * 0.5f) + Mathf.Floor(_player.transform.position.x / 46.875f) * 23.4375f, 0, 10);
+        // 배경을 각각 다르게 이동
+        MoveBackground(_background, background);
+        MoveBackground(_cloudBackBackground, backcloudSpeed);
+        MoveBackground(_cloudFrontBackground, frontcloudSpeed);
+        MoveBackground(_moonBackground, moonSpeed);
+        MoveBackground(_buildingBackground, backbuildingSpeed);
+        MoveBackground(_BuildingSecondBackground, secondBuildingSpeed);
+        MoveBackground(_buildingFrontBackground, frontbuildingSpeed);
+        MoveBackground(_fogBackground, fogSpeed);
+
+
         transform.position = newVector;
         firstFrame = false;
+    }
+
+    void MoveBackground(Transform background, float speed)
+    {
+        // 배경을 특정 속도로 이동시킴
+        background.localPosition = new Vector3(background.localPosition.x - speed * Time.deltaTime, background.localPosition.y, background.localPosition.z);
+
+        // 배경이 화면 밖으로 나가면 반복되도록 처리
+        if (background.localPosition.x < -background.GetComponent<Renderer>().bounds.size.x)
+        {
+            background.localPosition = new Vector3(0, background.localPosition.y, background.localPosition.z);
+        }
     }
 
     void FreeCam(bool doInstantly)
