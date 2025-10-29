@@ -50,7 +50,11 @@ public class Define
         Block_3x3,
         Block_4x2,
         Block_6x3,
-        Coin
+        Coin,
+        CuteCat1,
+        CuteCat2,
+        CuteCat3,
+        CuteCat4
     }
 
 

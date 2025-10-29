@@ -53,6 +53,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ce6a586140a62644815a11e0d8bdb42
+    m_Address: Coin
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 34340deab76013c4a9ac3f565ec37b15
     m_Address: PT_Ball
     m_ReadOnly: 0
@@ -61,6 +67,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3471d59278fa5934689a18167891167d
     m_Address: PT_Wave
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36544772d6a7882429aa9fef8878c1e0
+    m_Address: CuteCat2
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -77,8 +89,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4649cfe25974beb449c05c11366539d3
+    m_Address: Block_3x3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47edac042d7a6994690909b3587df9ee
+    m_Address: CuteCat1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5435015375395bc48adcdfb3a93f26a3
     m_Address: Block_2x10
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 565c3d437cfc7784d9ebd1c2d15a2d3a
+    m_Address: CuteCat3
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -131,8 +161,26 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b666d5c54e205e64bae021c5d08bb70b
+    m_Address: Block_6x3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9ab329bfb63c4c46b9332a7442b3868
+    m_Address: CuteCat4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bea97b505f3b7e7448fe7a0be9062880
     m_Address: Block_10x1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: defadb31139d0904d9d8399598b11140
+    m_Address: Block_4x2
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
