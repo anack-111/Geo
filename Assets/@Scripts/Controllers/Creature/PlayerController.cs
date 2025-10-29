@@ -1,10 +1,11 @@
     using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : BaseController
 {
 
-    bool _isHack = false;
+    public bool _isHack = false;
 
     private void Update()
     {
@@ -39,7 +40,16 @@ public class PlayerController : BaseController
 
 
         }
-
-      
     }
+
+    #region UI Test God
+
+    public void ToggleGod()
+    {
+        _isHack = !_isHack;
+    }
+
+
+    #endregion
+
 }

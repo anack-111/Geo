@@ -10,8 +10,8 @@ public class FrameCounter : MonoBehaviour
     [SerializeField] private Color color = Color.red;
     private void Awake()
     {
-        Application.targetFrameRate = -1;
-
+       // Application.targetFrameRate = -1;
+        Application.targetFrameRate = 60;
     }
 
     void Update()

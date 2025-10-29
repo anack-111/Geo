@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
 
 /*
@@ -105,9 +106,28 @@ public static class Util
         //else
         //    host._sprite.Rotate(Vector3.back, rotationMod * Time.deltaTime * host._gravity);
 
+    }
 
+    public static bool IsPointerOverUI()
+    {
+        if (EventSystem.current == null)
+            return false;
 
+        // PC / 마우스
+        if (Input.mousePresent && EventSystem.current.IsPointerOverGameObject())
+            return true;
 
+        // 모바일 반드시 touchCount 확인
+        if (Input.touchCount > 0)
+        {
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId))
+                    return true;
+            }
+        }
+
+        return false;
     }
 
 }

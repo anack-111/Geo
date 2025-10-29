@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static Define;
 
 public class Movement : MonoBehaviour
@@ -24,9 +25,11 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //sif(!Managers.Game._isPlay)
+        //if(!Managers.Game._isPlay)
             transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
 
+        if(Util.IsPointerOverUI())
+            return;
 
         Invoke(_currentGameMode.ToString(), 0);
 
