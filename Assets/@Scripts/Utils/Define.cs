@@ -49,7 +49,8 @@ public class Define
         Star,
         Block_3x3,
         Block_4x2,
-        Block_6x3
+        Block_6x3,
+        Coin
     }
 
 

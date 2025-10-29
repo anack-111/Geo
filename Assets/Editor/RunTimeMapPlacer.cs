@@ -20,6 +20,8 @@ public class RunTimeMapPlacer : EditorWindow
 
     void OnEnable()
     {
+        SceneView.duringSceneGui += OnSceneGUIShortcut;
+
         // 1) PrefabManager.asset을 타입으로 검색(어디 있어도 OK)
         if (prefabManagerAsset == null)
         {
@@ -41,6 +43,20 @@ public class RunTimeMapPlacer : EditorWindow
         }
     }
 
+    void OnDisable()
+    {
+        SceneView.duringSceneGui -= OnSceneGUIShortcut;
+    }
+
+    void OnSceneGUIShortcut(SceneView sceneView)
+    {
+        Event e = Event.current;
+        if (e.type == EventType.KeyDown && e.keyCode == KeyCode.A)
+        {
+            GenerateGrid();
+            e.Use();
+        }
+    }
     void OnGUI()
     {
         if (prefabManagerAsset == null)
@@ -95,7 +111,7 @@ public class RunTimeMapPlacer : EditorWindow
         GameObject gridParent = new GameObject($"{prefabKey}");
         Undo.RegisterCreatedObjectUndo(gridParent, "Create Grid Parent");
         gridParent.transform.SetParent(editor.mapParent);
-        gridParent.transform.position = new Vector3(baseX, 0, 0);
+        gridParent.transform.position = new Vector3(baseX, -2.3f, 0);
         // (원하면 그룹에도 태그 부여) gridParent.tag = "Editable";
 
         // 격자 생성
