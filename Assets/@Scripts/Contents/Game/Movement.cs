@@ -117,6 +117,8 @@ public class Movement : MonoBehaviour
     #endregion
     public void ChangeThroughPortal(EGameMode gameMode, ESpeed speed, int gravity, int State, float yPortal)
     {
+        ChangeAnim(gameMode);
+
         switch (State)
         {
             case 0:
@@ -137,6 +139,35 @@ public class Movement : MonoBehaviour
                 break;
         }
 
+    }
+
+    void ChangeAnim(EGameMode gameMode)
+    {
+        Animator anim =  _sprite.gameObject.GetComponent<Animator>();
+
+        switch (gameMode)
+        {
+            case EGameMode.Cube:
+                anim.Play("Idle");
+                break;
+            case EGameMode.Ship:
+                anim.Play("Ship2");
+                break;
+            case EGameMode.Ball:
+                anim.Play("Idle");
+                break;
+            case EGameMode.UFO:
+                anim.Play("Idle");
+                break;
+            case EGameMode.Wave:
+                anim.Play("Idle");
+                break;
+            case EGameMode.Spider:
+                anim.Play("Idle");
+                break;
+            default:
+                break;
+        }
     }
 
 

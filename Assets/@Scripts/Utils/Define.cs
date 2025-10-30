@@ -54,7 +54,9 @@ public class Define
         CuteCat1,
         CuteCat2,
         CuteCat3,
-        CuteCat4
+        CuteCat4,
+
+        EndGate
     }
 
 

@@ -97,14 +97,14 @@ public static class Util
 
         if (host.OnGround() || !onGroundRequired)
             host._sprite.rotation = Quaternion.Euler(0, 0, 0);
- 
 
 
-        // 캐릭터 회전 함수
+
+        ////캐릭터 회전 함수
         //if (host.OnGround() || !onGroundRequired)
         //    host._sprite.rotation = Quaternion.Euler(0, 0, Mathf.Round(host._sprite.rotation.z / 90) * 90);
         //else
-        //    host._sprite.Rotate(Vector3.back, rotationMod * Time.deltaTime * host._gravity);
+        //    host._sprite.Rotate(Vector3.back, rotationMod * Time.deltaTime * host._gravity * 2);
 
     }
 

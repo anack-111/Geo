@@ -9,6 +9,7 @@ public class CoinController : TileController
     {
         if(collision.CompareTag("Player"))
         {
+            Managers.Sound.Play(Define.ESound.Effect, "Sound_Coin_1");
             //Managers.Game.CoinAdd(1);
             Destroy(gameObject);
         }

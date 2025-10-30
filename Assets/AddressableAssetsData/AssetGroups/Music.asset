@@ -17,8 +17,32 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: f221c8acad82615429a376a885eb8b93
   m_SerializeEntries:
+  - m_GUID: 23ad2cbb66585e34188830ac06e3f2d9
+    m_Address: SSS
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 286fc29ef98405e4f89786cfaa2624ef
     m_Address: RudyPop
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3750c868480797a419a023d71551f224
+    m_Address: "\uB9C8\uC2DC\uB530"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5061625c1f51f984cb0bc184b4386d79
+    m_Address: Tick
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc0d61f04cb4e624bbe3dc9085e2a836
+    m_Address: "\uCDA5\uB530"
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

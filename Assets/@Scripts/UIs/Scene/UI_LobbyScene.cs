@@ -13,7 +13,8 @@ public class UI_LobbyScene : UI_Scene
     enum Buttons
     {
         DuDuButton,
-        RudyButton
+        RudyButton,
+        TasteButton
     }
 
     enum Texts
@@ -35,7 +36,7 @@ public class UI_LobbyScene : UI_Scene
 
         GetButton((int)Buttons.DuDuButton).gameObject.BindEvent(() => OnClickStartButton("DuDuDu"));
         GetButton((int)Buttons.RudyButton).gameObject.BindEvent(() => OnClickStartButton("RudyPop"));
-
+      //  GetButton((int)Buttons.RudyButton).gameObject.BindEvent(() => OnClickStartButton("¸¶½Ãµû"));
         return true;
     }
 

@@ -56,8 +56,8 @@ public class MapEditorUIManager : MonoBehaviour
 #endif
 
   
-         Application.targetFrameRate = -1;
-        //Application.targetFrameRate = 60;
+        Application.targetFrameRate = -1;
+   
     
 }
 

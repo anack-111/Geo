@@ -4,7 +4,8 @@ public class NoteSelectable : MonoBehaviour
 {
     private void OnMouseDown()
     {
-        if (Camera.main == null) return;
+        if (Camera.main == null)
+            return;
 
         // 클릭 위치값
         float selectedX = transform.position.x;

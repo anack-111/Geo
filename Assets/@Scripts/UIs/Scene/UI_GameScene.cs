@@ -12,7 +12,9 @@ using Image = UnityEngine.UI.Image;
 
 public class UI_GameScene : UI_Scene
 {
- 
+
+    UI_GameOver _gameOverPopupUI;
+
     #region Enum
     enum GameObjects
     {
@@ -20,8 +22,6 @@ public class UI_GameScene : UI_Scene
     }
     enum Buttons
     {
-        TouchButton
-
     }
     enum Texts
     {
@@ -47,13 +47,11 @@ public class UI_GameScene : UI_Scene
 
         #endregion
 
-        GetButton((int)Buttons.TouchButton).gameObject.BindEvent(OnClickTouchButton);
-        return true;
-    }
 
-    private void OnClickTouchButton()
-    {
-        
+        _gameOverPopupUI = Managers.UI.ShowPopupUI<UI_GameOver>();
+
+        _gameOverPopupUI.gameObject.SetActive(false);   
+        return true;
     }
 
     private void Awake()
