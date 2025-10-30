@@ -10,27 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Data
+  m_Name: Music
   m_EditorClassIdentifier: 
-  m_GroupName: Data
+  m_GroupName: Music
   m_Data:
     m_SerializedData: []
-  m_GUID: a344eedcc9edff542bcfc5c128a4e457
+  m_GUID: f221c8acad82615429a376a885eb8b93
   m_SerializeEntries:
-  - m_GUID: a2e901967ab1d994499373fde54f81b5
-    m_Address: PrefabManager
+  - m_GUID: 286fc29ef98405e4f89786cfaa2624ef
+    m_Address: RudyPop
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b4e3b34c6e9458e4a8478d6095846e12
-    m_Address: RudyPop_Map
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c5734c76431e25b4f9a8e3ea10bd5a86
-    m_Address: DuDuDu_Map
+  - m_GUID: fa56d7533edd11343ad7460389112caf
+    m_Address: DuDuDu
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -39,5 +33,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 8a1f57ed19bc197409d3ea83fb5b54de, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 9969142ad73d4bf4991a00f1b76f44a0, type: 2}
-    - {fileID: 11400000, guid: aee8887027e24414a978feede68522ee, type: 2}
+    - {fileID: 11400000, guid: e1934750f726bc843a261580e1eeec00, type: 2}
+    - {fileID: 11400000, guid: 99d2f5047d59b7b4582162115926d9ec, type: 2}

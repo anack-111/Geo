@@ -16,8 +16,14 @@ public class MapLoader : MonoBehaviour
 
     private IEnumerator Start()
     {
-        if (mapCsvFile == null) { Debug.LogError("Map CSV 미지정"); yield break; }
-        if (prefabManager == null) { Debug.LogError("PrefabManager 미지정"); yield break; }
+        if(Managers.Game != null)
+            mapCsvFile = Managers.Resource.Load<TextAsset>(Managers.Game._musicName + "_Map");
+
+        if (mapCsvFile == null)
+        { Debug.LogError("Map CSV 미지정"); yield break; }
+
+        if (prefabManager == null)
+        { Debug.LogError("PrefabManager 미지정"); yield break; }
 
         //  Addressables 프리팹 로드 완료 대기
         if (!prefabManager.IsReady)

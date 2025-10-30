@@ -88,6 +88,7 @@ public class Define
     {
         None,
         TitleScene,
+        LobbyScene,
         GameScene
     }
 

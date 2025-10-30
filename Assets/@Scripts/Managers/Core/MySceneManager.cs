@@ -12,11 +12,15 @@ public class MySceneManager
         switch (CurrentScene.SceneType)
         {
             case Define.EScene.TitleScene:
-                //Managers.Clear();
+                Managers.Clear();
+                SceneManager.LoadScene(GetSceneName(type));
+                break;
+            case Define.EScene.LobbyScene:
+                Managers.Clear();
                 SceneManager.LoadScene(GetSceneName(type));
                 break;
             case Define.EScene.GameScene:
-                //Managers.Clear();
+                Managers.Clear();
                 SceneManager.LoadScene(GetSceneName(type));
                 break;
         }

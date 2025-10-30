@@ -9,8 +9,7 @@ public class Managers : MonoBehaviour
     static Managers Instance { get { Init(); return s_instance; } }
 
     #region Contents
-    GameManager _game;
-    // GameManager _game = new GameManager();
+    GameManager _game = new GameManager();
     ObjectManager _object = new ObjectManager();
 
 
@@ -54,11 +53,6 @@ public class Managers : MonoBehaviour
 
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
-
-            // GameManager 컴포넌트가 없으면 추가하고 초기화한다.
-            //s_instance._game = go.GetComponent<GameManager>();
-            //if (s_instance._game == null)
-            //    s_instance._game = go.AddComponent<GameManager>();
 
             s_instance._sound.Init();
 

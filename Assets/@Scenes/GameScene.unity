@@ -1006,7 +1006,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984885573}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 286fc29ef98405e4f89786cfaa2624ef, type: 3}
@@ -1705,6 +1705,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1049212129613931292, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c4b901470556164585da241733633bc, type: 3}
     - target: {fileID: 1219216622892901986, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.5
@@ -1717,9 +1721,13 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1401640748814337021, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a71d8d0f943c3ac4da77f26f8d267bd0, type: 3}
     - target: {fileID: 1575008107057048698, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4749858607449254099, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1793,9 +1801,13 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7058001029943290404, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: af11b59f1f54b4047a62c090445a908e, type: 3}
     - target: {fileID: 7704926042846440241, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

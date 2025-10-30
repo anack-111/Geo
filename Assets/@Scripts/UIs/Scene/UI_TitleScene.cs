@@ -43,7 +43,7 @@ public class UI_TitleScene : UI_Scene
         GetButton((int)Buttons.StartButton).gameObject.BindEvent(() =>
         {
             if (isPreload)
-                Managers.Scene.LoadScene(Define.EScene.GameScene, transform);
+                Managers.Scene.LoadScene(Define.EScene.LobbyScene, transform);
         });
 
         return true;
@@ -62,7 +62,8 @@ public class UI_TitleScene : UI_Scene
             {
                 isPreload = true;
                 GetButton((int)Buttons.StartButton).gameObject.SetActive(true);
-               // Managers.Data.Init();
+                // Managers.Data.Init();
+                Managers.Game.Init();
             }
         });
     }

@@ -11,6 +11,7 @@ public class GameScene : BaseScene
     public FollowPlayer _playerCamera;
     private void Awake()
     {
+        Managers.Sound.Play(Define.ESound.Bgm, Managers.Game._musicName);
         Init();
 
     }
