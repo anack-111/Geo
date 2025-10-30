@@ -36,7 +36,7 @@ public class UI_LobbyScene : UI_Scene
 
         GetButton((int)Buttons.DuDuButton).gameObject.BindEvent(() => OnClickStartButton("DuDuDu"));
         GetButton((int)Buttons.RudyButton).gameObject.BindEvent(() => OnClickStartButton("RudyPop"));
-      //  GetButton((int)Buttons.RudyButton).gameObject.BindEvent(() => OnClickStartButton("마시따"));
+        GetButton((int)Buttons.TasteButton).gameObject.BindEvent(() => OnClickStartButton("마시따"));
         return true;
     }
 

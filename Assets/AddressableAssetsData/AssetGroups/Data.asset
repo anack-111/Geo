@@ -17,6 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: a344eedcc9edff542bcfc5c128a4e457
   m_SerializeEntries:
+  - m_GUID: 8f82e05eed5592f458f2d3f9b271d856
+    m_Address: "\uB9C8\uC2DC\uB530_Map"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2e901967ab1d994499373fde54f81b5
     m_Address: PrefabManager
     m_ReadOnly: 0

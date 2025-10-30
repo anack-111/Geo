@@ -145,6 +145,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 214359178186903565, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
+      propertyPath: _groundCheckRadius
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 286231188270749612, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
+      propertyPath: m_Size.x
+      value: 0.85
+      objectReference: {fileID: 0}
     - target: {fileID: 858108434463729965, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: m_Name
       value: Player

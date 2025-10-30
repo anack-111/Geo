@@ -28,8 +28,6 @@ public class Movement : MonoBehaviour
         //if(!Managers.Game._isPlay)
             transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
 
-        if(Util.IsPointerOverUI())
-            return;
 
         Invoke(_currentGameMode.ToString(), 0);
 
@@ -47,6 +45,7 @@ public class Movement : MonoBehaviour
 
             if (!_wasOnGround && isGrounded)
             {
+                Debug.Log($"[GROUND] 착지함! frame={Time.frameCount}, posY={transform.position.y:F2}");
                 // 착지했을 때 다시 켜기
                 _moveParticle.Play();
             }
@@ -63,7 +62,7 @@ public class Movement : MonoBehaviour
 
     public bool OnGround()
     {
-        return Physics2D.OverlapBox(transform.position + Vector3.down * _gravity * 0.5f, Vector2.right * 1.1f + Vector2.up * _groundCheckRadius, 0, _groundMask);
+        return Physics2D.OverlapBox(transform.position + Vector3.down * _gravity * 0.6f, Vector2.right * 1.1f + Vector2.up * _groundCheckRadius, 0, _groundMask);
     }
 
     bool TouchingWall()
@@ -75,7 +74,7 @@ public class Movement : MonoBehaviour
     #region PlayerState
     void Cube()
     {
-        Util.CreateGamemode(_rb, this, true, 19.5269f, 9.057f, true, false, 409.1f);
+        Util.CreateGamemode(_rb, this, true, 18f, 9.057f, true, false, 409.1f);
     }
 
     void Ship()
@@ -198,6 +197,21 @@ public class Movement : MonoBehaviour
         else
             shape.position = new Vector3(shape.position.x, 0.5f, shape.position.z);
     }
+    //-0.03
+#if UNITY_EDITOR
+    // Scene 뷰에서 확인용 Gizmos
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        // OverlapBox와 같은 위치/크기로 박스 그림
+        Vector2 center = transform.position + Vector3.down * _gravity * 0.5f;
+        Vector2 size = Vector2.right * 1.1f + Vector2.up * _groundCheckRadius;
+
+        Gizmos.DrawWireCube(center, size);
+    }
+#endif
+
 }
 
 
