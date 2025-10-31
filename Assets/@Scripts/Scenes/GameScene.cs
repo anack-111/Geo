@@ -12,8 +12,7 @@ public class GameScene : BaseScene
     private void Awake()
     {
         Managers.Sound.Play(Define.ESound.Bgm, Managers.Game._musicName);
-        Init();
-
+        Init(); 
     }
 
     private void Start()
@@ -25,7 +24,8 @@ public class GameScene : BaseScene
     {
         base.Init();
         SceneType = Define.EScene.GameScene;
-        Managers.UI.ShowSceneUI<UI_GameScene>();
+        UI_GameScene gameScene =  Managers.UI.ShowSceneUI<UI_GameScene>();
+        gameScene.UpdateCoinText(Managers.Game.Coin);
     }
 
 

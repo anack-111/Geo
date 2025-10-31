@@ -25,6 +25,7 @@ public class UI_GameScene : UI_Scene
     }
     enum Texts
     {
+        CoinText
     }
 
     enum Images
@@ -33,6 +34,21 @@ public class UI_GameScene : UI_Scene
     }
     #endregion
 
+
+    void OnEnable()
+    {
+        Managers.Game.OnCoinChanged += UpdateCoinText;
+    }
+
+    public void UpdateCoinText(int coin)
+    {
+        GetText((int)Texts.CoinText).text = coin.ToString();
+    }
+
+    void OnDisable()
+    {
+        Managers.Game.OnCoinChanged -= UpdateCoinText;
+    }
     public override bool Init()
     {
         if (base.Init() == false)
