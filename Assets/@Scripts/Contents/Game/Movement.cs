@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,17 @@ public class Movement : MonoBehaviour
     bool _wasOnGround = false;
     public int _gravity = 1;
     public bool _isClickProcessed = false;
+
+    #region 착치 트윈
+    Sequence _landSeq; // 착지 스케일 트윈 재사용/중복방지
+    Vector3 _baseScale; // 기본 스케일 캐시
+
+    #endregion
+
+    private void Awake()
+    {
+        _baseScale = _sprite.localScale;
+    }
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -45,7 +57,7 @@ public class Movement : MonoBehaviour
 
             if (!_wasOnGround && isGrounded)
             {
-                Debug.Log($"[GROUND] 착지함! frame={Time.frameCount}, posY={transform.position.y:F2}");
+                LandAnim();
                 // 착지했을 때 다시 켜기
                 _moveParticle.Play();
             }
@@ -117,6 +129,7 @@ public class Movement : MonoBehaviour
     public void ChangeThroughPortal(EGameMode gameMode, ESpeed speed, int gravity, int State, float yPortal)
     {
         ChangeAnim(gameMode);
+        Managers.Game.Flash();
 
         switch (State)
         {
@@ -212,6 +225,16 @@ public class Movement : MonoBehaviour
     }
 #endif
 
+    void LandAnim()
+    {
+        //  착지 스쿼시-스트레치
+        _landSeq?.Kill();               // 중복 방지
+        _sprite.localScale = _baseScale; // 기본값으로 리셋(안전)
+        _landSeq = DOTween.Sequence()
+            .Append(_sprite.DOScaleY(0.80f * _baseScale.y, 0.05f))   // 순간 스쿼시
+            .Append(_sprite.DOScaleY(1.00f * _baseScale.y, 0.05f)
+                .SetEase(Ease.OutQuad));                             // 빠르게 복귀
+    }
 }
 
 
