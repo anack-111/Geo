@@ -11,10 +11,6 @@ public class RunTimeMapPlacer : EditorWindow
     private string[] prefabNames = System.Array.Empty<string>(); // 드롭다운용 이름 목록
     private int selectedPrefabIndex = 0;        // 현재 선택된 인덱스
 
-    private int rows = 5;
-    private int cols = 5;
-    private float spacing = 1f;
-
     [MenuItem("Tools/RunTimeMapPlacer")]
     static void Init() => GetWindow<RunTimeMapPlacer>("RunTimeMapPlacer");
 
@@ -57,6 +53,7 @@ public class RunTimeMapPlacer : EditorWindow
             e.Use();
         }
     }
+
     void OnGUI()
     {
         if (prefabManagerAsset == null)
@@ -73,19 +70,12 @@ public class RunTimeMapPlacer : EditorWindow
             selectedPrefabIndex = EditorGUILayout.Popup("Prefab Type", selectedPrefabIndex, prefabNames ?? System.Array.Empty<string>());
         }
 
-        rows = EditorGUILayout.IntField("Rows", rows);
-        cols = EditorGUILayout.IntField("Cols", cols);
-        spacing = EditorGUILayout.FloatField("Spacing", spacing);
-
         GUILayout.Space(10);
         using (new EditorGUI.DisabledScope(prefabNames == null || prefabNames.Length == 0))
         {
             if (GUILayout.Button("Generate Grid (Selected Note X)"))
                 GenerateGrid();
         }
-
-        if (GUILayout.Button("Clear Map Objects"))
-            ClearGenerated();
     }
 
     void GenerateGrid()
@@ -106,59 +96,22 @@ public class RunTimeMapPlacer : EditorWindow
             return;
         }
 
-        // 부모 그룹 생성
-        float baseX = editor.selectedNoteX;
-        GameObject gridParent = new GameObject($"{prefabKey}");
-        Undo.RegisterCreatedObjectUndo(gridParent, "Create Grid Parent");
-        gridParent.transform.SetParent(editor.mapParent);
-        gridParent.transform.position = new Vector3(baseX, -2.3f, 0);
-        // (원하면 그룹에도 태그 부여) gridParent.tag = "Editable";
+        // pos는 editor.selectedNoteX와 -2.3f로 설정
+        Vector3 pos = new Vector3(editor.selectedNoteX, -2.3f, 0); // 원하는 위치에 프리팹 생성
+        var instObj = (GameObject)PrefabUtility.InstantiatePrefab(prefab, SceneManager.GetActiveScene());
+        Undo.RegisterCreatedObjectUndo(instObj, "Create Grid Item");
 
-        // 격자 생성
-        for (int y = 0; y < rows; y++)
-        {
-            for (int x = 0; x < cols; x++)
-            {
-                Vector3 pos = new Vector3(x * spacing, y * spacing, 0);
-                var instObj = (GameObject)PrefabUtility.InstantiatePrefab(prefab, SceneManager.GetActiveScene());
-                Undo.RegisterCreatedObjectUndo(instObj, "Create Grid Item");
+        instObj.transform.SetParent(editor.mapParent);
+        instObj.transform.localPosition = pos;
 
-                instObj.transform.SetParent(gridParent.transform);
-                instObj.transform.localPosition = pos;
-                // 태그가 없으면 에러 나니, 미리 프로젝트에 "Editable" 태그를 만들어 두세요.
-                instObj.tag = "Editable";
+        // TileController 자동 추가
+        var tile = instObj.GetComponent<TileController>();
+        if (tile == null) tile = instObj.AddComponent<TileController>();
+        // Enum 이름이 프리팹 이름과 정확히 같지 않으면 예외 → 방어 코드
+        try { tile.TileType = (ETileType)System.Enum.Parse(typeof(ETileType), prefabKey); }
+        catch { /* 무시 또는 매핑 테이블 사용 */ }
 
-                // TileController 자동 추가
-                var tile = instObj.GetComponent<TileController>();
-                if (tile == null) tile = instObj.AddComponent<TileController>();
-                // Enum 이름이 프리팹 이름과 정확히 같지 않으면 예외 → 방어 코드
-                try { tile.TileType = (ETileType)System.Enum.Parse(typeof(ETileType), prefabKey); }
-                catch { /* 무시 또는 매핑 테이블 사용 */ }
-            }
-        }
-
-        Debug.Log($" {prefabKey} {rows * cols}개 생성 완료 (기준 X={baseX:F2})");
-    }
-
-    void ClearGenerated()
-    {
-        var editor = Object.FindObjectOfType<MapEditorUIManager>();
-        if (editor == null || editor.mapParent == null)
-        {
-            Debug.LogWarning(" mapParent를 찾을 수 없습니다.");
-            return;
-        }
-
-        // 그룹까지 같이 지우고 싶으면 CompareTag 대신 이름/부모 기준으로 지우거나,
-        // gridParent에도 "Editable" 태그를 달아 두세요.
-        for (int i = editor.mapParent.childCount - 1; i >= 0; i--)
-        {
-            Transform child = editor.mapParent.GetChild(i);
-            if (child.CompareTag("Editable"))
-                Object.DestroyImmediate(child.gameObject);
-        }
-
-        Debug.Log(" 기존 타일 제거 완료.");
+        Debug.Log($" {prefabKey} 하나 생성 완료");
     }
 }
 #endif
