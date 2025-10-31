@@ -34,6 +34,8 @@ public class FollowPlayer : MonoBehaviour
     Vector3 newVector;
     bool firstFrame = true;
 
+    public SpriteRenderer _globalSprite;
+
     public void Init()
     {
         _player = Managers.Object.Player.gameObject.transform;
@@ -108,4 +110,7 @@ public class FollowPlayer : MonoBehaviour
         else
             newVector += Vector3.up * (5 + Mathf.Clamp(yLastPortal - screenHeight * 0.5f, cameraOffset.y, 2048) - ((11 - screenHeight) * 0.5f));
     }
+
+
+
 }

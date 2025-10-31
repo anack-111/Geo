@@ -12,7 +12,7 @@ public class FrameCounter : MonoBehaviour
     {
 
         //Application.targetFrameRate = -1;
-        //Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60;
     }
 
     void Update()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4770269930876022521}
   - component: {fileID: 851097733882438831}
   m_Layer: 6
-  m_Name: Square
+  m_Name: BeatSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 52
-  m_Sprite: {fileID: 21300000, guid: c50a2ebf638b8fc4e9e62ef3b400ec75, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -608675146, guid: 8800e6e5cf79cc34fb53f5c4df0b8258, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!1 &1694495194689801549
 GameObject:
@@ -271,3 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileType: 0
+  _beatSprite: {fileID: 851097733882438831}
+  beatsPerCycle: 1
+  rise: 0.03
+  fall: 0.07
+  onlyWhenVisible: 1
