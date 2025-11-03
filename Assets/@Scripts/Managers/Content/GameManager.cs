@@ -41,6 +41,8 @@ public class GameManager
 
     public void Init()
     {
+        _mainCam = Camera.main;
+        OnModeChanged += HandleCameraZoom;
         _isPlay = true;
         Coin = 0;
     }
@@ -62,5 +64,29 @@ public class GameManager
             .Append(DOTween.To(() => _globalSprite.color.a, a => SetA(a), 0f, fall))
             .SetLink(_globalSprite.gameObject, LinkBehaviour.KillOnDisable);
     }
+
+
+
+    Camera _mainCam;
+    Sequence _camSeq;
+
+    void HandleCameraZoom(EGameMode mode)
+    {
+        if (_mainCam == null)
+            return;
+
+        float targetSize = Define.SCREEN_HEIGHT_VALUES[(int)mode] > 10 ? 5f : 6.5f;
+
+        if (Mathf.Abs(_mainCam.orthographicSize - targetSize) < 0.01f)
+            return;
+
+        _mainCam.GetComponent<FollowPlayer>().CallShockWave();
+
+        _camSeq?.Kill();
+        _camSeq = DOTween.Sequence()
+            .Append(_mainCam.DOOrthoSize(targetSize, 0.4f).SetEase(Ease.OutQuad));
+    }
+
+
 
 }

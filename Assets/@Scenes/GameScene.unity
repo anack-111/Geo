@@ -971,6 +971,8 @@ MonoBehaviour:
   fogSpeed: 1
   _movement: {fileID: 815637693}
   _globalSprite: {fileID: 1509472180}
+  _shockWaveTime: 0.75
+  _mtrl: {fileID: 2100000, guid: c5674915b2eb9594287d4199fc03b377, type: 2}
 --- !u!114 &984885579
 MonoBehaviour:
   m_ObjectHideFlags: 0

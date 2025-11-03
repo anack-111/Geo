@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
@@ -80,10 +82,12 @@ public class FollowPlayer : MonoBehaviour
 
     void FreeCam(bool doInstantly)
     {
+
         _groundCamera.position = InterpolateVec3(new Vector3(0, _groundCamera.position.y), Vector3.up * cameraOffset, 20) + Vector3.right * (Mathf.Floor(_player.transform.position.x / 5) * 5);
 
         if (Vector2.Distance(_topGround.localPosition, Vector3.up * 20f) < 0.3f)
             _topGround.gameObject.SetActive(false);
+
         if (_topGround)
             _topGround.localPosition = InterpolateVec3(_topGround.localPosition, Vector3.up * 20f, 100);
 
@@ -95,11 +99,15 @@ public class FollowPlayer : MonoBehaviour
 
     Vector3 InterpolateVec3(Vector3 current, Vector3 target, float speed)
     {
-        return current + Vector3.Normalize(target - current) * Time.deltaTime * speed * Mathf.Clamp(Vector3.Distance(current, target), 0, 1);
+        float maxDelta = speed * Time.deltaTime;
+        return Vector3.MoveTowards(current, target, maxDelta);
+
+        //return current + Vector3.Normalize(target - current) * Time.deltaTime * speed * Mathf.Clamp(Vector3.Distance(current, target), 0, 1);
     }
 
     void StaticCam(bool doInstantly, float yLastPortal, int screenHeight)
     {
+
         _topGround.gameObject.SetActive(true);
 
         _groundCamera.position = InterpolateVec3(new Vector3(0, _groundCamera.position.y), Vector3.up * Mathf.Clamp(yLastPortal - screenHeight * 0.5f, cameraOffset.y, float.MaxValue), 20) + Vector3.right * (Mathf.Floor(_player.transform.position.x / 5) * 5);
@@ -112,5 +120,37 @@ public class FollowPlayer : MonoBehaviour
     }
 
 
+
+    [SerializeField] private float _shockWaveTime = 0.75f;
+
+    private Coroutine _shockWaveCoroutine;
+
+    private static int _waveDistanceFromCenter = Shader.PropertyToID("_WaveDistanceFromCenter");
+
+    public Material _mtrl;
+
+
+    public void CallShockWave()
+    {
+        _shockWaveCoroutine = StartCoroutine(ShockWaveAction(-0.1f, 1f));
+    }
+    private IEnumerator ShockWaveAction(float startPos, float endPos)
+    {
+        _mtrl.SetFloat(_waveDistanceFromCenter, startPos);
+
+        float lerpedAmount = 0f;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < _shockWaveTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            lerpedAmount = Mathf.Lerp(startPos, endPos, (elapsedTime / _shockWaveTime));
+            _mtrl.SetFloat(_waveDistanceFromCenter, lerpedAmount);
+
+            yield return null;
+        }
+    }
 
 }
