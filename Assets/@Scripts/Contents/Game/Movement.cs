@@ -114,9 +114,9 @@ public class Movement : MonoBehaviour
         _sprite.rotation = Quaternion.Euler(0, 0, _rb.velocity.y * 2);
 
         if (Input.GetMouseButton(0))
-            _rb.gravityScale = -4.314969f;
+            _rb.gravityScale = -2.314969f;
         else
-            _rb.gravityScale = 4.314969f;
+            _rb.gravityScale = 2.314969f;
 
         _rb.gravityScale = _rb.gravityScale * _gravity;
     }
