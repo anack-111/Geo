@@ -37,10 +37,8 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if(!Managers.Game._isPlay)
-            transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
 
-
+        transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
         Invoke(_currentGameMode.ToString(), 0);
 
 
@@ -74,8 +72,30 @@ public class Movement : MonoBehaviour
 
     public bool OnGround()
     {
-        return Physics2D.OverlapBox(transform.position + Vector3.down * _gravity * 0.6f, Vector2.right * 1.1f + Vector2.up * _groundCheckRadius, 0, _groundMask);
+        // 상승(혹은 중력 방향 반대쪽)으로 움직이는 중이면 false
+        if (_rb.velocity.y * _gravity > 0.05f)
+            return false;
+
+        // 중력 방향으로 살짝 아래(또는 위) 쪽 박스 감지
+        Collider2D hit = Physics2D.OverlapBox(
+            transform.position + Vector3.down * _gravity * 0.5f,
+            new Vector2(0.8f, _groundCheckRadius),
+            0,
+            _groundMask
+        );
+
+        // 중력 방향에 따라 "내 아래쪽" or "내 위쪽" 판정 다르게
+        if (hit)
+        {
+            if (_gravity == 1)
+                return hit.bounds.center.y < transform.position.y - 0.05f; // 아래쪽만
+            else
+                return hit.bounds.center.y > transform.position.y + 0.05f; // 위쪽만
+        }
+
+        return false;
     }
+
 
     bool TouchingWall()
     {
@@ -94,9 +114,9 @@ public class Movement : MonoBehaviour
         _sprite.rotation = Quaternion.Euler(0, 0, _rb.velocity.y * 2);
 
         if (Input.GetMouseButton(0))
-            _rb.gravityScale = -4.314969f;
+            _rb.gravityScale = -2.314969f;
         else
-            _rb.gravityScale = 4.314969f;
+            _rb.gravityScale = 2.314969f;
 
         _rb.gravityScale = _rb.gravityScale * _gravity;
     }
@@ -123,11 +143,13 @@ public class Movement : MonoBehaviour
             _sprite.gameObject.GetComponent<SpriteRenderer>().flipY = false;
         else
             _sprite.gameObject.GetComponent<SpriteRenderer>().flipY = true;
-    }   
+    }
 
     #endregion
     public void ChangeThroughPortal(EGameMode gameMode, ESpeed speed, int gravity, int State, float yPortal)
     {
+        Managers.Game.OnModeChanged?.Invoke(gameMode);
+
         ChangeAnim(gameMode);
         Managers.Game.Flash();
 
@@ -155,7 +177,7 @@ public class Movement : MonoBehaviour
 
     void ChangeAnim(EGameMode gameMode)
     {
-        Animator anim =  _sprite.gameObject.GetComponent<Animator>();
+        Animator anim = _sprite.gameObject.GetComponent<Animator>();
 
         switch (gameMode)
         {
@@ -164,6 +186,7 @@ public class Movement : MonoBehaviour
                 break;
             case EGameMode.Ship:
                 anim.Play("Ship2");
+
                 break;
             case EGameMode.Ball:
                 anim.Play("Idle");
@@ -187,7 +210,7 @@ public class Movement : MonoBehaviour
     {
         var trail = _sprite.gameObject.GetComponent<TrailRenderer>();
 
-        if(_currentGameMode == EGameMode.Cube)
+        if (_currentGameMode == EGameMode.Cube)
         {
             trail.enabled = false;
             _moveParticle.gameObject.SetActive(true);
@@ -219,7 +242,7 @@ public class Movement : MonoBehaviour
 
         // OverlapBox와 같은 위치/크기로 박스 그림
         Vector2 center = transform.position + Vector3.down * _gravity * 0.5f;
-        Vector2 size = Vector2.right * 1.1f + Vector2.up * _groundCheckRadius;
+        Vector2 size = Vector2.right * 0.8f + Vector2.up * _groundCheckRadius;
 
         Gizmos.DrawWireCube(center, size);
     }

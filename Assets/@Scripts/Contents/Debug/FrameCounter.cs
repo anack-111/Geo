@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrameCounter : MonoBehaviour
+public class 
+    Counter : MonoBehaviour
 {
     private float deltaTime = 0f;
 
@@ -10,9 +11,7 @@ public class FrameCounter : MonoBehaviour
     [SerializeField] private Color color = Color.red;
     private void Awake()
     {
-
-        Application.targetFrameRate = -1;
-        //Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60;
     }
 
     void Update()
