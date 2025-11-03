@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: CameraShockWaveLayer
+    uniqueID: 942231201
+    locked: 0

@@ -14,19 +14,21 @@ public class GameScene : BaseScene
     private void Awake()
     {
         Managers.Sound.Play(Define.ESound.Bgm, Managers.Game._musicName);
-        Init(); 
+        Init();
     }
 
     private void Start()
     {
         //PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0,-2.3f,0)); 
         //_playerCamera.Init();
+        Managers.Game.Init();
+
     }
     protected override void Init()
     {
         base.Init();
         SceneType = Define.EScene.GameScene;
-        UI_GameScene gameScene =  Managers.UI.ShowSceneUI<UI_GameScene>();
+        UI_GameScene gameScene = Managers.UI.ShowSceneUI<UI_GameScene>();
         gameScene.UpdateCoinText(Managers.Game.Coin);
         Managers.Game._globalSprite = _playerCamera._globalSprite;
     }
