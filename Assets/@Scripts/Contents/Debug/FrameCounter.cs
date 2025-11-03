@@ -11,7 +11,7 @@ public class FrameCounter : MonoBehaviour
     private void Awake()
     {
 
-        Application.targetFrameRate = -1;
+        //QualitySettings.vSyncCount = 0; // 모바일에선 보통 무시되지만 관례상
         //Application.targetFrameRate = 60;
     }
 

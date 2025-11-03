@@ -55,9 +55,6 @@ public class MapEditorUIManager : MonoBehaviour
         Debug.LogWarning("PrefabManager는 에디터 환경에서만 로드됩니다.");
 #endif
 
-  
-       // Application.targetFrameRate = -1;
-   
     
 }
 

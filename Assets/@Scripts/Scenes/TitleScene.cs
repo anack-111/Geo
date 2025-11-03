@@ -8,7 +8,7 @@ public class TitleScene : BaseScene
     protected override void Init()
     {
         base.Init();
-
+        Application.targetFrameRate = 60;
         SceneType = Define.EScene.TitleScene;
     }
 
