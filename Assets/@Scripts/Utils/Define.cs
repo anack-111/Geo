@@ -56,7 +56,8 @@ public class Define
         CuteCat3,
         CuteCat4,
 
-        EndGate
+        EndGate,
+        Line
     }
 
 

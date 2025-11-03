@@ -2609,6 +2609,11 @@ MonoBehaviour:
   frontbuildingSpeed: 2
   fogSpeed: 1
   _movement: {fileID: 815637693}
+  _globalSprite: {fileID: 0}
+  _globalLight: {fileID: 0}
+  _backgroundLight: {fileID: 0}
+  _shockWaveTime: 0.75
+  _mtrl: {fileID: 0}
 --- !u!1 &1030051924
 GameObject:
   m_ObjectHideFlags: 0
@@ -3411,7 +3416,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3750c868480797a419a023d71551f224, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 702653c1063279249be82836a6688e05, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3516,9 +3521,9 @@ MonoBehaviour:
   timeText: {fileID: 486317153}
   player: {fileID: 4780406049320974436}
   mapParent: {fileID: 1165081308}
-  midiCsvFile: {fileID: 4900000, guid: 0d4cdb67f421fe741b0a658990e1a368, type: 3}
-  mapCsvFile: {fileID: 4900000, guid: 8f82e05eed5592f458f2d3f9b271d856, type: 3}
-  musicMapName: "\uB9C8\uC2DC\uB530"
+  midiCsvFile: {fileID: 4900000, guid: 95e157569c6ec5146a989e1959750df0, type: 3}
+  mapCsvFile: {fileID: 4900000, guid: 76a05f308ea99514c91e8146f41f9edf, type: 3}
+  musicMapName: WouldYou
   playerSpeed: 10.4
   prefabManager: {fileID: 0}
   notePrefab: {fileID: 8668370260006002226, guid: 237542389d1763145b9d53e22b37482e, type: 3}

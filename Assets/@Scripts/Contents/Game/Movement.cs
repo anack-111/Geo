@@ -1,6 +1,8 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+//using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static Define;
@@ -26,6 +28,15 @@ public class Movement : MonoBehaviour
 
     #endregion
 
+    LineController _lineCtrl;   // 현재 들어간 라인
+    float _savedGravity;        // 복구용
+
+    const float _lineJumpThresholdPx = 30f; // 드래그 임계(픽셀)
+    const float _lineJumpPower = 26f;       // Cube 초기 점프(18)와 동일하게(원하면 조절) 
+    bool _linePressing;
+    Vector2 _linePressStart;
+
+
     private void Awake()
     {
         _baseScale = _sprite.localScale;
@@ -41,9 +52,32 @@ public class Movement : MonoBehaviour
         transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
         Invoke(_currentGameMode.ToString(), 0);
 
+        LineControl();
 
         PaticleControl();
     }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var lc = other.GetComponent<LineController>();
+        if (lc != null)
+        {
+            _lineCtrl = lc;
+            _savedGravity = _rb.gravityScale; // 들어올 때 중력 저장
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (_lineCtrl != null)
+        {
+            _lineCtrl = null;
+            _rb.gravityScale = Mathf.Abs(_savedGravity) > 0.0001f ? _savedGravity : _rb.gravityScale;
+            _rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+    }
+
 
     void PaticleControl()
     {
@@ -257,6 +291,122 @@ public class Movement : MonoBehaviour
             .Append(_sprite.DOScaleY(0.80f * _baseScale.y, 0.05f))   // 순간 스쿼시
             .Append(_sprite.DOScaleY(1.00f * _baseScale.y, 0.05f)
                 .SetEase(Ease.OutQuad));                             // 빠르게 복귀
+    }
+
+
+
+    void LineControl()
+    {
+        if (_lineCtrl == null)
+            return;
+
+        bool pressing = IsLinePressing();
+        bool released = ReleasedThisFrame();
+
+        if (pressing)
+        {
+            // 처음 붙는 순간: Kinematic 전환 + 시작좌표 저장
+            if (_rb.bodyType != RigidbodyType2D.Kinematic)
+            {
+                _savedGravity = _rb.gravityScale;
+                _rb.bodyType = RigidbodyType2D.Kinematic;
+                _rb.velocity = Vector2.zero;
+
+                _linePressing = true;
+                _linePressStart = GetPointerScreenPos();
+            }
+
+            // 라인 중앙 Y에 고정
+            float targetY = _lineCtrl.LineY + _lineCtrl.yOffset;
+            transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
+
+            return; // 누르는 동안엔 여기서 끝 (점프 판단은 '릴리즈'에 함)
+        }
+
+        // 손을 뗀 프레임에만 방향 판정 → 점프/해제
+        if (_linePressing)
+        {
+            float dy = GetPointerScreenPos().y - _linePressStart.y;
+
+            if (dy > _lineJumpThresholdPx)
+            {
+                // 위로 드래그 후 릴리즈 → 위 점프
+                DoLineJump(+1);
+            }
+            else
+            {
+                // 아래로(또는 임계 미만) → 점프 없이 해제(자연낙하)
+                if (_rb.bodyType != RigidbodyType2D.Dynamic)
+                    _rb.bodyType = RigidbodyType2D.Dynamic;
+
+                _rb.gravityScale = _savedGravity;
+                _isClickProcessed = true;   // 직후 프레임의 기본 점프 중복 방지(선택)
+                _lineCtrl = null;
+                _linePressing = false;
+            }
+            return;
+        }
+
+        // (안전망) 누르고 있지 않고 release도 아닌 프레임이면 해제 유지
+        if (_rb.bodyType != RigidbodyType2D.Dynamic)
+            _rb.bodyType = RigidbodyType2D.Dynamic;
+
+        _rb.gravityScale = _savedGravity;
+        _lineCtrl = null;
+        _linePressing = false;
+    }
+
+
+
+    bool IsLinePressing()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        return Input.GetMouseButton(0);
+#else
+    if (Input.touchCount == 0) return false;
+    var p = Input.GetTouch(0).phase;
+    return p == TouchPhase.Began || p == TouchPhase.Moved || p == TouchPhase.Stationary;
+#endif
+    }
+
+    bool ReleasedThisFrame()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        return Input.GetMouseButtonUp(0);
+#else
+    // 첫 손가락이 떨어진 프레임 감지
+    if (Input.touchCount == 0) return false;
+    var p = Input.GetTouch(0).phase;
+    return p == TouchPhase.Ended || p == TouchPhase.Canceled;
+#endif
+    }
+
+    Vector2 GetPointerScreenPos()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        return Input.mousePosition;
+#else
+    return (Input.touchCount > 0) ? (Vector2)Input.GetTouch(0).position : Vector2.zero;
+#endif
+    }
+
+
+    void DoLineJump(int verticalDir) // +1 = 화면 위로, -1 = 화면 아래로
+    {
+        // 물리 복귀
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+        _rb.gravityScale = _savedGravity;
+
+        // Util.CreateGamemode의 점프 감각과 맞춤(속도만 직접 셋)
+        // 세계 기준 "위/아래"로 즉시 가속
+        var v = _rb.velocity;
+        v.y = _lineJumpPower * (verticalDir > 0 ? 1f : -1f);
+        _rb.velocity = v;
+
+        // 라인 상태 해제 및 입력 소모(더블 점프 방지)
+        _lineCtrl = null;
+        _linePressing = false;
+        _isClickProcessed = true;   // ← 다음 프레임의 CreateGamemode 점프 중복 방지  :contentReference[oaicite:1]{index=1}
     }
 }
 

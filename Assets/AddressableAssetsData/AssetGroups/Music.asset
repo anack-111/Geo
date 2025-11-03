@@ -41,6 +41,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 702653c1063279249be82836a6688e05
+    m_Address: WouldYou
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc0d61f04cb4e624bbe3dc9085e2a836
     m_Address: "\uCDA5\uB530"
     m_ReadOnly: 0
