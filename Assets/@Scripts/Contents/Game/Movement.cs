@@ -35,7 +35,10 @@ public class Movement : MonoBehaviour
     const float _lineJumpPower = 26f;       // Cube 초기 점프(18)와 동일하게(원하면 조절) 
     bool _linePressing;
     Vector2 _linePressStart;
-
+    // ▼ 포인터 상태(PC/모바일 공통)
+    bool _ptrPressing, _ptrPrevPressing, _ptrJustPressed, _ptrJustReleased;
+    Vector2 _ptrPos;         // 항상 '마지막으로 알려진' 좌표 (릴리즈 프레임에도 보존)
+    float _pressMinY;        // 누른 뒤 내려간 최저 Y (위 드래그 관대판정)
 
     private void Awake()
     {
@@ -48,6 +51,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        SamplePointer();
 
         transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
         Invoke(_currentGameMode.ToString(), 0);
@@ -294,18 +298,13 @@ public class Movement : MonoBehaviour
     }
 
 
-
     void LineControl()
     {
-        if (_lineCtrl == null)
-            return;
+        if (_lineCtrl == null) return;
 
-        bool pressing = IsLinePressing();
-        bool released = ReleasedThisFrame();
-
-        if (pressing)
+        if (_ptrPressing)
         {
-            // 처음 붙는 순간: Kinematic 전환 + 시작좌표 저장
+            // 처음 붙는 순간: Kinematic 전환 + 속도 0 + 기준점 초기화
             if (_rb.bodyType != RigidbodyType2D.Kinematic)
             {
                 _savedGravity = _rb.gravityScale;
@@ -313,41 +312,39 @@ public class Movement : MonoBehaviour
                 _rb.velocity = Vector2.zero;
 
                 _linePressing = true;
-                _linePressStart = GetPointerScreenPos();
+                // 시작 좌표는 SamplePointer에서 처리됨(_pressMinY 세팅)
             }
 
             // 라인 중앙 Y에 고정
             float targetY = _lineCtrl.LineY + _lineCtrl.yOffset;
             transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
-
-            return; // 누르는 동안엔 여기서 끝 (점프 판단은 '릴리즈'에 함)
+            return; // 점프 판정은 손을 '뗄 때'만
         }
 
-        // 손을 뗀 프레임에만 방향 판정 → 점프/해제
-        if (_linePressing)
+        // 손을 뗀 프레임에만: '최저점' 기준 위 드래그 판정
+        if (_ptrJustReleased && _linePressing)
         {
-            float dy = GetPointerScreenPos().y - _linePressStart.y;
-
-            if (dy > _lineJumpThresholdPx)
+            float dyUp = _ptrPos.y - _pressMinY;   // 누른 뒤 최저점 대비 얼마나 위로 올렸나
+            if (dyUp > _lineJumpThresholdPx)
             {
-                // 위로 드래그 후 릴리즈 → 위 점프
+                // 위로 충분히 끌어올리고 릴리즈 → 위 점프
                 DoLineJump(+1);
             }
             else
             {
-                // 아래로(또는 임계 미만) → 점프 없이 해제(자연낙하)
+                // 아래/미세 드래그 → 점프 없이 해제(자연 낙하)
                 if (_rb.bodyType != RigidbodyType2D.Dynamic)
                     _rb.bodyType = RigidbodyType2D.Dynamic;
 
                 _rb.gravityScale = _savedGravity;
-                _isClickProcessed = true;   // 직후 프레임의 기본 점프 중복 방지(선택)
+                _isClickProcessed = true; // 직후 기본 점프 중복 방지(선택)
                 _lineCtrl = null;
                 _linePressing = false;
             }
             return;
         }
 
-        // (안전망) 누르고 있지 않고 release도 아닌 프레임이면 해제 유지
+        // 안전망: 라인인데 지금은 누르지 않고 릴리즈도 아님 → 해제 유지
         if (_rb.bodyType != RigidbodyType2D.Dynamic)
             _rb.bodyType = RigidbodyType2D.Dynamic;
 
@@ -356,7 +353,51 @@ public class Movement : MonoBehaviour
         _linePressing = false;
     }
 
+    void SamplePointer()
+    {
+        bool pressing = false;
+        Vector2 pos = _ptrPos; // 기본: 직전 좌표 유지
 
+#if UNITY_EDITOR || UNITY_STANDALONE
+        pressing = Input.GetMouseButton(0);
+        if (pressing || Input.GetMouseButtonUp(0))
+            pos = (Vector2)Input.mousePosition;
+#else
+    // 모바일: Ended/Canceled 프레임에서도 마지막 좌표를 pos에 남김
+    if (Input.touchCount > 0)
+    {
+        // 첫 번째 유효 터치만 사용(원하면 특정 fingerId로 확장)
+        var t = Input.GetTouch(0);
+        if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary)
+        {
+            pressing = true;
+            pos = t.position;
+        }
+        else if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+        {
+            pressing = false;
+            pos = t.position; // 릴리즈 좌표 보존
+        }
+    }
+    else
+    {
+        pressing = false;
+        // 좌표는 유지(직전 pos 사용)
+    }
+#endif
+
+        _ptrJustPressed = pressing && !_ptrPrevPressing;
+        _ptrJustReleased = !pressing && _ptrPrevPressing;
+
+        if (_ptrJustPressed)
+            _pressMinY = pos.y;              // 시작시 최저점 초기화
+        if (pressing)
+            _pressMinY = Mathf.Min(_pressMinY, pos.y); // 누르는 동안 내려간 최저 Y 갱신
+
+        _ptrPos = pos;
+        _ptrPrevPressing = _ptrPressing;
+        _ptrPressing = pressing;
+    }
 
     bool IsLinePressing()
     {
