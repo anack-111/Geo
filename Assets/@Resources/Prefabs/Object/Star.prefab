@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 50
-  m_Sprite: {fileID: -760122402, guid: 8800e6e5cf79cc34fb53f5c4df0b8258, type: 3}
+  m_Sprite: {fileID: -1650202075, guid: 44fe6e28ce7fc054f875a0c493359de4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,4 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileType: 19
+  _beatSprite: {fileID: 0}
+  beatsPerCycle: 1
+  rise: 0.03
+  fall: 0.07
+  onlyWhenVisible: 1
   rotationSpeed: {x: 0, y: 0, z: 180}
