@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MapLoader : MonoBehaviour
 {
+    public static bool MapReady { get; private set; } = false;
+
+
     [Header("Map Data")]
     public TextAsset mapCsvFile;
 
@@ -16,7 +19,9 @@ public class MapLoader : MonoBehaviour
 
     private IEnumerator Start()
     {
-        if(Managers.Game != null)
+        MapReady = false;
+
+        if (Managers.Game != null)
             mapCsvFile = Managers.Resource.Load<TextAsset>(Managers.Game._musicName + "_Map");
 
         if (mapCsvFile == null)
@@ -31,6 +36,8 @@ public class MapLoader : MonoBehaviour
 
         // 이제 맵 파싱 & 스폰
         LoadMapCSV(mapCsvFile);
+
+        MapReady = true;
     }
 
     void LoadMapCSV(TextAsset csv)
@@ -65,5 +72,9 @@ public class MapLoader : MonoBehaviour
         }
 
         Debug.Log($" 맵 로드 완료 ({lines.Length - 1}개 오브젝트)");
+
+       
+
+
     }
 }

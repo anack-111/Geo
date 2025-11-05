@@ -13,16 +13,24 @@ public class GameScene : BaseScene
 
     private void Awake()
     {
-        Managers.Sound.Play(Define.ESound.Bgm, Managers.Game._musicName);
+        
         Init();
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        // 맵 로더가 준비될 때까지 대기
+        while (!MapLoader.MapReady)
+            yield return null;
 
-        
+        // 이제 플레이 요소와 동시에 시작
+        Managers.Sound.Play(Define.ESound.Bgm, Managers.Game._musicName);
+        PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0, -2.3f, 0));
 
+        _playerCamera.Init();
+        Managers.Game.Init();
     }
+
     protected override void Init()
     {
         base.Init();
@@ -32,9 +40,6 @@ public class GameScene : BaseScene
         Managers.Game._globalSprite = _playerCamera._globalSprite;
         Managers.UI.ShowPopupUI<UI_God>();
 
-        PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0, -2.3f, 0));
-        _playerCamera.Init();
-        Managers.Game.Init();
 
     }
 

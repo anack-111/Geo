@@ -9,6 +9,7 @@ public class GameManager
 {
     //일단 이렇게
     public string _musicName;
+    
 
     public bool _isPlay = true;
 
@@ -87,6 +88,8 @@ public class GameManager
             .Append(_mainCam.DOOrthoSize(targetSize, 0.4f).SetEase(Ease.OutQuad));
     }
 
+    
+   
 
 
 }
