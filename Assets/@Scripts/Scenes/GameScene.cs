@@ -19,8 +19,8 @@ public class GameScene : BaseScene
 
     private void Start()
     {
-        //PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0,-2.3f,0)); 
-        //_playerCamera.Init();
+        PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0,-2.3f,0)); 
+        _playerCamera.Init();
         Managers.Game.Init();
 
     }

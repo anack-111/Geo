@@ -23,6 +23,7 @@ public class ObjectManager
             go.transform.position = new Vector3(0, -2.3f, 0);
             PlayerController pc = go.GetOrAddComponent<PlayerController>();
 
+            Player = pc; 
 
             return pc as T;
         }

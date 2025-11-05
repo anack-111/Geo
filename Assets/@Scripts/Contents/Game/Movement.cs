@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     public LayerMask _groundMask;
     public Transform _sprite;
     public ParticleSystem _moveParticle;
+    public TrailRenderer _trailRenderer;
     Rigidbody2D _rb;
 
     bool _wasOnGround = false;
@@ -223,20 +224,20 @@ public class Movement : MonoBehaviour
                 anim.Play("Idle");
                 break;
             case EGameMode.Ship:
-                anim.Play("Ship2");
+                anim.Play("Ship1");
 
                 break;
             case EGameMode.Ball:
-                anim.Play("Idle");
+                anim.Play("Ship1");
                 break;
             case EGameMode.UFO:
-                anim.Play("Idle");
+                anim.Play("Ship1");
                 break;
             case EGameMode.Wave:
-                anim.Play("Idle");
+                anim.Play("Ship1");
                 break;
             case EGameMode.Spider:
-                anim.Play("Idle");
+                anim.Play("Ship1");
                 break;
             default:
                 break;
@@ -246,17 +247,17 @@ public class Movement : MonoBehaviour
 
     private void UpdateEffects()
     {
-        var trail = _sprite.gameObject.GetComponent<TrailRenderer>();
+        
 
         if (_currentGameMode == EGameMode.Cube)
         {
-            trail.enabled = false;
+            _trailRenderer.enabled = false;
             _moveParticle.gameObject.SetActive(true);
         }
         else
         {
             // 다른 모드가 생길 때 기본값
-            trail.enabled = true;
+            _trailRenderer.enabled = true;
             _moveParticle.gameObject.SetActive(false);
 
         }
@@ -292,7 +293,7 @@ public class Movement : MonoBehaviour
         _landSeq?.Kill();               // 중복 방지
         _sprite.localScale = _baseScale; // 기본값으로 리셋(안전)
         _landSeq = DOTween.Sequence()
-            .Append(_sprite.DOScaleY(0.80f * _baseScale.y, 0.05f))   // 순간 스쿼시
+            .Append(_sprite.DOScaleY(0.80f * _baseScale.y, 0.1f))   // 순간 스쿼시
             .Append(_sprite.DOScaleY(1.00f * _baseScale.y, 0.05f)
                 .SetEase(Ease.OutQuad));                             // 빠르게 복귀
     }
