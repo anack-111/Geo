@@ -62,11 +62,6 @@ public class UI_GameScene : UI_Scene
         BindImage(typeof(Images));
 
         #endregion
-
-
-        _gameOverPopupUI = Managers.UI.ShowPopupUI<UI_GameOver>();
-
-        _gameOverPopupUI.gameObject.SetActive(false);   
         return true;
     }
 

@@ -29,13 +29,13 @@ public class PlayerController : BaseController
             if (other.TryGetComponent<EdgeCollider2D>(out var edge))
             {
                 //Managers.Game.GameOver();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Managers.Scene.LoadScene(Define.EScene.GameScene);
             }
 
             if(other.CompareTag("Obstacle"))
             {
                 //Managers.Game.GameOver();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Managers.Scene.LoadScene(Define.EScene.GameScene);
             }
 
 
