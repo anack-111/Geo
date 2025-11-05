@@ -56,15 +56,15 @@ public class FollowPlayer : MonoBehaviour
         else
             StaticCam(firstFrame, _movement._yLastPortal, Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode]);
 
-        // 배경을 각각 다르게 이동
-        MoveBackground(_background, background);
-        MoveBackground(_cloudBackBackground, backcloudSpeed);
-        MoveBackground(_cloudFrontBackground, frontcloudSpeed);
-        MoveBackground(_moonBackground, moonSpeed);
-        MoveBackground(_buildingBackground, backbuildingSpeed);
-        MoveBackground(_BuildingSecondBackground, secondBuildingSpeed);
-        MoveBackground(_buildingFrontBackground, frontbuildingSpeed);
-        MoveBackground(_fogBackground, fogSpeed);
+        //// 배경을 각각 다르게 이동
+        //MoveBackground(_background, background);
+        //MoveBackground(_cloudBackBackground, backcloudSpeed);
+        //MoveBackground(_cloudFrontBackground, frontcloudSpeed);
+        //MoveBackground(_moonBackground, moonSpeed);
+        //MoveBackground(_buildingBackground, backbuildingSpeed);
+        //MoveBackground(_BuildingSecondBackground, secondBuildingSpeed);
+        //MoveBackground(_buildingFrontBackground, frontbuildingSpeed);
+        //MoveBackground(_fogBackground, fogSpeed);
 
 
         transform.position = newVector;

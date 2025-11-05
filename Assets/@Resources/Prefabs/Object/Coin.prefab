@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1417059736001906631}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,6 +135,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TileType: 23
+  _beatSprite: {fileID: 0}
+  beatsPerCycle: 1
+  rise: 0.03
+  fall: 0.07
+  onlyWhenVisible: 1
   _particle: {fileID: 5146231007427189715}
 --- !u!1 &1784583533206298516
 GameObject:
