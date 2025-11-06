@@ -57,7 +57,9 @@ public class Define
         CuteCat4,
 
         EndGate,
-        Line
+        Line,
+        Spike_F
+
     }
 
 
