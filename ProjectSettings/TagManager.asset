@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Obstacle
   - Editable
-  - Coin
   layers:
   - Default
   - TransparentFX
@@ -15,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Note
   - 
   - 
   - 
