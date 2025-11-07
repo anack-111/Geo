@@ -30,7 +30,7 @@ public class FollowPlayer : MonoBehaviour
     bool firstFrame = true;
 
     public SpriteRenderer _globalSprite;
-    public Light2D _globalLight;
+  //  public Light2D _globalLight;
     public GameObject _backgroundLight;
 
     public void Init()
@@ -125,7 +125,7 @@ public class FollowPlayer : MonoBehaviour
     }
     private IEnumerator ShockWaveAction(float startPos, float endPos)
     {
-        _globalLight.gameObject.SetActive(true);
+        //_globalLight.gameObject.SetActive(true);
         _backgroundLight.SetActive(true);
 
         _mtrl.SetFloat(_waveDistanceFromCenter, startPos);
@@ -144,7 +144,7 @@ public class FollowPlayer : MonoBehaviour
 
             yield return null;
         }
-        _globalLight.gameObject.SetActive(false);
+        //_globalLight.gameObject.SetActive(false);
         _backgroundLight.SetActive(false);
 
     }
