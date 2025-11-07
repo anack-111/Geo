@@ -83,6 +83,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b2cb5c9d5ffc5e428cb73d35675f028
+    m_Address: Star_5x1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41f70dcbea571f2469df8ededdad1347
     m_Address: PT_GravityOn
     m_ReadOnly: 0
