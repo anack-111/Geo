@@ -58,7 +58,8 @@ public class Define
 
         EndGate,
         Line,
-        Spike_F
+        Spike_F,
+        Line_Short
 
     }
 
