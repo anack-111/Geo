@@ -16,22 +16,14 @@ public class FollowPlayer : MonoBehaviour
 
     [Header("Background Layer 설정")]
     public Transform _background;   // 구름 앞 배경
-    public Transform _cloudFrontBackground;   // 구름 앞 배경
-    public Transform _cloudBackBackground;   // 구름 뒤 배경
-    public Transform _moonBackground;    // 달 배경
-    public Transform _buildingBackground; // 앞 건물 배경
-    public Transform _buildingFrontBackground; // 뒷 건물 배경
-    public Transform _BuildingSecondBackground; // 뒷 건물 배경
-    public Transform _fogBackground; // 뒷 건물 배경
+    public Transform _img1;   // 구름 앞 배경
+    public Transform _img2;   // 구름 뒤 배경
+
 
     public float background = 0.5f;      // 구름 배경 이동 속도 (느림)
-    public float frontcloudSpeed = 0.5f;      // 구름 배경 이동 속도 (느림)
-    public float backcloudSpeed = 0.5f;      // 구름 배경 이동 속도 (느림)
-    public float moonSpeed = 1.0f;       // 달 배경 이동 속도 (중간)
-    public float backbuildingSpeed = 2.0f;   // 건물 배경 이동 속도 (빠름)
-    public float secondBuildingSpeed = 2.0f;
-    public float frontbuildingSpeed = 2.0f;   // 건물 배경 이동 속도 (빠름)
-    public float fogSpeed = 1.0f;       // 달 배경 이동 속도 (중간)
+    public float _img1Speed = 0.5f;      // 구름 배경 이동 속도 (느림)
+    public float _img2Speed = 0.5f;      // 구름 배경 이동 속도 (느림)
+
 
     public Movement _movement;
     Vector3 newVector;
@@ -57,15 +49,9 @@ public class FollowPlayer : MonoBehaviour
             StaticCam(firstFrame, _movement._yLastPortal, Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode]);
 
         //// 배경을 각각 다르게 이동
-        //MoveBackground(_background, background);
-        //MoveBackground(_cloudBackBackground, backcloudSpeed);
-        //MoveBackground(_cloudFrontBackground, frontcloudSpeed);
-        //MoveBackground(_moonBackground, moonSpeed);
-        //MoveBackground(_buildingBackground, backbuildingSpeed);
-        //MoveBackground(_BuildingSecondBackground, secondBuildingSpeed);
-        //MoveBackground(_buildingFrontBackground, frontbuildingSpeed);
-        //MoveBackground(_fogBackground, fogSpeed);
-
+        MoveBackground(_background, background);
+        MoveBackground(_img1, _img1Speed);
+        MoveBackground(_img2, _img2Speed);
 
         transform.position = newVector;
         firstFrame = false;

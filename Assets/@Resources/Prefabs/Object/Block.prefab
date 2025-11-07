@@ -274,6 +274,6 @@ MonoBehaviour:
   _beatSprite: {fileID: 851097733882438831}
   beatsPerCycle: 1
   onlyWhenVisible: 1
-  rise: 0.04
+  rise: 0.3
   hold: 0.1
-  fall: 0.3
+  fall: 0.1

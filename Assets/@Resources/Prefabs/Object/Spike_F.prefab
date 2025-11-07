@@ -151,9 +151,10 @@ MonoBehaviour:
   TileType: 30
   _beatSprite: {fileID: 0}
   beatsPerCycle: 1
-  rise: 0.03
-  fall: 0.07
   onlyWhenVisible: 1
+  rise: 0.03
+  hold: 0.02
+  fall: 0.07
 --- !u!1 &1608503237174605400
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,8 +228,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 50
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0.8391529, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 217685b864a7db54bbde871f0e3275ef, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
