@@ -1,5 +1,5 @@
+using DG.Tweening;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -147,6 +147,25 @@ public class FollowPlayer : MonoBehaviour
         //_globalLight.gameObject.SetActive(false);
         _backgroundLight.SetActive(false);
 
+    }
+    // ▼ Gravity 틸트용
+    [Header("Gravity Tilt")]
+    [SerializeField] float _tiltAngle = 6f;       // 얼마만큼 기울일지(+/-Z)
+    [SerializeField] float _tiltUp = 0.08f;       // 기울이는 시간
+    [SerializeField] float _tiltReturn = 0.18f;   // 복귀 시간
+    Sequence _tiltSeq;
+    public void DoGravityTilt(int gravitySign)
+    {
+        // gravitySign: 1(ON) → 왼쪽(-Z), -1(OFF) → 오른쪽(+Z)
+        float zPeak = (gravitySign == 1) ? -_tiltAngle : +_tiltAngle;
+
+        _tiltSeq?.Kill();
+        // 현재 로테이션 기준으로 Z만 펀치
+        Vector3 peak = new Vector3(0f, 0f, zPeak);
+
+        _tiltSeq = DOTween.Sequence()
+            .Append(transform.DOLocalRotate(peak, _tiltUp).SetEase(Ease.OutQuad))
+            .Append(transform.DOLocalRotate(Vector3.zero, _tiltReturn).SetEase(Ease.InOutQuad));
     }
 
 }

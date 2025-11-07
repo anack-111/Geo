@@ -35,8 +35,8 @@ public class Movement : MonoBehaviour
     const float _lineJumpThresholdPx = 30f; // 드래그 임계(픽셀)
     const float _lineJumpPower = 26f;       // Cube 초기 점프(18)와 동일하게(원하면 조절) 
     bool _linePressing;
-    Vector2 _linePressStart;
-    // ▼ 포인터 상태(PC/모바일 공통)
+
+    // 포인터 상태(PC/모바일 공통)
     bool _ptrPressing, _ptrPrevPressing, _ptrJustPressed, _ptrJustReleased;
     Vector2 _ptrPos;         // 항상 '마지막으로 알려진' 좌표 (릴리즈 프레임에도 보존)
     float _pressMinY;        // 누른 뒤 내려간 최저 Y (위 드래그 관대판정)
@@ -206,9 +206,13 @@ public class Movement : MonoBehaviour
             case 2:
                 _gravity = gravity;
                 _rb.gravityScale = Mathf.Abs(_rb.gravityScale) * gravity;
+                
+                //일단 캐싱 안함 
                 _sprite.gameObject.GetComponent<SpriteRenderer>().flipY = gravity == 1 ? false : true;
-                MoveParticleOffset(_gravity);
+                Camera.main.GetComponent<FollowPlayer>().DoGravityTilt(_gravity);
 
+                MoveParticleOffset(_gravity);
+               
                 break;
         }
 
