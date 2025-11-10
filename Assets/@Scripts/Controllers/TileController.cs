@@ -48,32 +48,33 @@ public class TileController : BaseController
         if (_beatSprite == null) return;
         if (onlyWhenVisible && !IsVisible()) return;
 
-        // 시작 알파 0으로 세팅
-        var baseCol = _beatSprite.color;             // 원래 색(알파 포함)
+        // 원래 색상(알파 포함)
+        var baseCol = _beatSprite.color;
+
+        // 시작 시 완전 투명
         var startCol = new Color(baseCol.r, baseCol.g, baseCol.b, 0f);
         _beatSprite.color = startCol;
 
+        // 목표 알파값 (maxAlpha는 0~255)
         float aPeak = Mathf.Clamp01(maxAlpha / 255f);
-
-        // 피크에서 거의 ‘하양’에 가깝게 (빛처럼)
-        var peakCol = Color.Lerp(startCol, Color.white, 0.85f);
-        peakCol.a = aPeak;
 
         // 이전 트윈 중복 방지
         _beatSprite.DOKill();
 
-        // 0→하얗게 밝게(rise, OutExpo) → 짧게 유지 → 0으로 페이드(fall, InExpo)
+        // 0 → aPeak → 0 (알파만 조절)
         var seq = DOTween.Sequence().SetUpdate(true);
 
+        // 등장 (페이드 인)
         seq.Append(_beatSprite
-            .DOColor(peakCol, Mathf.Max(0.001f, rise))
+            .DOFade(aPeak, Mathf.Max(0.001f, rise))
             .SetEase(Ease.OutExpo));
 
+        // 잠시 유지
         seq.AppendInterval(Mathf.Max(0f, hold));
 
-        // 알파만 0으로 내리고 싶으면 DOFade(0f, fall)로 바꿔도 됨
+        // 사라짐 (페이드 아웃)
         seq.Append(_beatSprite
-            .DOColor(startCol, Mathf.Max(0.001f, fall))
+            .DOFade(0f, Mathf.Max(0.001f, fall))
             .SetEase(Ease.InExpo));
     }
 

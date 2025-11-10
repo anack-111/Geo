@@ -101,6 +101,11 @@ public static class Util
                     host._jumpEffect.Play();
             }
         }
+
+        if (host.OnGround() || !onGroundRequired)
+            
+                 host._sprite.rotation = Quaternion.Euler(0, 0, 0);
+
     }
 
     public static bool IsPointerOverUI()
