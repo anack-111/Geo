@@ -41,6 +41,7 @@ public class Movement : MonoBehaviour
     Vector2 _ptrPos;         // 항상 '마지막으로 알려진' 좌표 (릴리즈 프레임에도 보존)
     float _pressMinY;        // 누른 뒤 내려간 최저 Y (위 드래그 관대판정)
 
+    public  ParticleSystem _jumpEffect;
     private void Awake()
     {
         _baseScale = _sprite.localScale;
@@ -105,6 +106,7 @@ public class Movement : MonoBehaviour
             else if (_wasOnGround && !isGrounded)
             {
                 // 점프 순간에 끄기
+                _jumpEffect.Play();
                  _sprite.GetComponent<Animator>().Play("Jump");
                 _moveParticle.Stop();
             }
@@ -277,10 +279,20 @@ public class Movement : MonoBehaviour
     void MoveParticleOffset(int gravity) //뒤집혔을 때 파티클 오프셋 설정
     {
         var shape = _moveParticle.shape;
+        GameObject jump = _jumpEffect.gameObject;
+        Vector3 localPos = jump.transform.localPosition;
         if (_gravity == 1)
+        {
             shape.position = new Vector3(shape.position.x, -0.5f, shape.position.z);
+            localPos.y = -0.5f;
+        }
+            
         else
+        {
             shape.position = new Vector3(shape.position.x, 0.5f, shape.position.z);
+            localPos.y = 0.5f;
+        }
+        jump.transform.localPosition = localPos;
     }
     //-0.03
 #if UNITY_EDITOR
