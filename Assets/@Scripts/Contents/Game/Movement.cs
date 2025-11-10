@@ -106,7 +106,7 @@ public class Movement : MonoBehaviour
             else if (_wasOnGround && !isGrounded)
             {
                 // 점프 순간에 끄기
-                _jumpEffect.Play();
+                //_jumpEffect.Play();
                  _sprite.GetComponent<Animator>().Play("Jump");
                 _moveParticle.Stop();
             }
