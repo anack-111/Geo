@@ -75,14 +75,15 @@ public class Movement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (_lineCtrl != null)
+        // 나간 트리거가 현재 붙어 있는 라인일 때만 해제
+        var lc = other.GetComponent<LineController>();
+        if (_lineCtrl != null && lc == _lineCtrl)
         {
             _lineCtrl = null;
             _rb.gravityScale = Mathf.Abs(_savedGravity) > 0.0001f ? _savedGravity : _rb.gravityScale;
             _rb.bodyType = RigidbodyType2D.Dynamic;
         }
     }
-
 
     void PaticleControl()
     {
@@ -138,7 +139,7 @@ public class Movement : MonoBehaviour
 
     bool TouchingWall()
     {
-        return Physics2D.OverlapBox((Vector2)transform.position + (Vector2.right * 0.55f), Vector2.up * 0.8f + (Vector2.right * _groundCheckRadius), 0, _groundMask);
+        return Physics2D.OverlapBox((Vector2)transform.position + (Vector2.right * 0.55f), Vector2.up * 0.85f + (Vector2.right * _groundCheckRadius), 0, _groundMask);
     }
 
 
@@ -285,7 +286,7 @@ public class Movement : MonoBehaviour
 
         // OverlapBox와 같은 위치/크기로 박스 그림
         Vector2 center = transform.position + Vector3.down * _gravity * 0.5f;
-        Vector2 size = Vector2.right * 0.8f + Vector2.up * _groundCheckRadius;
+        Vector2 size = Vector2.right * 0.85f + Vector2.up * _groundCheckRadius;
 
         Gizmos.DrawWireCube(center, size);
     }
