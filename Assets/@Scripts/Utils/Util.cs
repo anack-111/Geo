@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
+using static Define;
 
 /*
  * 자주쓰이는 범용적인 함수들 
@@ -67,37 +68,39 @@ public static class Util
 
         return parsedColor;
     }
-    static public void LimitYVelocity(float limit, Rigidbody2D rb)
+    public static void LimitYVelocity(float limit, Rigidbody2D rb)
     {
         int gravityMultiplier = (int)(Mathf.Abs(rb.gravityScale) / rb.gravityScale);
-
         if (rb.velocity.y * -gravityMultiplier > limit)
             rb.velocity = Vector2.up * -limit * gravityMultiplier;
     }
-    static public void CreateGamemode(Rigidbody2D rb, Movement host, bool onGroundRequired, float initalVelocity, float gravityScale, bool canHold = false, bool flipOnClick = false, float rotationMod = 0, float yVelocityLimit = Mathf.Infinity)
+
+    public static void CreateGamemode(Rigidbody2D rb, Movement host, bool onGroundRequired, float initalVelocity,float gravityScale, bool canHold = false,
+        bool flipOnClick = false, float rotationMod = 0, float yVelocityLimit = Mathf.Infinity)
     {
-        if (!Input.GetMouseButton(0) || (canHold && host.OnGround()))
+        bool inputHeld = host._inputHeld;
+        bool inputPressed = host._inputPressed;
+        bool inputReleased = host._inputReleased;
+
+        if (!inputHeld || (canHold && host.OnGround()))
             host._isClickProcessed = false;
 
         rb.gravityScale = gravityScale * host._gravity;
-
         LimitYVelocity(yVelocityLimit, rb);
 
-        if (Input.GetMouseButton(0))
+        if (inputHeld)
         {
-            if (host.OnGround() && !host._isClickProcessed || !onGroundRequired && !host._isClickProcessed)
+            if ((host.OnGround() && !host._isClickProcessed) || (!onGroundRequired && !host._isClickProcessed))
             {
                 host._isClickProcessed = true;
                 rb.velocity = Vector2.up * initalVelocity * host._gravity;
                 host._gravity *= flipOnClick ? -1 : 1;
-                host._jumpEffect.Play();
 
+                // Cube 점프 이펙트
+                if (host._currentGameMode == EGameMode.Cube && host._jumpEffect != null)
+                    host._jumpEffect.Play();
             }
         }
-
-        //if (host.OnGround() || !onGroundRequired)
-        //    host._sprite.rotation = Quaternion.Euler(0, 0, 0);
-
     }
 
     public static bool IsPointerOverUI()
@@ -105,19 +108,13 @@ public static class Util
         if (EventSystem.current == null)
             return false;
 
-        // PC / 마우스
         if (Input.mousePresent && EventSystem.current.IsPointerOverGameObject())
             return true;
 
-        // 모바일 반드시 touchCount 확인
         if (Input.touchCount > 0)
-        {
             for (int i = 0; i < Input.touchCount; i++)
-            {
                 if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId))
                     return true;
-            }
-        }
 
         return false;
     }

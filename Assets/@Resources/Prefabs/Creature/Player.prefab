@@ -4948,9 +4948,12 @@ MonoBehaviour:
   _sprite: {fileID: 4373627387369635276}
   _moveParticle: {fileID: 3796831890569871447}
   _trailRenderer: {fileID: 6029995223501283524}
+  _jumpEffect: {fileID: 4485430310878868193}
   _gravity: 1
   _isClickProcessed: 0
-  _jumpEffect: {fileID: 4485430310878868193}
+  _inputHeld: 0
+  _inputPressed: 0
+  _inputReleased: 0
 --- !u!61 &286231188270749612
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5385,7 +5388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2282438384830233658, guid: 7697a49ea05824642b45a2fab61c81c4, type: 3}
       propertyPath: ShapeModule.type
-      value: 12
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2282438384830233658, guid: 7697a49ea05824642b45a2fab61c81c4, type: 3}
       propertyPath: ShapeModule.radius.mode
@@ -5413,7 +5416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2282438384830233660, guid: 7697a49ea05824642b45a2fab61c81c4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.009
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2282438384830233660, guid: 7697a49ea05824642b45a2fab61c81c4, type: 3}
       propertyPath: m_LocalPosition.y
