@@ -126,7 +126,7 @@ public class FollowPlayer : MonoBehaviour
     private IEnumerator ShockWaveAction(float startPos, float endPos)
     {
         //_globalLight.gameObject.SetActive(true);
-        _backgroundLight.SetActive(true);
+       // _backgroundLight.SetActive(true);
 
         _mtrl.SetFloat(_waveDistanceFromCenter, startPos);
 
@@ -145,7 +145,7 @@ public class FollowPlayer : MonoBehaviour
             yield return null;
         }
         //_globalLight.gameObject.SetActive(false);
-        _backgroundLight.SetActive(false);
+       // _backgroundLight.SetActive(false);
 
     }
     // ¡å Gravity Æ¿Æ®¿ë

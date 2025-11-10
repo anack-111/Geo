@@ -59,7 +59,8 @@ public class Define
         EndGate,
         Line,
         Spike_F,
-        Line_Short
+        Line_Short,
+        LightTrigger
 
     }
 

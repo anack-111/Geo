@@ -161,6 +161,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91fa7de23ae4f704db1b08cd92c015d2
+    m_Address: LightTrigger
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9887b2331d5bb5541988f596a6d0ab79
     m_Address: Star
     m_ReadOnly: 0
