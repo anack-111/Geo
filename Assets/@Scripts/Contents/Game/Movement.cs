@@ -96,12 +96,16 @@ public class Movement : MonoBehaviour
             if (!_wasOnGround && isGrounded)
             {
                 LandAnim();
+                _sprite.GetComponent<Animator>().Play("Idle");
                 // 착지했을 때 다시 켜기
                 _moveParticle.Play();
+
+
             }
             else if (_wasOnGround && !isGrounded)
             {
                 // 점프 순간에 끄기
+                 _sprite.GetComponent<Animator>().Play("Jump");
                 _moveParticle.Stop();
             }
 
@@ -179,6 +183,7 @@ public class Movement : MonoBehaviour
     {
         Util.CreateGamemode(_rb, this, true, 238.29f, 6.2f, false, true, 0, 238.29f);
 
+        //일단 캐싱 안함
         if (_gravity == 1)
             _sprite.gameObject.GetComponent<SpriteRenderer>().flipY = false;
         else
