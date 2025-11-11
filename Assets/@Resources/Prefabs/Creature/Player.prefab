@@ -4942,7 +4942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentGameMode: 0
   _currentSpeed: 1
-  _groundCheckRadius: 0.2
+  _groundCheckRadius: 0.1
   _groundMask:
     serializedVersion: 2
     m_Bits: 64

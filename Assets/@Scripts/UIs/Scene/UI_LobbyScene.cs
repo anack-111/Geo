@@ -15,7 +15,8 @@ public class UI_LobbyScene : UI_Scene
         DuDuButton,
         RudyButton,
         TasteButton,
-        WouldYouButton
+        WouldYouButton,
+        TickButton
     }
 
     enum Texts
@@ -39,6 +40,7 @@ public class UI_LobbyScene : UI_Scene
         GetButton((int)Buttons.RudyButton).gameObject.BindEvent(() => OnClickStartButton("RudyPop"));
         GetButton((int)Buttons.TasteButton).gameObject.BindEvent(() => OnClickStartButton("¸¶½Ãµû"));
         GetButton((int)Buttons.WouldYouButton).gameObject.BindEvent(() => OnClickStartButton("WouldYou"));
+        GetButton((int)Buttons.TickButton).gameObject.BindEvent(() => OnClickStartButton("Tick"));
         return true;
     }
 

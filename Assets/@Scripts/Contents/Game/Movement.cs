@@ -278,8 +278,8 @@ public class Movement : MonoBehaviour
 
     void ChangeAnim(EGameMode gameMode)
     {
-        Animator anim = _sprite.GetComponent<Animator>();
-        anim.Play(gameMode == EGameMode.Cube ? "Idle" : "Ship1");
+       // Animator anim = _sprite.GetComponent<Animator>();
+        //anim.Play(gameMode == EGameMode.Cube ? "Idle" : "Ship1");
     }
 
     void UpdateEffects()
