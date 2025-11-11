@@ -22,6 +22,8 @@ public class UI_GameScene : UI_Scene
     }
     enum Buttons
     {
+        BlueButton,
+        RedButton   
     }
     enum Texts
     {
@@ -62,6 +64,20 @@ public class UI_GameScene : UI_Scene
         BindImage(typeof(Images));
 
         #endregion
+
+
+
+        GetButton((int)Buttons.BlueButton).onClick.AddListener(() =>
+        {
+            FindObjectOfType<Movement>().OnPressColor(EZoneColor.Blue);
+        });
+
+        GetButton((int)Buttons.RedButton).onClick.AddListener(() =>
+        {
+            FindObjectOfType<Movement>().OnPressColor(EZoneColor.Red);
+        });
+
+
         return true;
     }
 

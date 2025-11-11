@@ -367,4 +367,52 @@ public class Movement : MonoBehaviour
         Gizmos.DrawWireCube(center, size);
     }
 #endif
+
+    public EZoneColor _currentZone = EZoneColor.Blue; // 현재 구역 색상
+
+
+
+    public void OnPressColor(EZoneColor color)
+    {
+        if (color == _currentZone)
+        {
+            // 같은 색이면 점프
+            DoJump();
+        }
+        else
+        {
+            // 다른 색이면 Spider처럼 반전 이동
+            DoSpiderFlip();
+        }
+    }
+
+
+    void DoJump()
+    {
+        if (OnGround())
+        {
+            _rb.velocity = new Vector2(_rb.velocity.x, 18f * _gravity);
+            if (_jumpEffect) _jumpEffect.Play();
+        }
+    }
+
+    void DoSpiderFlip()
+    {
+        _currentZone = _currentZone == EZoneColor.Blue ? EZoneColor.Red : EZoneColor.Blue;
+
+        // Spider 세팅
+        _rb.gravityScale = 6.2f * _gravity;
+
+        // Spider 클릭 효과 그대로
+        _isClickProcessed = true;
+        _rb.velocity = Vector2.up * 238.29f * _gravity;
+        _gravity *= -1;
+        _rb.gravityScale = Mathf.Abs(_rb.gravityScale) * _gravity;
+
+        _sprite.GetComponent<SpriteRenderer>().flipY = _gravity != 1;
+        if (_jumpEffect) _jumpEffect.Play();
+
+      //  Camera.main.GetComponent<FollowPlayer>().DoGravityTilt(_gravity);
+    }
+
 }

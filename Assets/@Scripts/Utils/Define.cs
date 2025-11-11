@@ -118,4 +118,11 @@ public class Define
         Effect,
         Max,
     }
+
+    public enum EZoneColor
+    {
+        Blue,
+        Red 
+    }
+
 }

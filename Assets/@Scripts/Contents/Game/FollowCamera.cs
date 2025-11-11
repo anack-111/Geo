@@ -43,9 +43,9 @@ public class FollowPlayer : MonoBehaviour
     {
         newVector = new Vector3(_player.position.x + cameraOffset.x, newVector.y, -10);
 
-        if (Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode] > 10)
-            FreeCam(firstFrame);
-        else
+        //if (Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode] > 10)
+        //    FreeCam(firstFrame);
+        //else
             StaticCam(firstFrame, _movement._yLastPortal, Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode]);
 
         //// 배경을 각각 다르게 이동
@@ -81,7 +81,7 @@ public class FollowPlayer : MonoBehaviour
             _topGround.localPosition = InterpolateVec3(_topGround.localPosition, Vector3.up * 20f, 100);
 
         if (!doInstantly)
-            newVector += Vector3.up * (Mathf.Lerp(_player.transform.position.y + 1.7f - newVector.y, -0.6f - newVector.y, (_player.position.y <= 4.2f) ? 1 : 0)) * Time.deltaTime / interpolationTime;
+            newVector += Vector3.up * (Mathf.Lerp(_player.transform.position.y + 1.7f - newVector.y, 2.4f - newVector.y, (_player.position.y <= 4.2f) ? 1 : 0)) * Time.deltaTime / interpolationTime;
         else
             newVector += Vector3.up * (_player.transform.position.y + 1.7f);
     }
