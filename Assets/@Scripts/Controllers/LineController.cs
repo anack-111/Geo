@@ -15,7 +15,4 @@ public class LineController : TileController
         col.isTrigger = true;
     }
 
-
-
-
 }

@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour
     public ParticleSystem _moveParticle;
     public TrailRenderer _trailRenderer;
     public ParticleSystem _jumpEffect;
+    public ParticleSystem _LineParticle;
+
 
     Rigidbody2D _rb;
     bool _wasOnGround = false;
@@ -24,18 +26,40 @@ public class Movement : MonoBehaviour
     Sequence _landSeq;
     Vector3 _baseScale;
 
-    // 입력 상태 저장용
+    // 입력 상태
     [HideInInspector] public bool _inputHeld;
     [HideInInspector] public bool _inputPressed;
     [HideInInspector] public bool _inputReleased;
 
+    // 라인 관련
+    LineController _lineCtrl;
+    float _savedGravity;
+    bool _linePressing;
+    const float _lineJumpThresholdPx = 30f;
+    const float _lineJumpPower = 26f;
+
+    bool _ptrPressing, _ptrPrevPressing, _ptrJustPressed, _ptrJustReleased;
+    Vector2 _ptrPos;
+    float _pressMinY;
 
     private Dictionary<EGameMode, System.Action> _modeActions;
 
     private void Awake() => _baseScale = _sprite.localScale;
 
+    private void Start()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _modeActions = new Dictionary<EGameMode, System.Action>
+        {
+            { EGameMode.Cube, Cube },
+            { EGameMode.Ship, Ship },
+            { EGameMode.Ball, Ball },
+            { EGameMode.UFO, UFO },
+            { EGameMode.Wave, Wave },
+            { EGameMode.Spider, Spider },
+        };
+    }
 
-    //  Update: 모바일/PC 모두에서 입력 감지
     private void Update()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -59,88 +83,52 @@ public class Movement : MonoBehaviour
 #endif
     }
 
-
-    private void Start()
-    {
-        _rb = GetComponent<Rigidbody2D>();
-        _modeActions = new Dictionary<EGameMode, System.Action>
-    {
-        { EGameMode.Cube, Cube },
-        { EGameMode.Ship, Ship },
-        { EGameMode.Ball, Ball },
-        { EGameMode.UFO, UFO },
-        { EGameMode.Wave, Wave },
-        { EGameMode.Spider, Spider },
-    };
-    }
-
     private void FixedUpdate()
     {
+        SamplePointer();
         transform.position += Vector3.right * SPEED_VALUE[(int)_currentSpeed] * Time.deltaTime;
 
         if (_modeActions.TryGetValue(_currentGameMode, out var action))
             action?.Invoke();
 
+        LineControl();
         PaticleControl();
     }
-    void PaticleControl()
+
+    // ---------------- 라인 충돌 ----------------
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_currentGameMode != EGameMode.Cube)
-            return;
-
-        bool isGrounded = OnGround();
-
-        if (!_wasOnGround && isGrounded)
+        var lc = other.GetComponent<LineController>();
+        if (lc != null)
         {
-            LandAnim();
-            _sprite.GetComponent<Animator>().Play("Idle");
-            _moveParticle.Play();
-            _isClickProcessed = false; // 착지 시 클릭 리셋
+          
+            _lineCtrl = lc;
+            _savedGravity = _rb.gravityScale;
         }
-        else if (_wasOnGround && !isGrounded)
-        {
-            _sprite.GetComponent<Animator>().Play("Jump");
-            _moveParticle.Stop();
-        }
-
-        _wasOnGround = isGrounded;
     }
 
-    public bool OnGround()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (_rb.velocity.y * _gravity > 0.05f)
-            return false;
+        _LineParticle.Stop();
 
-        Collider2D hit = Physics2D.OverlapBox(
-            transform.position + Vector3.down * _gravity * 0.5f,
-            new Vector2(0.8f, _groundCheckRadius),
-            0,
-            _groundMask
-        );
+        var lc = other.GetComponent<LineController>();
 
-        if (hit)
+        if (_lineCtrl != null && lc == _lineCtrl)
         {
-            if (_gravity == 1)
-                return hit.bounds.center.y < transform.position.y - 0.05f;
-            else
-                return hit.bounds.center.y > transform.position.y + 0.05f;
+           
+            _lineCtrl = null;
+            _rb.bodyType = RigidbodyType2D.Dynamic;
+            _rb.gravityScale = _savedGravity;
         }
-
-        return false;
     }
 
-    void Cube()
-    {
-        Util.CreateGamemode(_rb, this, true, 18f, 9.057f, true, false, 409.1f);
-    }
+    // ---------------- Cube ----------------
+    void Cube() => Util.CreateGamemode(_rb, this, true, 18f, 9.057f, true, false, 409.1f);
 
     void Ship()
     {
         _sprite.rotation = Quaternion.Euler(0, 0, _rb.velocity.y * 2);
-        if (_inputHeld)
-            _rb.gravityScale = -2.314969f;
-        else
-            _rb.gravityScale = 2.314969f;
+        _rb.gravityScale = _inputHeld ? -2.314969f : 2.314969f;
         _rb.gravityScale *= _gravity;
     }
 
@@ -150,22 +138,118 @@ public class Movement : MonoBehaviour
         _rb.velocity = new Vector2(0, SPEED_VALUE[(int)_currentSpeed] * (_inputHeld ? 1 : -1) * _gravity);
     }
 
-    void Ball()
-    {
-        Util.CreateGamemode(_rb, this, true, 0, 6.2f, false, true);
-    }
-
-    void UFO()
-    {
-        Util.CreateGamemode(_rb, this, false, 10.841f, 4.1483f, false, false, 0, 10.841f);
-    }
-
+    void Ball() => Util.CreateGamemode(_rb, this, true, 0, 6.2f, false, true);
+    void UFO() => Util.CreateGamemode(_rb, this, false, 10.841f, 4.1483f, false, false, 0, 10.841f);
     void Spider()
     {
         Util.CreateGamemode(_rb, this, true, 238.29f, 6.2f, false, true, 0, 238.29f);
         _sprite.GetComponent<SpriteRenderer>().flipY = _gravity != 1;
     }
 
+    // ---------------- 라인 제어 ----------------
+    void LineControl()
+    {
+        if (_lineCtrl == null)
+            return;
+
+        if (_ptrPressing)
+        {
+            _LineParticle.Play();
+            if (_rb.bodyType != RigidbodyType2D.Kinematic)
+            {
+                _savedGravity = _rb.gravityScale;
+                _rb.bodyType = RigidbodyType2D.Kinematic;
+                _rb.velocity = Vector2.zero;
+                _linePressing = true;
+            }
+
+            float targetY = _lineCtrl.LineY + _lineCtrl.yOffset;
+            transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
+            return;
+        }
+
+        if (_ptrJustReleased && _linePressing)
+        {
+            float dyUp = _ptrPos.y - _pressMinY;
+            if (dyUp > _lineJumpThresholdPx)
+            {
+                DoLineJump(+1);
+            }
+            else
+            {
+                _rb.bodyType = RigidbodyType2D.Dynamic;
+                _rb.gravityScale = _savedGravity;
+                _lineCtrl = null;
+                _linePressing = false;
+                _isClickProcessed = true;
+            }
+            return;
+        }
+
+        if (_rb.bodyType != RigidbodyType2D.Dynamic)
+            _rb.bodyType = RigidbodyType2D.Dynamic;
+
+        _rb.gravityScale = _savedGravity;
+        _lineCtrl = null;
+        _linePressing = false;
+        _LineParticle.Stop();
+    }
+
+    void DoLineJump(int verticalDir)
+    {
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+        _rb.gravityScale = _savedGravity;
+
+        var v = _rb.velocity;
+        v.y = _lineJumpPower * (verticalDir > 0 ? 1f : -1f);
+        _rb.velocity = v;
+
+        _lineCtrl = null;
+        _linePressing = false;
+        _isClickProcessed = true;
+
+        if (_jumpEffect) _jumpEffect.Play();
+    }
+
+    // ---------------- 포인터 샘플링 ----------------
+    void SamplePointer()
+    {
+        bool pressing = false;
+        Vector2 pos = _ptrPos;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        pressing = Input.GetMouseButton(0);
+        if (pressing || Input.GetMouseButtonUp(0))
+            pos = (Vector2)Input.mousePosition;
+#else
+        if (Input.touchCount > 0)
+        {
+            var t = Input.GetTouch(0);
+            if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary)
+            {
+                pressing = true;
+                pos = t.position;
+            }
+            else if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+            {
+                pressing = false;
+                pos = t.position;
+            }
+        }
+#endif
+
+        _ptrJustPressed = pressing && !_ptrPrevPressing;
+        _ptrJustReleased = !pressing && _ptrPrevPressing;
+
+        if (_ptrJustPressed) _pressMinY = pos.y;
+        if (pressing) _pressMinY = Mathf.Min(_pressMinY, pos.y);
+
+        _ptrPos = pos;
+        _ptrPrevPressing = _ptrPressing;
+        _ptrPressing = pressing;
+    }
+
+    // ---------------- 포털 전환 ----------------
     public void ChangeThroughPortal(EGameMode gameMode, ESpeed speed, int gravity, int State, float yPortal)
     {
         Managers.Game.OnModeChanged?.Invoke(gameMode);
@@ -225,15 +309,45 @@ public class Movement : MonoBehaviour
         jump.transform.localPosition = localPos;
     }
 
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+    // ---------------- 이펙트 / 애니 ----------------
+    void PaticleControl()
     {
-        Gizmos.color = Color.red;
-        Vector2 center = transform.position + Vector3.down * _gravity * 0.5f;
-        Vector2 size = Vector2.right * 0.85f + Vector2.up * _groundCheckRadius;
-        Gizmos.DrawWireCube(center, size);
+        if (_currentGameMode != EGameMode.Cube) return;
+        bool isGrounded = OnGround();
+
+        if (!_wasOnGround && isGrounded)
+        {
+            LandAnim();
+            _sprite.GetComponent<Animator>().Play("Idle");
+            _moveParticle.Play();
+            _isClickProcessed = false;
+        }
+        else if (_wasOnGround && !isGrounded)
+        {
+            _sprite.GetComponent<Animator>().Play("Jump");
+            _moveParticle.Stop();
+        }
+
+        _wasOnGround = isGrounded;
     }
-#endif
+
+    public bool OnGround()
+    {
+        if (_rb.velocity.y * _gravity > 0.05f)
+            return false;
+
+        Collider2D hit = Physics2D.OverlapBox(
+            transform.position + Vector3.down * _gravity * 0.5f,
+            new Vector2(0.8f, _groundCheckRadius),
+            0,
+            _groundMask
+        );
+
+        if (!hit) return false;
+        return _gravity == 1
+            ? hit.bounds.center.y < transform.position.y - 0.05f
+            : hit.bounds.center.y > transform.position.y + 0.05f;
+    }
 
     void LandAnim()
     {
@@ -243,4 +357,14 @@ public class Movement : MonoBehaviour
             .Append(_sprite.DOScaleY(0.8f * _baseScale.y, 0.1f))
             .Append(_sprite.DOScaleY(1.0f * _baseScale.y, 0.05f).SetEase(Ease.OutQuad));
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Vector2 center = transform.position + Vector3.down * _gravity * 0.5f;
+        Vector2 size = Vector2.right * 0.85f + Vector2.up * _groundCheckRadius;
+        Gizmos.DrawWireCube(center, size);
+    }
+#endif
 }
