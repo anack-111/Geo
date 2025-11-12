@@ -2392,6 +2392,7 @@ MonoBehaviour:
   _tiltAngle: 6
   _tiltUp: 0.08
   _tiltReturn: 0.18
+  _pressDistance: 0.1
 --- !u!1 &1030051924
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,9 +4424,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2355612695850793108, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2355612695850793108, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5094716969059275604, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
       propertyPath: m_Name
       value: GroundCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662893367374830393, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662893367374830393, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
