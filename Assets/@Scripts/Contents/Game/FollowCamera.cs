@@ -41,7 +41,7 @@ public class FollowPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        newVector = new Vector3(_player.position.x + cameraOffset.x, newVector.y, -10);
+        newVector = new Vector3(_player.position.x + cameraOffset.x, newVector.y + _tiltYOffset, -10);
 
         //if (Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode] > 10)
         //    FreeCam(firstFrame);
@@ -100,7 +100,7 @@ public class FollowPlayer : MonoBehaviour
         _topGround.gameObject.SetActive(true);
 
         _groundCamera.position = InterpolateVec3(new Vector3(0, _groundCamera.position.y), Vector3.up * Mathf.Clamp(yLastPortal - screenHeight * 0.5f, cameraOffset.y, float.MaxValue), 20) + Vector3.right * (Mathf.Floor(_player.transform.position.x / 5) * 5);
-        _topGround.localPosition = InterpolateVec3(_topGround.localPosition, Vector3.up * (4.5f + screenHeight), 30);
+        _topGround.localPosition = InterpolateVec3(_topGround.localPosition, Vector3.up * (4.9f + screenHeight), 30);
 
         if (!doInstantly)
             newVector += Vector3.up * (5 + Mathf.Clamp(yLastPortal - screenHeight * 0.5f, cameraOffset.y, 2048) - newVector.y - ((11 - screenHeight) * 0.5f)) * Time.deltaTime / interpolationTime;
@@ -150,22 +150,40 @@ public class FollowPlayer : MonoBehaviour
     }
     // ▼ Gravity 틸트용
     [Header("Gravity Tilt")]
-    [SerializeField] float _tiltAngle = 6f;       // 얼마만큼 기울일지(+/-Z)
-    [SerializeField] float _tiltUp = 0.08f;       // 기울이는 시간
-    [SerializeField] float _tiltReturn = 0.18f;   // 복귀 시간
+    [SerializeField] float _tiltAngle = 2f;     // 기울기 크기(+/-Z)
+    [SerializeField] float _tiltUp = 0.08f;     // 기울이는 시간
+    [SerializeField] float _tiltReturn = 0.18f; // 복귀 시간
+    [SerializeField] float _pressDistance = 0.1f; // 눌림 거리(중력 1=아래, -1=위로)
+
     Sequence _tiltSeq;
+    float _tiltYOffset = 0f; // ← Y 오프셋(트윈으로 관리)
+
     public void DoGravityTilt(int gravitySign)
     {
-        // gravitySign: 1(ON) → 왼쪽(-Z), -1(OFF) → 오른쪽(+Z)
+        // 회전 피크
         float zPeak = (gravitySign == 1) ? -_tiltAngle : +_tiltAngle;
 
-        _tiltSeq?.Kill();
-        // 현재 로테이션 기준으로 Z만 펀치
-        Vector3 peak = new Vector3(0f, 0f, zPeak);
+        // 눌림 방향: 중력 1(바닥) => 아래(-1), 중력 -1(천장) => 위(+1)
+        float pressDir = (gravitySign == 1) ? 1f : -1f;
+        float pressTarget = _pressDistance * pressDir;
 
+        _tiltSeq?.Kill();
+
+        // 시퀀스: (회전 + Y오프셋) 동시에 올렸다가, 제로로 복귀
         _tiltSeq = DOTween.Sequence()
-            .Append(transform.DOLocalRotate(peak, _tiltUp).SetEase(Ease.OutQuad))
-            .Append(transform.DOLocalRotate(Vector3.zero, _tiltReturn).SetEase(Ease.InOutQuad));
+            // 올라가기(기울이기 + 눌림)
+            .Append(
+                DOTween.Sequence()
+                    .Join(transform.DOLocalRotate(new Vector3(0f, 0f, zPeak), _tiltUp).SetEase(Ease.OutQuad))
+                    .Join(DOTween.To(() => _tiltYOffset, v => _tiltYOffset = v, pressTarget, _tiltUp).SetEase(Ease.OutQuad))
+            )
+            // 돌아오기(원위치)
+            .Append(
+                DOTween.Sequence()
+                    .Join(transform.DOLocalRotate(Vector3.zero, _tiltReturn).SetEase(Ease.InOutQuad))
+                    .Join(DOTween.To(() => _tiltYOffset, v => _tiltYOffset = v, 0f, _tiltReturn).SetEase(Ease.InOutQuad))
+            );
     }
+
 
 }

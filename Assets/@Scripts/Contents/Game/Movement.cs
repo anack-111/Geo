@@ -400,6 +400,7 @@ public class Movement : MonoBehaviour
 
     void DoSpiderFlip()
     {
+        Camera.main.GetComponent<FollowPlayer>().DoGravityTilt(_gravity);
         _currentZone = _currentZone == EZoneColor.Blue ? EZoneColor.Red : EZoneColor.Blue;
 
         // Spider 세팅
@@ -442,7 +443,6 @@ public class Movement : MonoBehaviour
 
         // 파티클 / 화면 틸트
         if (_LineParticle) _LineParticle.Play();
-        Camera.main.GetComponent<FollowPlayer>()?.DoGravityTilt(_gravity);
     }
 
 

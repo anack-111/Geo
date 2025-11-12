@@ -215,6 +215,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4c7b0d4c8fdc59479bc1ada089135aa
+    m_Address: Spike_F_5x1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc6aa23fddd5b7548a58409a4f03fe9d
     m_Address: EndGate
     m_ReadOnly: 0
