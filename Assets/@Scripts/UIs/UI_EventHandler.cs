@@ -38,7 +38,7 @@ public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerDown
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        _pressed = true;
+        _pressed = false;
         OnPointerUpHandler?.Invoke();
     }
 

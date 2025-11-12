@@ -62,25 +62,25 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
-        _inputHeld = Input.GetMouseButton(0);
-        _inputPressed = Input.GetMouseButtonDown(0);
-        _inputReleased = Input.GetMouseButtonUp(0);
-#else
-        if (Input.touchCount > 0)
-        {
-            var t = Input.GetTouch(0);
-            _inputHeld = t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary;
-            _inputPressed = t.phase == TouchPhase.Began;
-            _inputReleased = t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled;
-        }
-        else
-        {
-            _inputHeld = false;
-            _inputPressed = false;
-            _inputReleased = false;
-        }
-#endif
+        //#if UNITY_EDITOR || UNITY_STANDALONE
+        //        _inputHeld = Input.GetMouseButton(0);
+        //        _inputPressed = Input.GetMouseButtonDown(0);
+        //        _inputReleased = Input.GetMouseButtonUp(0);
+        //#else
+        //        if (Input.touchCount > 0)
+        //        {
+        //            var t = Input.GetTouch(0);
+        //            _inputHeld = t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary;
+        //            _inputPressed = t.phase == TouchPhase.Began;
+        //            _inputReleased = t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled;
+        //        }
+        //        else
+        //        {
+        //            _inputHeld = false;
+        //            _inputPressed = false;
+        //            _inputReleased = false;
+        //        }
+        //#endif
     }
 
     private void FixedUpdate()
@@ -101,7 +101,7 @@ public class Movement : MonoBehaviour
         var lc = other.GetComponent<LineController>();
         if (lc != null)
         {
-          
+
             _lineCtrl = lc;
             _savedGravity = _rb.gravityScale;
         }
@@ -115,7 +115,7 @@ public class Movement : MonoBehaviour
 
         if (_lineCtrl != null && lc == _lineCtrl)
         {
-           
+
             _lineCtrl = null;
             _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.gravityScale = _savedGravity;
@@ -278,7 +278,7 @@ public class Movement : MonoBehaviour
 
     void ChangeAnim(EGameMode gameMode)
     {
-       // Animator anim = _sprite.GetComponent<Animator>();
+        // Animator anim = _sprite.GetComponent<Animator>();
         //anim.Play(gameMode == EGameMode.Cube ? "Idle" : "Ship1");
     }
 
@@ -320,6 +320,7 @@ public class Movement : MonoBehaviour
             LandAnim();
             _sprite.GetComponent<Animator>().Play("Idle");
             _moveParticle.Play();
+            isButtonFlipping = false;
             _isClickProcessed = false;
         }
         else if (_wasOnGround && !isGrounded)
@@ -368,10 +369,10 @@ public class Movement : MonoBehaviour
     }
 #endif
 
-    public EZoneColor _currentZone = EZoneColor.Blue; // 현재 구역 색상
+    public EZoneColor _currentZone = EZoneColor.Red; // 현재 구역 색상
 
 
-
+    public bool isButtonFlipping = false; // 버튼 클릭 중인지 체크하는 플래그
     public void OnPressColor(EZoneColor color)
     {
         if (color == _currentZone)
@@ -382,6 +383,7 @@ public class Movement : MonoBehaviour
         else
         {
             // 다른 색이면 Spider처럼 반전 이동
+            isButtonFlipping = true;
             DoSpiderFlip();
         }
     }
@@ -412,7 +414,36 @@ public class Movement : MonoBehaviour
         _sprite.GetComponent<SpriteRenderer>().flipY = _gravity != 1;
         if (_jumpEffect) _jumpEffect.Play();
 
-      //  Camera.main.GetComponent<FollowPlayer>().DoGravityTilt(_gravity);
     }
+
+
+    public void DoFlip()
+    {
+
+        if (isButtonFlipping)
+        {
+            // 버튼 클릭 시에는 색상 반전만 하고, LineZone 충돌은 무시
+            isButtonFlipping = false;
+            return;
+        }
+
+        // 현재 색상과 버튼 색상이 일치하는 경우에는 반전하지 않음
+        if ((_currentZone == EZoneColor.Blue && _gravity == 1) || (_currentZone == EZoneColor.Red && _gravity == -1))
+            return;
+
+        // 색상 전환
+        _currentZone = _currentZone == EZoneColor.Blue ? EZoneColor.Red : EZoneColor.Blue;
+
+        _gravity *= -1;
+        _rb.gravityScale = Mathf.Abs(_rb.gravityScale) * _gravity;
+
+        // flipY 스프라이트 반전
+        _sprite.GetComponent<SpriteRenderer>().flipY = _gravity != 1;
+
+        // 파티클 / 화면 틸트
+        if (_LineParticle) _LineParticle.Play();
+        Camera.main.GetComponent<FollowPlayer>()?.DoGravityTilt(_gravity);
+    }
+
 
 }

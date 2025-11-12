@@ -4956,6 +4956,8 @@ MonoBehaviour:
   _inputHeld: 0
   _inputPressed: 0
   _inputReleased: 0
+  _currentZone: 1
+  isButtonFlipping: 0
 --- !u!61 &286231188270749612
 BoxCollider2D:
   m_ObjectHideFlags: 0

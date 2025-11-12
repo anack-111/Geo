@@ -126,7 +126,7 @@ public class MapEditorUIManager : MonoBehaviour
 
     void UpdateCamera()
     {
-        Camera.main.transform.position = new Vector3(player.position.x, 0, -10);
+        Camera.main.transform.position = new Vector3(player.position.x, 2.4f, -10);
     }
 
     // ---------------------------
