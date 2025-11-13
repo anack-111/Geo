@@ -53,14 +53,18 @@ public class UI_GameScene : UI_Scene
         // -------- Red 버튼: 뒤집기 전용 (PointerDown = 1회만 실행) --------
         BindEvent(GetButton((int)Buttons.FlipButton).gameObject, OnFlipDown, null, Define.EUIEvent.PointerDown);
 
+
         return true;
     }
+
 
     // ===== 버튼 콜백 =====
     private void OnBlueJumpPressed()
     {
-        var mv = FindObjectOfType<Movement>();
-        if (!mv) return;
+        var mv = FindAnyObjectByType<Movement>();
+       // var mv = Managers.Object.Player.GetComponent<Movement>();
+        if (!mv)
+            return;
 
         // 현재 존과 같은 색을 넣으면 Movement.OnPressColor 내부에서 '점프' 경로로 탑승
         EZoneColor current = mv._currentZone;
@@ -69,10 +73,11 @@ public class UI_GameScene : UI_Scene
 
     private void OnFlipDown()
     {
-        var mv = FindObjectOfType<Movement>();
+       // var mv = Managers.Object.Player.GetComponent<Movement>();
+
+        var mv = FindAnyObjectByType<Movement>();
         if (!mv)
             return;
-
         // 반대 색을 넣어 OnPressColor가 스파이더 플립 경로로 가도록
         EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
         mv.OnPressColor(opposite);
@@ -81,13 +86,17 @@ public class UI_GameScene : UI_Scene
     private void Update()
     {
         //컴퓨터 test용
-        var mv = FindObjectOfType<Movement>();
+        //var mv = Managers.Object.Player.GetComponent<Movement>();
+
+        var mv = FindAnyObjectByType<Movement>();
+
         if (!mv) return;
 
         // ===== 키보드 =====
         // A -> Flip(1회) 
         if (Input.GetKeyDown(KeyCode.A))
         {
+
             EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
             mv.OnPressColor(opposite);
         }

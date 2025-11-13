@@ -6,7 +6,7 @@ public class Define
 {
     public static float PLAYER_JUMPFORCE = 26.6581f;
     public static float[] SPEED_VALUE = { 8.6f, 10.4f, 12.96f, 15.6f, 19.27f };
-    public static int[] SCREEN_HEIGHT_VALUES = { 11, 10, 8, 10, 10, 9 };  //11 = Cude, 10 = Ship, 8 = Ball, 10 = UFO, 10 = Wave, 9 = Spider
+    public static int[] SCREEN_HEIGHT_VALUES = { 11, 10, 8, 10, 10, 9, 11 };  //11 = Cude, 10 = Ship, 8 = Ball, 10 = UFO, 10 = Wave, 9 = Spider
 
     [System.Serializable]
     public class MapObject
@@ -82,6 +82,7 @@ public class Define
         UFO,
         Wave,
         Spider,
+        Center,
     }
 
     public enum EGravity

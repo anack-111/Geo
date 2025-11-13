@@ -9,8 +9,8 @@ public class GameManager
 {
     //일단 이렇게
     public string _musicName;
-    
 
+    public int _soundIdx = 0;
     public bool _isPlay = true;
 
     public Action<int> OnCoinChanged;

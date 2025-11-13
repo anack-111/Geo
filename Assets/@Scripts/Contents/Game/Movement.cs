@@ -57,6 +57,7 @@ public class Movement : MonoBehaviour
             { EGameMode.UFO, UFO },
             { EGameMode.Wave, Wave },
             { EGameMode.Spider, Spider },
+             { EGameMode.Center, Center },
         };
     }
 
@@ -124,7 +125,11 @@ public class Movement : MonoBehaviour
 
     // ---------------- Cube ----------------
     void Cube() => Util.CreateGamemode(_rb, this, true, 18f, 9.057f, true, false, 409.1f);
-
+    void Center()
+    {
+        // 큐브와 유사: 지면에서 점프, 이동은 자동
+        Util.CreateGamemode(_rb, this, true, 18f, 9.057f, true, false, 409.1f);
+    }
     void Ship()
     {
         _sprite.rotation = Quaternion.Euler(0, 0, _rb.velocity.y * 2);
@@ -443,6 +448,5 @@ public class Movement : MonoBehaviour
         // 파티클 / 화면 틸트
         if (_LineParticle) _LineParticle.Play();
     }
-
 
 }
