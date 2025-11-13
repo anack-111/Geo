@@ -377,13 +377,33 @@ public class Movement : MonoBehaviour
 
 
     public bool isButtonFlipping = false; // 버튼 클릭 중인지 체크하는 플래그
-    public void OnPressColor(EZoneColor color)
+    public void OnPressFlip(EZoneColor color)
     {
+
+        if (_currentGameMode == EGameMode.UFO)
+        {
+            if (color == _currentZone)
+            {
+                // 같은 색 -> 점프(플랩)
+                UFOFlap();
+            }
+            else
+            {
+                // 반대 색 -> 중력만 토글 (스파이더 플립 금지)
+                _currentZone = (_currentZone == EZoneColor.Blue) ? EZoneColor.Red : EZoneColor.Blue;
+                ToggleGravityNoImpulse();
+            }
+            return;
+        }
+
+
+
         if (color == _currentZone)
         {
             // 같은 색이면 점프
             DoJump();
         }
+        //플립할때
         else
         {
             // 다른 색이면 Spider처럼 반전 이동
@@ -447,6 +467,25 @@ public class Movement : MonoBehaviour
 
         // 파티클 / 화면 틸트
         if (_LineParticle) _LineParticle.Play();
+    }
+
+
+    void UFOFlap()
+    {
+        // 네 프로젝트에 쓰는 UFO 상승값으로 맞춰줘 (예시 10.841f)
+        var v = _rb.velocity;
+        v.y = 10.841f * _gravity;
+        _rb.velocity = v;
+        _jumpEffect?.Play();
+    }
+
+    void ToggleGravityNoImpulse()
+    {
+        // 속도 주입 없이 중력/스프라이트/카메라만 반전
+        _gravity *= -1;
+        _rb.gravityScale = Mathf.Abs(_rb.gravityScale) * _gravity;
+        _sprite.GetComponent<SpriteRenderer>().flipY = _gravity != 1;
+        Camera.main.GetComponent<FollowPlayer>()?.DoGravityTilt(_gravity);
     }
 
 }

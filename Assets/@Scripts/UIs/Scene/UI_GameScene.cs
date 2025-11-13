@@ -48,7 +48,7 @@ public class UI_GameScene : UI_Scene
         BindImage(typeof(Images));
 
         // -------- Blue 버튼: 점프 전용 (Pressed = 홀드 반복 점프) --------
-        BindEvent(GetButton((int)Buttons.JumpButton).gameObject, OnBlueJumpPressed, null, Define.EUIEvent.Pressed);
+        BindEvent(GetButton((int)Buttons.JumpButton).gameObject, OnJumpPressed, null, Define.EUIEvent.Pressed);
 
         // -------- Red 버튼: 뒤집기 전용 (PointerDown = 1회만 실행) --------
         BindEvent(GetButton((int)Buttons.FlipButton).gameObject, OnFlipDown, null, Define.EUIEvent.PointerDown);
@@ -59,7 +59,7 @@ public class UI_GameScene : UI_Scene
 
 
     // ===== 버튼 콜백 =====
-    private void OnBlueJumpPressed()
+    private void OnJumpPressed()
     {
         var mv = FindAnyObjectByType<Movement>();
        // var mv = Managers.Object.Player.GetComponent<Movement>();
@@ -68,7 +68,7 @@ public class UI_GameScene : UI_Scene
 
         // 현재 존과 같은 색을 넣으면 Movement.OnPressColor 내부에서 '점프' 경로로 탑승
         EZoneColor current = mv._currentZone;
-        mv.OnPressColor(current);
+        mv.OnPressFlip(current);
     }
 
     private void OnFlipDown()
@@ -80,7 +80,7 @@ public class UI_GameScene : UI_Scene
             return;
         // 반대 색을 넣어 OnPressColor가 스파이더 플립 경로로 가도록
         EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
-        mv.OnPressColor(opposite);
+        mv.OnPressFlip(opposite);
     }
 
     private void Update()
@@ -98,14 +98,14 @@ public class UI_GameScene : UI_Scene
         {
 
             EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
-            mv.OnPressColor(opposite);
+            mv.OnPressFlip(opposite);
         }
 
         // ' (apostrophe) 또는 L -> Jump(홀드로 반복)
         bool jumpHeld = Input.GetKey(KeyCode.Quote) ||  Input.GetKey(KeyCode.L);
         if (jumpHeld)
         {
-            mv.OnPressColor(mv._currentZone);
+            mv.OnPressFlip(mv._currentZone);
         }
 
         // (옵션) 키보드로 Blue 버튼 눌림 비주얼 흉내
