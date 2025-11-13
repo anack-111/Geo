@@ -16,13 +16,10 @@ public class FollowPlayer : MonoBehaviour
 
     [Header("Background Layer 설정")]
     public Transform _background;   // 구름 앞 배경
-    public Transform _img1;   // 구름 앞 배경
-    public Transform _img2;   // 구름 뒤 배경
+
 
 
     public float background = 0.5f;      // 구름 배경 이동 속도 (느림)
-    public float _img1Speed = 0.5f;      // 구름 배경 이동 속도 (느림)
-    public float _img2Speed = 0.5f;      // 구름 배경 이동 속도 (느림)
 
 
     public Movement _movement;
@@ -50,9 +47,6 @@ public class FollowPlayer : MonoBehaviour
 
         //// 배경을 각각 다르게 이동
         MoveBackground(_background, background);
-        MoveBackground(_img1, _img1Speed);
-        MoveBackground(_img2, _img2Speed);
-
         transform.position = newVector;
         firstFrame = false;
     }

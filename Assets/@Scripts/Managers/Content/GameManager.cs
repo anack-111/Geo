@@ -43,7 +43,7 @@ public class GameManager
     public void Init()
     {
         _mainCam = Camera.main;
-        OnModeChanged += HandleCameraZoom;
+        //OnModeChanged += HandleCameraZoom;
         _isPlay = true;
         Coin = 0;
     }

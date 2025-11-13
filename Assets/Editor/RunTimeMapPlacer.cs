@@ -97,7 +97,7 @@ public class RunTimeMapPlacer : EditorWindow
         }
 
         // pos는 editor.selectedNoteX와 -2.3f로 설정
-        Vector3 pos = new Vector3(editor.selectedNoteX, -2.65f, 0); // 원하는 위치에 프리팹 생성
+        Vector3 pos = new Vector3(editor.selectedNoteX, -2.8f, 0); // 원하는 위치에 프리팹 생성
         var instObj = (GameObject)PrefabUtility.InstantiatePrefab(prefab, SceneManager.GetActiveScene());
         Undo.RegisterCreatedObjectUndo(instObj, "Create Grid Item");
 

@@ -254,7 +254,6 @@ public class Movement : MonoBehaviour
     {
         Managers.Game.OnModeChanged?.Invoke(gameMode);
         ChangeAnim(gameMode);
-        Managers.Game.Flash();
 
         switch (State)
         {
