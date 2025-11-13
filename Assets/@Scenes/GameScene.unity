@@ -821,9 +821,10 @@ MonoBehaviour:
   _backgroundLight: {fileID: 1336575764}
   _shockWaveTime: 0.75
   _mtrl: {fileID: 2100000, guid: c5674915b2eb9594287d4199fc03b377, type: 2}
-  _tiltAngle: 3
+  _tiltAngle: 1
   _tiltUp: 0.08
-  _tiltReturn: 0.18
+  _tiltReturn: 0.12
+  _pressDistance: 0.1
 --- !u!114 &984885579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1699,7 +1700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1600754667
 Transform:
   m_ObjectHideFlags: 0
