@@ -2361,6 +2361,7 @@ MonoBehaviour:
   _groundCamera: {fileID: 0}
   _topGround: {fileID: 0}
   _backGround: {fileID: 0}
+  _bottomGround: {fileID: 0}
   _background: {fileID: 0}
   background: 0.5
   _movement: {fileID: 0}
@@ -4424,7 +4425,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5662893367374830393, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.23
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7457697466682233326, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

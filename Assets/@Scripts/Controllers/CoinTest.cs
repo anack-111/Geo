@@ -16,9 +16,13 @@ public class CoinTest : MonoBehaviour
         if (collision.CompareTag("Coin"))
         {
             _as.Play();
-
-
         }
+
+        if(collision.CompareTag("Portal"))
+        {
+            
+        }
+
     }
 
 }

@@ -61,6 +61,7 @@ public class UI_GameScene : UI_Scene
     // ===== 버튼 콜백 =====
     private void OnJumpPressed()
     {
+     
         var mv = FindAnyObjectByType<Movement>();
        // var mv = Managers.Object.Player.GetComponent<Movement>();
         if (!mv)
@@ -73,7 +74,8 @@ public class UI_GameScene : UI_Scene
 
     private void OnFlipDown()
     {
-       // var mv = Managers.Object.Player.GetComponent<Movement>();
+        //Managers.Sound.Play(ESound.Effect, "1Sound");
+        // var mv = Managers.Object.Player.GetComponent<Movement>();
 
         var mv = FindAnyObjectByType<Movement>();
         if (!mv)
@@ -96,7 +98,7 @@ public class UI_GameScene : UI_Scene
         // A -> Flip(1회) 
         if (Input.GetKeyDown(KeyCode.A))
         {
-
+            Managers.Sound.Play(ESound.Effect, "0Sound");
             EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
             mv.OnPressFlip(opposite);
         }

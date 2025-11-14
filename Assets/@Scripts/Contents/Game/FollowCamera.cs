@@ -13,6 +13,7 @@ public class FollowPlayer : MonoBehaviour
     public Transform _groundCamera;
     public Transform _topGround;
     public Transform _backGround;
+    public Transform _bottomGround;
 
     [Header("Background Layer 설정")]
     public Transform _background;   // 구름 앞 배경
@@ -42,7 +43,7 @@ public class FollowPlayer : MonoBehaviour
         //if (Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode] > 10)
         //    FreeCam(firstFrame);
         //else
-            StaticCam(firstFrame, _movement._yLastPortal, Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode]);
+        StaticCam(firstFrame, _movement._yLastPortal, Define.SCREEN_HEIGHT_VALUES[(int)_movement._currentGameMode]);
 
         //// 배경을 각각 다르게 이동
         MoveBackground(_background, background);
@@ -90,10 +91,7 @@ public class FollowPlayer : MonoBehaviour
     void StaticCam(bool doInstantly, float yLastPortal, int screenHeight)
     {
 
-        _topGround.gameObject.SetActive(true);
-
         _groundCamera.position = InterpolateVec3(new Vector3(0, _groundCamera.position.y), Vector3.up * Mathf.Clamp(yLastPortal - screenHeight * 0.5f, cameraOffset.y, float.MaxValue), 20) + Vector3.right * (Mathf.Floor(_player.transform.position.x / 5) * 5);
-        _topGround.localPosition = InterpolateVec3(_topGround.localPosition, Vector3.up * (4f + screenHeight), 30);
 
         if (!doInstantly)
             newVector += Vector3.up * (5 + Mathf.Clamp(yLastPortal - screenHeight * 0.5f, cameraOffset.y, 2048) - newVector.y - ((11 - screenHeight) * 0.5f)) * Time.deltaTime / interpolationTime;
@@ -116,6 +114,7 @@ public class FollowPlayer : MonoBehaviour
     {
         _shockWaveCoroutine = StartCoroutine(ShockWaveAction(-0.1f, 1f));
     }
+
     private IEnumerator ShockWaveAction(float startPos, float endPos)
     {
         _backgroundLight.SetActive(true);
@@ -133,12 +132,25 @@ public class FollowPlayer : MonoBehaviour
             lerpedAmount = Mathf.Lerp(startPos, endPos, (elapsedTime / _shockWaveTime));
             _mtrl.SetFloat(_waveDistanceFromCenter, lerpedAmount);
 
-
             yield return null;
         }
-        _backgroundLight.SetActive(false);
+        //  _backgroundLight.SetActive(false);
 
     }
+
+
+    public void HandleBackgroundSizeChange(float targetSize)
+    {
+        // Adjust background based on camera size
+        float targetTop = targetSize >= 7f ? 11.5f : 11f;
+        float targetBottom = targetSize >= 7f ? -2.5f : -1f;
+
+        // Smooth background transition based on camera size change
+        _topGround.localPosition = Vector3.Lerp(_topGround.localPosition, new Vector3(_topGround.localPosition.x, targetTop, _topGround.localPosition.z), 0.1f);
+        _bottomGround.localPosition = Vector3.Lerp(_bottomGround.localPosition, new Vector3(_bottomGround.localPosition.x, targetBottom, _bottomGround.localPosition.z), 0.1f);
+    }
+
+
     // ▼ Gravity 틸트용
     [Header("Gravity Tilt")]
     [SerializeField] float _tiltAngle = 2f;     // 기울기 크기(+/-Z)

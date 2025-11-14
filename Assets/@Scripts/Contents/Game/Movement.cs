@@ -380,6 +380,7 @@ public class Movement : MonoBehaviour
     public void OnPressFlip(EZoneColor color)
     {
 
+
         if (_currentGameMode == EGameMode.UFO)
         {
             if (color == _currentZone)

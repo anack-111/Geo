@@ -675,7 +675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 858108434463729965, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4780406048931965247, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -887,6 +887,7 @@ MonoBehaviour:
   _groundCamera: {fileID: 1693097920}
   _topGround: {fileID: 143235354}
   _backGround: {fileID: 1200787090}
+  _bottomGround: {fileID: 1789055092787749327}
   _background: {fileID: 1353227435}
   background: 0
   _movement: {fileID: 1081550856}
@@ -1062,6 +1063,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_UFO
       objectReference: {fileID: 0}
+    - target: {fileID: 6149996445282439814, guid: 119bfb3db7815dd4aa4f48b22762451e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1093,35 +1098,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3327687271736136142, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3327687271736136142, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3327687271736136142, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 230
       objectReference: {fileID: 0}
     - target: {fileID: 3327687271736136142, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -98.66797
       objectReference: {fileID: 0}
     - target: {fileID: 6326104556706875907, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6326104556706875907, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6326104556706875907, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1690
       objectReference: {fileID: 0}
     - target: {fileID: 6326104556706875907, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -98.66797
       objectReference: {fileID: 0}
     - target: {fileID: 8686702022408552290, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_Pivot.x
@@ -1209,7 +1214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8860733157707404058, guid: 42187aeb295d4cb4c89286f65f3345d5, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1559,6 +1564,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background
       objectReference: {fileID: 0}
+    - target: {fileID: 2755676289200000929, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4749858607449254099, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.8
@@ -1711,6 +1720,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
+--- !u!4 &1789055092787749327 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2355612695850793108, guid: afba79084f93dda4eb96600bbe0a78d8, type: 3}
+  m_PrefabInstance: {fileID: 1789055092787749326}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

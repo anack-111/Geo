@@ -43,7 +43,7 @@ public class GameManager
     public void Init()
     {
         _mainCam = Camera.main;
-        //OnModeChanged += HandleCameraZoom;
+        OnModeChanged += HandleCameraZoom;
         _isPlay = true;
         Coin = 0;
     }
@@ -76,7 +76,7 @@ public class GameManager
         if (_mainCam == null)
             return;
 
-        float targetSize = Define.SCREEN_HEIGHT_VALUES[(int)mode] > 10 ? 5f : 6.5f;
+        float targetSize = Define.SCREEN_HEIGHT_VALUES[(int)mode] > 10 ? 6f : 7f;
 
         if (Mathf.Abs(_mainCam.orthographicSize - targetSize) < 0.01f)
             return;
@@ -85,11 +85,12 @@ public class GameManager
 
         _camSeq?.Kill();
         _camSeq = DOTween.Sequence()
-            .Append(_mainCam.DOOrthoSize(targetSize, 0.4f).SetEase(Ease.OutQuad));
+            .Append(_mainCam.DOOrthoSize(targetSize, 0.4f).SetEase(Ease.OutQuad))
+             .OnUpdate(() => _mainCam.GetComponent<FollowPlayer>().HandleBackgroundSizeChange(targetSize));
     }
 
-    
-   
+
+
 
 
 }
