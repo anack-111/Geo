@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: a344eedcc9edff542bcfc5c128a4e457
   m_SerializeEntries:
   - m_GUID: 4f1a5f286095af8459df5453baa8a4d5
-    m_Address: Tick_Map
+    m_Address: Tick_Map1
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -49,6 +49,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c5734c76431e25b4f9a8e3ea10bd5a86
     m_Address: DuDuDu_Map
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de3328f3359491447b5e60bf02bf9413
+    m_Address: Tick_Map
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad

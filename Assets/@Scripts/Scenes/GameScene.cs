@@ -29,6 +29,7 @@ public class GameScene : BaseScene
 
         _playerCamera.Init();
         Managers.Game.Init();
+
     }
 
     protected override void Init()
@@ -36,11 +37,9 @@ public class GameScene : BaseScene
         base.Init();
         SceneType = Define.EScene.GameScene;
         UI_GameScene gameScene = Managers.UI.ShowSceneUI<UI_GameScene>();
-        gameScene.UpdateCoinText(Managers.Game.Coin);
+        gameScene.UpdateComboText(Managers.Game.Combo);
         Managers.Game._globalSprite = _playerCamera._globalSprite;
         Managers.UI.ShowPopupUI<UI_God>();
-
-
     }
 
 

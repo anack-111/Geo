@@ -22,13 +22,13 @@ public class BeatController : MonoBehaviour
 
     private void OnEnable()
     {
-        Managers.Game.OnCoinChanged += Pulse;
+        Managers.Game.OnComboChanged += Pulse;
     }
 
 
     private void OnDisable()
     {
-        Managers.Game.OnCoinChanged -= Pulse;
+        Managers.Game.OnComboChanged -= Pulse;
     }
 
     // 외부에서 이벤트 오면 이 함수만 호출하면 됨

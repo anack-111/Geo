@@ -60,7 +60,8 @@ public class Define
         Line,
         Spike_F,
         Line_Short,
-        LightTrigger
+        LightTrigger,
+        RythmBlock,
 
     }
 

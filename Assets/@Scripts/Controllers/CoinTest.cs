@@ -18,10 +18,10 @@ public class CoinTest : MonoBehaviour
             _as.Play();
         }
 
-        if(collision.CompareTag("Portal"))
-        {
+        //if(collision.CompareTag("Portal"))
+        //{
             
-        }
+        //}
 
     }
 

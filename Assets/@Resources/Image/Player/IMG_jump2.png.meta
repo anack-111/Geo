@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a815942e0b768644bc6d2f9a1d0489c
+guid: 4c32bf661221d4442bded419ea700f9d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rhythm11042-Sheet_0
+      name: IMG_jump2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,41 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 485aa591f1fc3ef40972c335c46bd044
-      internalID: -585676161
+      spriteID: 55f484a20fa27c944a149fa568b2d722
+      internalID: -418905613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rhythm11042-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21ea234d12da20042b29950356ec2ecb
-      internalID: 322661308
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rhythm11042-Sheet_2
+      name: IMG_jump2_1
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +145,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29c72cd89d0e9d64e84383a29a3a7913
-      internalID: 1156971116
+      spriteID: c940053fdf07efc4498b33541fd662ab
+      internalID: 1809220420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_jump2_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a94a4b99331750408a79961889df5e8
+      internalID: -622464887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_jump2_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df80ed7186f8ab1428853895354126ab
+      internalID: -595466592
       vertices: []
       indices: 
       edges: []
@@ -183,9 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rhythm11042-Sheet_0: -585676161
-      rhythm11042-Sheet_1: 322661308
-      rhythm11042-Sheet_2: 1156971116
+      IMG_jump2_0: -418905613
+      IMG_jump2_1: 1809220420
+      IMG_jump2_2: -622464887
+      IMG_jump2_3: -595466592
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

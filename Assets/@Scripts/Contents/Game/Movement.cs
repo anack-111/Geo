@@ -383,12 +383,6 @@ public class Movement : MonoBehaviour
 
         if (_currentGameMode == EGameMode.UFO)
         {
-            if (color == _currentZone)
-            {
-                // 같은 색 -> 점프(플랩)
-                UFOFlap();
-            }
-            else
             {
                 // 반대 색 -> 중력만 토글 (스파이더 플립 금지)
                 _currentZone = (_currentZone == EZoneColor.Blue) ? EZoneColor.Red : EZoneColor.Blue;
@@ -397,29 +391,23 @@ public class Movement : MonoBehaviour
             return;
         }
 
-
-
-        if (color == _currentZone)
-        {
-            // 같은 색이면 점프
-            DoJump();
-        }
-        //플립할때
-        else
-        {
-            // 다른 색이면 Spider처럼 반전 이동
-            isButtonFlipping = true;
-            DoSpiderFlip();
-        }
+  
+         // 다른 색이면 Spider처럼 반전 이동
+         isButtonFlipping = true;
+         DoSpiderFlip();
+        
     }
 
 
-    void DoJump()
+    public void DoJump()
     {
         if (OnGround())
         {
             _rb.velocity = new Vector2(_rb.velocity.x, 18f * _gravity);
-            if (_jumpEffect) _jumpEffect.Play();
+            if (_jumpEffect)
+                _jumpEffect.Play();
+
+           Managers.Sound.Play(ESound.Effect, "0Sound");
         }
     }
 

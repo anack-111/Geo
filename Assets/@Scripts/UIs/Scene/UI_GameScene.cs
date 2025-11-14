@@ -13,7 +13,7 @@ public class UI_GameScene : UI_Scene
     #region Enum
     enum GameObjects { /* 필요에 따라 객체 추가 */ }
     enum Buttons { JumpButton, FlipButton }
-    enum Texts { CoinText }
+    enum Texts { ComboText }
     enum Images { /* 필요에 따라 이미지 추가 */ }
     #endregion
 
@@ -24,17 +24,17 @@ public class UI_GameScene : UI_Scene
 
     void OnEnable()
     {
-        Managers.Game.OnCoinChanged += UpdateCoinText;
+        Managers.Game.OnComboChanged += UpdateComboText;
     }
 
     void OnDisable()
     {
-        Managers.Game.OnCoinChanged -= UpdateCoinText;
+        Managers.Game.OnComboChanged -= UpdateComboText;
     }
 
-    public void UpdateCoinText(int coin)
+    public void UpdateComboText(int coin)
     {
-        GetText((int)Texts.CoinText).text = coin.ToString();
+        GetText((int)Texts.ComboText).text = coin.ToString();
     }
 
     public override bool Init()
@@ -52,8 +52,6 @@ public class UI_GameScene : UI_Scene
 
         // -------- Red 버튼: 뒤집기 전용 (PointerDown = 1회만 실행) --------
         BindEvent(GetButton((int)Buttons.FlipButton).gameObject, OnFlipDown, null, Define.EUIEvent.PointerDown);
-
-
         return true;
     }
 
@@ -69,12 +67,16 @@ public class UI_GameScene : UI_Scene
 
         // 현재 존과 같은 색을 넣으면 Movement.OnPressColor 내부에서 '점프' 경로로 탑승
         EZoneColor current = mv._currentZone;
-        mv.OnPressFlip(current);
+
+
+   
+           
+        mv.DoJump();
     }
 
     private void OnFlipDown()
     {
-        //Managers.Sound.Play(ESound.Effect, "1Sound");
+        Managers.Sound.Play(ESound.Effect, "0Sound");
         // var mv = Managers.Object.Player.GetComponent<Movement>();
 
         var mv = FindAnyObjectByType<Movement>();
@@ -98,7 +100,7 @@ public class UI_GameScene : UI_Scene
         // A -> Flip(1회) 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Managers.Sound.Play(ESound.Effect, "0Sound");
+            Managers.Sound.Play(ESound.Effect, "1Sound");
             EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
             mv.OnPressFlip(opposite);
         }
@@ -107,7 +109,7 @@ public class UI_GameScene : UI_Scene
         bool jumpHeld = Input.GetKey(KeyCode.Quote) ||  Input.GetKey(KeyCode.L);
         if (jumpHeld)
         {
-            mv.OnPressFlip(mv._currentZone);
+            mv.DoJump();
         }
 
         // (옵션) 키보드로 Blue 버튼 눌림 비주얼 흉내

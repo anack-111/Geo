@@ -13,19 +13,21 @@ public class GameManager
     public int _soundIdx = 0;
     public bool _isPlay = true;
 
-    public Action<int> OnCoinChanged;
+    public Action<int> OnComboChanged;
     public Action<EGameMode> OnModeChanged;
+
+
     // 내부 필드 + 프로퍼티
-    private int _coin = 0;
-    public int Coin
+    int _combo = 0;
+    public int Combo
     {
-        get => _coin;
+        get => _combo;
         private set
         {
-            if (_coin == value)
+            if (_combo == value)
                 return;     // 동일값이면 무시(옵션)
-            _coin = value;
-            OnCoinChanged?.Invoke(_coin);   // 구독자들에게 알림
+            _combo = value;
+            OnComboChanged?.Invoke(_combo);   // 구독자들에게 알림
         }
     }
 
@@ -35,9 +37,9 @@ public class GameManager
         _isPlay = false;
     }
 
-    public void CoinAdd(int value)
+    public void ComboAdd(int value)
     {
-        Coin += value;
+        Combo = _combo + value;
     }
 
     public void Init()
@@ -45,7 +47,7 @@ public class GameManager
         _mainCam = Camera.main;
         OnModeChanged += HandleCameraZoom;
         _isPlay = true;
-        Coin = 0;
+        Combo = 0;
     }
 
     Sequence seq;

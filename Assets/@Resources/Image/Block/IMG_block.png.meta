@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 952bf72783b0c8946a541ff82bf02245
+guid: 8b65f6c5383703a46a08816d8cd31d97
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_Sheet_0
+      name: IMG_block_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccb16bc28ace97147b12f1fac2ebcffd
-      internalID: 41821467
+      spriteID: 7f85785e5a1717c44b4144fcad9a937f
+      internalID: -1407503584
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: IMG_Sheet_1
+      name: IMG_block_1
       rect:
         serializedVersion: 2
         x: 64
@@ -145,8 +145,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e53e8a131475574cafb3072c344742e
-      internalID: -1815796339
+      spriteID: 9382ebda464042140bedf397b86e56dd
+      internalID: 472566546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_block_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a46ab389ec8e3f4dae5baf0bd5e91b7
+      internalID: -1236898844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_block_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c9a9b89918ada646bccc2fb42755b19
+      internalID: -642621901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IMG_block_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e48cb3812c3b4254594b235d390a804a
+      internalID: -1697512850
       vertices: []
       indices: 
       edges: []
@@ -162,8 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      IMG_Sheet_0: 41821467
-      IMG_Sheet_1: -1815796339
+      IMG_block_0: -1407503584
+      IMG_block_1: 472566546
+      IMG_block_2: -1236898844
+      IMG_block_3: -642621901
+      IMG_block_4: -1697512850
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

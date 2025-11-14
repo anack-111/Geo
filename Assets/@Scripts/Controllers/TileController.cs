@@ -22,7 +22,7 @@ public class TileController : BaseController
 
     void OnEnable()
     {
-        //Managers.Game.OnCoinChanged += BlinkOnce;
+        Managers.Game.OnComboChanged += BlinkOnce;
     }
     void OnDisable() => _tw?.Kill();
     bool IsVisible()
@@ -36,6 +36,7 @@ public class TileController : BaseController
         if (collision.gameObject.CompareTag("Player"))
         {
             BlinkOnce(0);
+            //Managers.Sound.Play(ESound.Effect, "0Sound");
         }
     }
 

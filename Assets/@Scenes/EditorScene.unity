@@ -3281,7 +3281,7 @@ MonoBehaviour:
   player: {fileID: 4780406049320974436}
   mapParent: {fileID: 1165081308}
   midiCsvFile: {fileID: 4900000, guid: b4ee58ad953178b4e9408bdd8a7ae19e, type: 3}
-  mapCsvFile: {fileID: 4900000, guid: 4f1a5f286095af8459df5453baa8a4d5, type: 3}
+  mapCsvFile: {fileID: 4900000, guid: de3328f3359491447b5e60bf02bf9413, type: 3}
   musicMapName: Tick
   playerSpeed: 10.4
   prefabManager: {fileID: 0}
