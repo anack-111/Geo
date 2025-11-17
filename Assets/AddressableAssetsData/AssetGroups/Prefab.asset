@@ -53,6 +53,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cde5147c1bc9f64280b9ae2a9b214a3
+    m_Address: ClearObject
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2ce6a586140a62644815a11e0d8bdb42
     m_Address: Coin
     m_ReadOnly: 0
