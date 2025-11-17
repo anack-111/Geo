@@ -50,8 +50,10 @@ public class UI_PasePopup : UI_Popup
 
     private void OnClickPlayButton()
     {
-        // 필요시 닫기 연출 추가 가능
-        // Time.timeScale = 1f; 등
+        if (Managers.UI.SceneUI is UI_GameScene)
+            (Managers.UI.SceneUI as UI_GameScene).RestartGame();
+
+        gameObject.SetActive(false);
     }
 
     private void OnClickRestratButton()

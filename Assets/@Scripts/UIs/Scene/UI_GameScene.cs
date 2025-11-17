@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using static Define;
+using System.Collections;
 
 public class UI_GameScene : UI_Scene
 {
@@ -18,7 +19,11 @@ public class UI_GameScene : UI_Scene
         FlipButton ,
         PauseButton
     }
-    enum Texts { ComboText }
+    enum Texts 
+    {   
+        ComboText,
+        CountText
+    }
     enum Images { /* 필요에 따라 이미지 추가 */ }
     #endregion
 
@@ -52,6 +57,8 @@ public class UI_GameScene : UI_Scene
 
         _pausePopup.gameObject.SetActive(false);
 
+
+
         // -------- Blue 버튼: 점프 전용 (Pressed = 홀드 반복 점프) --------
         BindEvent(GetButton((int)Buttons.JumpButton).gameObject, OnJumpPressed, null, Define.EUIEvent.Pressed);
 
@@ -61,12 +68,15 @@ public class UI_GameScene : UI_Scene
 
         GetButton((int)Buttons.PauseButton).gameObject.BindEvent(OnClickPaseButton);
 
+        GetText((int)Texts.CountText).gameObject.SetActive(false);
+
         return true;
     }
 
     private void OnClickPaseButton()
     {
         Time.timeScale = 0;
+        AudioListener.pause = true;
         _pausePopup.gameObject.SetActive(true);
     }
 
@@ -139,6 +149,55 @@ public class UI_GameScene : UI_Scene
             SimulatePress(GetButton((int)Buttons.JumpButton), true);
         if (Input.GetKeyUp(KeyCode.Quote) || Input.GetKeyUp(KeyCode.L))
             SimulatePress(GetButton((int)Buttons.JumpButton), false);
+    }
+
+
+    public void RestartGame()
+    {
+        StartCoroutine(CoRestartCountdown());
+    }
+    private IEnumerator CoRestartCountdown()
+    {
+
+
+        GetText((int)Texts.CountText).gameObject.SetActive(true);
+
+        // 3-2-1
+        for (int n = 3; n >= 1; n--)
+        {
+            GetText((int)Texts.CountText).text = n.ToString();
+
+            // 살짝 커지는 연출 (언스케일드 업데이트)
+            GetText((int)Texts.CountText).rectTransform.localScale = Vector3.one;
+            GetText((int)Texts.CountText).rectTransform
+                .DOScale(1.25f, 0.18f)
+                .SetEase(Ease.OutBack)
+                .SetUpdate(true);
+
+            // 효과음 쓰면 여기에
+            // Managers.Sound.Play(ESound.Effect, "beep");
+
+            yield return new WaitForSecondsRealtime(0.82f);
+        }
+
+        // GO!
+        GetText((int)Texts.CountText).text = "GO!";
+        GetText((int)Texts.CountText).rectTransform.localScale = Vector3.one * 0.9f;
+        GetText((int)Texts.CountText).rectTransform
+            .DOScale(1.35f, 0.2f)
+            .SetEase(Ease.OutBack)
+            .SetUpdate(true);
+
+        // Managers.Sound.Play(ESound.Effect, "go");
+
+        yield return new WaitForSecondsRealtime(0.35f);
+
+        // 로딩 직전 숨김
+        GetText((int)Texts.CountText).gameObject.SetActive(false);
+
+        // 재생속도 원복 후 씬 리로드
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
     }
 
     // (옵션) 키보드로도 버튼 '눌림' 상태 연출
