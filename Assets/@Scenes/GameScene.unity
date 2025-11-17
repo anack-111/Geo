@@ -802,19 +802,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 469694045710729927, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 858108434463729965, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 858108434463729965, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4485430310878868198, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -856,10 +848,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4780406048931965247, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8206351473219341183, guid: b36c22042866a8246a4d6f6d2d30f05b, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

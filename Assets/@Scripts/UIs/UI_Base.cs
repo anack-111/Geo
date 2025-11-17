@@ -1,4 +1,5 @@
 //using DG.Tweening;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -111,7 +112,7 @@ public abstract class UI_Base : MonoBehaviour
     public void PopupOpenAnimation(GameObject contentObject) // ÆË¾÷ ¿ÀÇÂ ¿¬Ãâ
     {
         contentObject.transform.localScale = new Vector3(0.8f, 0.8f, 1);
-        //contentObject.transform.DOScale(1f, 0.1f).SetEase(Ease.InOutBack).SetUpdate(true);
+        contentObject.transform.DOScale(1f, 0.1f).SetEase(Ease.InOutBack).SetUpdate(true);
     }
 
 }

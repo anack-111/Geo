@@ -16,7 +16,7 @@ public class UI_God : UI_Popup
     enum Buttons
     {
         GodModeButton,
-        LobbyButton
+ 
     }
     enum Texts
     {
@@ -43,17 +43,11 @@ public class UI_God : UI_Popup
 
         #endregion
         GetButton((int)Buttons.GodModeButton).gameObject.BindEvent(ToggleText);
-        GetButton((int)Buttons.LobbyButton).gameObject.BindEvent(OnClickStartButton);
 
 
         GetObject((int)GameObjects.GodOnText).SetActive(false);
 
         return true;
-    }
-
-    private void OnClickStartButton()
-    {
-        Managers.Scene.LoadScene(Define.EScene.LobbyScene);
     }
 
     private void Awake()

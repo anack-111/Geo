@@ -194,7 +194,8 @@ public class Movement : MonoBehaviour
         _linePressing = false;
         _isClickProcessed = true;
 
-        if (_jumpEffect) _jumpEffect.Play();
+        if (_jumpEffect)
+            _jumpEffect.Play();
     }
 
     // ---------------- 포인터 샘플링 ----------------
@@ -372,7 +373,7 @@ public class Movement : MonoBehaviour
 
     public void DoJump()
     {
-
+        _LineParticle.Stop();
         if (_currentGameMode == EGameMode.UFO)
         {
 
@@ -444,7 +445,8 @@ public class Movement : MonoBehaviour
         _sprite.GetComponent<SpriteRenderer>().flipY = _gravity != 1;
 
         // 파티클 / 화면 틸트
-        if (_LineParticle) _LineParticle.Play();
+        if (_LineParticle)
+            _LineParticle.Play();
     }
     void ToggleGravityNoImpulse()
     {

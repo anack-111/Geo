@@ -17,6 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b568d3bb2b04333469677b1c052a5b4f
   m_SerializeEntries:
+  - m_GUID: 3ef3131c758212047aa06b04683a18da
+    m_Address: UI_PasePopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 42187aeb295d4cb4c89286f65f3345d5
     m_Address: UI_GameScene
     m_ReadOnly: 0

@@ -9,10 +9,15 @@ using static Define;
 public class UI_GameScene : UI_Scene
 {
     UI_GameOver _gameOverPopupUI;
-
+    UI_PasePopup _pausePopup;
     #region Enum
     enum GameObjects { /* 필요에 따라 객체 추가 */ }
-    enum Buttons { JumpButton, FlipButton }
+    enum Buttons 
+    {
+        JumpButton,
+        FlipButton ,
+        PauseButton
+    }
     enum Texts { ComboText }
     enum Images { /* 필요에 따라 이미지 추가 */ }
     #endregion
@@ -43,12 +48,26 @@ public class UI_GameScene : UI_Scene
         BindText(typeof(Texts));
         BindImage(typeof(Images));
 
+        _pausePopup = Managers.UI.ShowPopupUI<UI_PasePopup>();
+
+        _pausePopup.gameObject.SetActive(false);
+
         // -------- Blue 버튼: 점프 전용 (Pressed = 홀드 반복 점프) --------
         BindEvent(GetButton((int)Buttons.JumpButton).gameObject, OnJumpPressed, null, Define.EUIEvent.Pressed);
 
         // -------- Red 버튼: 뒤집기 전용 (PointerDown = 1회만 실행) --------
         BindEvent(GetButton((int)Buttons.FlipButton).gameObject, OnFlipDown, null, Define.EUIEvent.PointerDown);
+
+
+        GetButton((int)Buttons.PauseButton).gameObject.BindEvent(OnClickPaseButton);
+
         return true;
+    }
+
+    private void OnClickPaseButton()
+    {
+        Time.timeScale = 0;
+        _pausePopup.gameObject.SetActive(true);
     }
 
 
