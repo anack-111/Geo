@@ -63,25 +63,6 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        //#if UNITY_EDITOR || UNITY_STANDALONE
-        //        _inputHeld = Input.GetMouseButton(0);
-        //        _inputPressed = Input.GetMouseButtonDown(0);
-        //        _inputReleased = Input.GetMouseButtonUp(0);
-        //#else
-        //        if (Input.touchCount > 0)
-        //        {
-        //            var t = Input.GetTouch(0);
-        //            _inputHeld = t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary;
-        //            _inputPressed = t.phase == TouchPhase.Began;
-        //            _inputReleased = t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled;
-        //        }
-        //        else
-        //        {
-        //            _inputHeld = false;
-        //            _inputPressed = false;
-        //            _inputReleased = false;
-        //        }
-        //#endif
     }
 
     private void FixedUpdate()
@@ -380,35 +361,43 @@ public class Movement : MonoBehaviour
     public void OnPressFlip(EZoneColor color)
     {
 
+        Managers.Game.ComboAdd(1);
 
-        if (_currentGameMode == EGameMode.UFO)
-        {
-            {
-                // 반대 색 -> 중력만 토글 (스파이더 플립 금지)
-                _currentZone = (_currentZone == EZoneColor.Blue) ? EZoneColor.Red : EZoneColor.Blue;
-                ToggleGravityNoImpulse();
-            }
-            return;
-        }
+        // 다른 색이면 Spider처럼 반전 이동
+        isButtonFlipping = true;
+        DoSpiderFlip();
 
-  
-         // 다른 색이면 Spider처럼 반전 이동
-         isButtonFlipping = true;
-         DoSpiderFlip();
-        
     }
 
 
     public void DoJump()
     {
+
+        if (_currentGameMode == EGameMode.UFO)
+        {
+
+            UFOJump();
+            return;
+        }
+
+
         if (OnGround())
         {
+            Managers.Sound.Play(ESound.Effect, "1Sound");
             _rb.velocity = new Vector2(_rb.velocity.x, 18f * _gravity);
             if (_jumpEffect)
                 _jumpEffect.Play();
-
-           Managers.Sound.Play(ESound.Effect, "0Sound");
         }
+    }
+
+    void UFOJump()
+    {
+
+        var v = _rb.velocity;
+        v.y = 10.841f * _gravity;  // UFO 점프 높이 (변경 가능)
+        _rb.velocity = v;
+        if (_jumpEffect) _jumpEffect.Play();  // 점프 효과
+
     }
 
     void DoSpiderFlip()
@@ -457,17 +446,6 @@ public class Movement : MonoBehaviour
         // 파티클 / 화면 틸트
         if (_LineParticle) _LineParticle.Play();
     }
-
-
-    void UFOFlap()
-    {
-        // 네 프로젝트에 쓰는 UFO 상승값으로 맞춰줘 (예시 10.841f)
-        var v = _rb.velocity;
-        v.y = 10.841f * _gravity;
-        _rb.velocity = v;
-        _jumpEffect?.Play();
-    }
-
     void ToggleGravityNoImpulse()
     {
         // 속도 주입 없이 중력/스프라이트/카메라만 반전

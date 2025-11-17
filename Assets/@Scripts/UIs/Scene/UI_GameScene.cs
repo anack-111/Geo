@@ -32,10 +32,6 @@ public class UI_GameScene : UI_Scene
         Managers.Game.OnComboChanged -= UpdateComboText;
     }
 
-    public void UpdateComboText(int coin)
-    {
-        GetText((int)Texts.ComboText).text = coin.ToString();
-    }
 
     public override bool Init()
     {
@@ -59,9 +55,9 @@ public class UI_GameScene : UI_Scene
     // ===== 버튼 콜백 =====
     private void OnJumpPressed()
     {
-     
+
         var mv = FindAnyObjectByType<Movement>();
-       // var mv = Managers.Object.Player.GetComponent<Movement>();
+        // var mv = Managers.Object.Player.GetComponent<Movement>();
         if (!mv)
             return;
 
@@ -69,15 +65,19 @@ public class UI_GameScene : UI_Scene
         EZoneColor current = mv._currentZone;
 
 
-   
-           
+
+
         mv.DoJump();
     }
 
     private void OnFlipDown()
     {
+        if (!Managers.Game._isFlip)
+            return;
+
+
         Managers.Sound.Play(ESound.Effect, "0Sound");
-        // var mv = Managers.Object.Player.GetComponent<Movement>();
+
 
         var mv = FindAnyObjectByType<Movement>();
         if (!mv)
@@ -90,32 +90,35 @@ public class UI_GameScene : UI_Scene
     private void Update()
     {
         //컴퓨터 test용
-        //var mv = Managers.Object.Player.GetComponent<Movement>();
-
         var mv = FindAnyObjectByType<Movement>();
 
-        if (!mv) return;
+        if (!mv)
+            return;
 
         // ===== 키보드 =====
         // A -> Flip(1회) 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
+            if (!Managers.Game._isFlip)
+                return;
+
+
             Managers.Sound.Play(ESound.Effect, "1Sound");
             EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
             mv.OnPressFlip(opposite);
         }
 
         // ' (apostrophe) 또는 L -> Jump(홀드로 반복)
-        bool jumpHeld = Input.GetKey(KeyCode.Quote) ||  Input.GetKey(KeyCode.L);
+        bool jumpHeld = Input.GetKey(KeyCode.Quote) || Input.GetKey(KeyCode.L);
         if (jumpHeld)
         {
             mv.DoJump();
         }
 
         // (옵션) 키보드로 Blue 버튼 눌림 비주얼 흉내
-        if (Input.GetKeyDown(KeyCode.Quote) ||  Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.Quote) || Input.GetKeyDown(KeyCode.L))
             SimulatePress(GetButton((int)Buttons.JumpButton), true);
-        if (Input.GetKeyUp(KeyCode.Quote) ||  Input.GetKeyUp(KeyCode.L))
+        if (Input.GetKeyUp(KeyCode.Quote) || Input.GetKeyUp(KeyCode.L))
             SimulatePress(GetButton((int)Buttons.JumpButton), false);
     }
 
@@ -129,4 +132,23 @@ public class UI_GameScene : UI_Scene
         else
             ExecuteEvents.Execute(btn.gameObject, data, ExecuteEvents.pointerUpHandler);
     }
+
+    public void UpdateComboText(int coin)
+    {
+        GetText((int)Texts.ComboText).text = coin.ToString();
+        AnimateComboText();
+    }
+
+    public float comboScaleFactor = 1.5f;  // 콤보 UI 커질 비율
+    public float animationDuration = 0.1f; // 애니메이션 지속 시간
+    private void AnimateComboText()
+    {
+        // 텍스트 크기를 커졌다가 원래 크기로 돌아가는 애니메이션
+        GetText((int)Texts.ComboText).gameObject.transform.DOScale(comboScaleFactor, animationDuration).OnKill(() =>
+        {
+            // 애니메이션이 끝난 후 원래 크기로 돌아가도록 설정
+            GetText((int)Texts.ComboText).gameObject.transform.DOScale(1f, animationDuration);
+        });
+    }
+
 }
