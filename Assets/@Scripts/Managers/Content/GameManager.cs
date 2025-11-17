@@ -19,7 +19,7 @@ public class GameManager
 
     public bool _isFlip = false;
 
-    public int TotalCoins;
+    public int TotalCoins = 100;
 
 
     // 내부 필드 + 프로퍼티
