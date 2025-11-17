@@ -25,9 +25,11 @@ public class GameScene : BaseScene
 
         // 이제 플레이 요소와 동시에 시작
         Managers.Sound.Play(Define.ESound.Bgm, Managers.Game._musicName);
+        PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0, -2.3f, 0));
 
         _playerCamera.Init();
         Managers.Game.Init();
+ 
 
     }
 
@@ -39,6 +41,8 @@ public class GameScene : BaseScene
         gameScene.UpdateComboText(Managers.Game.Combo);
         Managers.Game._globalSprite = _playerCamera._globalSprite;
         Managers.UI.ShowPopupUI<UI_God>();
+
+        
     }
 
 

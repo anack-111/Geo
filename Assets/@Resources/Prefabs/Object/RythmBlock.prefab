@@ -187,8 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _star: {fileID: 8938715338202584777}
-  comboScaleFactor: 1.2
-  animationDuration: 0.2
+  comboScaleFactor: 1.5
+  animationDuration: 0.1
 --- !u!1 &8938715338202584777
 GameObject:
   m_ObjectHideFlags: 0

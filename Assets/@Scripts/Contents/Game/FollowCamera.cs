@@ -15,6 +15,7 @@ public class FollowPlayer : MonoBehaviour
     public Transform _backGround;
     public Transform _bottomGround;
 
+
     [Header("Background Layer 설정")]
     public Transform _background;   // 구름 앞 배경
 
@@ -32,8 +33,8 @@ public class FollowPlayer : MonoBehaviour
 
     public void Init()
     {
-        //_player = Managers.Object.Player.gameObject.transform;
-        //_movement = Managers.Object.Player.GetComponent<Movement>();
+        _player = Managers.Object.Player.gameObject.transform;
+        _movement = Managers.Object.Player.GetComponent<Movement>();
     }
 
     void FixedUpdate()
