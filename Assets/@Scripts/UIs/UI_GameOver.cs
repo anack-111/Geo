@@ -67,6 +67,7 @@ public class UI_GameOver : UI_Popup
 
     private void OnEnable()
     {
+        AudioListener.pause = true;
         GetText((int)Texts.MatchCountText).text = Managers.Game.Combo.ToString();
 
         PopupOpenAnimation(GetObject((int)GameObjects.Content));
