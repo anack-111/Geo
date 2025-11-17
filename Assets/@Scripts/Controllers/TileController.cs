@@ -9,9 +9,9 @@ public class TileController : BaseController
     public ETileType TileType;
     public SpriteRenderer _beatSprite;
 
-    [Range(30, 300)]  float bpm = 120f;   // 분당 박자
-    [Range(0, 255)]  int minAlpha = 100;  //  0.392
-    [Range(0, 255)]  int maxAlpha = 255;  //  0.784
+    [Range(30, 300)] float bpm = 120f;   // 분당 박자
+    [Range(0, 255)] int minAlpha = 100;  //  0.392
+    [Range(0, 255)] int maxAlpha = 255;  //  0.784
 
     [Min(1)] public int beatsPerCycle = 1;
 
@@ -22,7 +22,7 @@ public class TileController : BaseController
 
     void OnEnable()
     {
-        Managers.Game.OnComboChanged += BlinkOnce;
+        //Managers.Game.OnComboChanged += BlinkOnce;
     }
     void OnDisable() => _tw?.Kill();
     bool IsVisible()

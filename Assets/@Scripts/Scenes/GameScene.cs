@@ -13,7 +13,7 @@ public class GameScene : BaseScene
 
     private void Awake()
     {
-        
+
         Init();
     }
 
@@ -25,7 +25,6 @@ public class GameScene : BaseScene
 
         // 이제 플레이 요소와 동시에 시작
         Managers.Sound.Play(Define.ESound.Bgm, Managers.Game._musicName);
-        PlayerController player = Managers.Object.Spawn<PlayerController>(new Vector3(0, -2.3f, 0));
 
         _playerCamera.Init();
         Managers.Game.Init();

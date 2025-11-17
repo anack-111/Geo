@@ -203,6 +203,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6783393015055443aca720be606d8e1
+    m_Address: FlipBlock
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fc6aa23fddd5b7548a58409a4f03fe9d
     m_Address: EndGate
     m_ReadOnly: 0

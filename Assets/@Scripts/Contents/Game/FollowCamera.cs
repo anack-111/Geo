@@ -32,8 +32,8 @@ public class FollowPlayer : MonoBehaviour
 
     public void Init()
     {
-        _player = Managers.Object.Player.gameObject.transform;
-        _movement = Managers.Object.Player.GetComponent<Movement>();
+        //_player = Managers.Object.Player.gameObject.transform;
+        //_movement = Managers.Object.Player.GetComponent<Movement>();
     }
 
     void FixedUpdate()

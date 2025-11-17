@@ -1,4 +1,5 @@
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ public class GameManager
     public Action<int> OnComboChanged;
     public Action<EGameMode> OnModeChanged;
 
+    public bool _isFlip = false;
 
     // 내부 필드 + 프로퍼티
     int _combo = 0;

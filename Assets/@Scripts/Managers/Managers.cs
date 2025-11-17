@@ -12,7 +12,7 @@ public class Managers : MonoBehaviour
     GameManager _game = new GameManager();
     ObjectManager _object = new ObjectManager();
 
-
+    
     public static GameManager Game { get { return Instance?._game; } }
     public static ObjectManager Object { get { return Instance?._object; } }
 
