@@ -19,6 +19,9 @@ public class GameManager
 
     public bool _isFlip = false;
 
+    public int TotalCoins;
+
+
     // 내부 필드 + 프로퍼티
     int _combo = 0;
     public int Combo

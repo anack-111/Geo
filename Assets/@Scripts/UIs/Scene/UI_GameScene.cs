@@ -10,7 +10,7 @@ using System.Collections;
 public class UI_GameScene : UI_Scene
 {
     UI_GameOver _gameOverPopupUI;
-    UI_PasePopup _pausePopup;
+    UI_PausePopup _pausePopup;
     #region Enum
     enum GameObjects { /* 필요에 따라 객체 추가 */ }
     enum Buttons 
@@ -53,7 +53,7 @@ public class UI_GameScene : UI_Scene
         BindText(typeof(Texts));
         BindImage(typeof(Images));
 
-        _pausePopup = Managers.UI.ShowPopupUI<UI_PasePopup>();
+        _pausePopup = Managers.UI.ShowPopupUI<UI_PausePopup>();
 
         _pausePopup.gameObject.SetActive(false);
 

@@ -19,7 +19,7 @@ public class FollowPlayer : MonoBehaviour
     [Header("Background Layer 설정")]
     public Transform _background;   // 구름 앞 배경
 
-
+    public GameObject _lenderCamera;
 
     public float background = 0.5f;      // 구름 배경 이동 속도 (느림)
 

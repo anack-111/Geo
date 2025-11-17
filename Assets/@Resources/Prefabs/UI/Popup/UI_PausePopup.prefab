@@ -960,7 +960,7 @@ GameObject:
   - component: {fileID: 9029504247180651877}
   - component: {fileID: 4366817914209040019}
   m_Layer: 5
-  m_Name: UI_PasePopup
+  m_Name: UI_PausePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

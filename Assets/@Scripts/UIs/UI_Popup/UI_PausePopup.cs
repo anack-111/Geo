@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening; // ¡Ú Ãß°¡
 using UnityEngine.UI;
 
-public class UI_PasePopup : UI_Popup
+public class UI_PausePopup : UI_Popup
 {
     #region Enum
     enum GameObjects { Background }
