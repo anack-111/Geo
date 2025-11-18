@@ -29,7 +29,7 @@ public class GameScene : BaseScene
 
         _playerCamera.Init();
         Managers.Game.Init();
- 
+        AudioListener.pause = false;
 
     }
 

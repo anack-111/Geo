@@ -12,11 +12,11 @@ public class UI_LobbyScene : UI_Scene
     }
     enum Buttons
     {
-        DuDuButton,
+        //DuDuButton,
         RudyButton,
-        TasteButton,
-        WouldYouButton,
-        TickButton
+        //TasteButton,
+        //WouldYouButton,
+        //TickButton
     }
 
     enum Texts
@@ -36,11 +36,11 @@ public class UI_LobbyScene : UI_Scene
         BindText(typeof(Texts));
 
 
-        GetButton((int)Buttons.DuDuButton).gameObject.BindEvent(() => OnClickStartButton("DuDuDu"));
+        //GetButton((int)Buttons.DuDuButton).gameObject.BindEvent(() => OnClickStartButton("DuDuDu"));
         GetButton((int)Buttons.RudyButton).gameObject.BindEvent(() => OnClickStartButton("RudyPop"));
-        GetButton((int)Buttons.TasteButton).gameObject.BindEvent(() => OnClickStartButton("마시따"));
-        GetButton((int)Buttons.WouldYouButton).gameObject.BindEvent(() => OnClickStartButton("WouldYou"));
-        GetButton((int)Buttons.TickButton).gameObject.BindEvent(() => OnClickStartButton("Tick"));
+        //GetButton((int)Buttons.TasteButton).gameObject.BindEvent(() => OnClickStartButton("마시따"));
+        //GetButton((int)Buttons.WouldYouButton).gameObject.BindEvent(() => OnClickStartButton("WouldYou"));
+       // GetButton((int)Buttons.TickButton).gameObject.BindEvent(() => OnClickStartButton("Tick"));
         return true;
     }
 

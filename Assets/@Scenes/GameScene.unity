@@ -346,7 +346,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 512
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: b3badd47fd3eb4342a36fcaa7d5ac693, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -945,7 +945,7 @@ MonoBehaviour:
   _backGround: {fileID: 1200787090}
   _bottomGround: {fileID: 1789055092787749327}
   _background: {fileID: 1353227435}
-  _lenderCamera: {fileID: 202950754}
+  _lenderCamera: {fileID: 202950758}
   background: 0
   _movement: {fileID: 1081550856}
   _globalSprite: {fileID: 1509472180}
@@ -1472,15 +1472,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6066725412903676383, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6066725412903676383, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6066725412903676383, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 9002862153359507763, guid: dd4eac43815ad3c40bf4418ddca192e0, type: 3}
       propertyPath: m_Size.x
