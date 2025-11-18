@@ -72,7 +72,7 @@ public class UI_GameOver : UI_Popup
 
         PopupOpenAnimation(GetObject((int)GameObjects.Content));
         // 네가 쓰는 다른 처리 유지
-        Camera.main.GetComponent<FollowPlayer>()._lenderCamera.SetActive(true);
+        Camera.main.GetComponent<FollowPlayer>()._lenderCamera.gameObject.SetActive(true);
 
         //  첫 활성화 시 원래 위치 캐시
         if (!_enterCached)
@@ -182,6 +182,8 @@ public class UI_GameOver : UI_Popup
             Bump(matchTxt.transform);
 
             yield return new WaitForSeconds(_stepDelay);
+
+            Managers.Scene.LoadScene(Define.EScene.LobbyScene);
         }
 
         matchTxt.text = "0";
