@@ -118,37 +118,7 @@ public class UI_GameScene : UI_Scene
 
     private void Update()
     {
-        //컴퓨터 test용
-        var mv = FindAnyObjectByType<Movement>();
-
-        if (!mv)
-            return;
-
-        // ===== 키보드 =====
-        // A -> Flip(1회) 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            if (!Managers.Game._isFlip)
-                return;
-
-
-            Managers.Sound.Play(ESound.Effect, "1Sound");
-            EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
-            mv.OnPressFlip(opposite);
-        }
-
-        // ' (apostrophe) 또는 L -> Jump(홀드로 반복)
-        bool jumpHeld = Input.GetKey(KeyCode.Quote) || Input.GetKey(KeyCode.L);
-        if (jumpHeld)
-        {
-            mv.DoJump();
-        }
-
-        // (옵션) 키보드로 Blue 버튼 눌림 비주얼 흉내
-        if (Input.GetKeyDown(KeyCode.Quote) || Input.GetKeyDown(KeyCode.L))
-            SimulatePress(GetButton((int)Buttons.JumpButton), true);
-        if (Input.GetKeyUp(KeyCode.Quote) || Input.GetKeyUp(KeyCode.L))
-            SimulatePress(GetButton((int)Buttons.JumpButton), false);
+       
     }
 
 
