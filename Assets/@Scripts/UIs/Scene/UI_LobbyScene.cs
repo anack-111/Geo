@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class UI_LobbyScene : UI_Scene
     {
         if (base.Init() == false)
             return false;
-        // ¿ÀºêÁ§Æ® ¹ÙÀÎµù
+        // ì˜¤ë¸Œì íŠ¸ ë°”ì¸ë”©
 
         BindObject(typeof(GameObjects));
         BindButton(typeof(Buttons));
@@ -38,7 +38,7 @@ public class UI_LobbyScene : UI_Scene
 
         GetButton((int)Buttons.DuDuButton).gameObject.BindEvent(() => OnClickStartButton("DuDuDu"));
         GetButton((int)Buttons.RudyButton).gameObject.BindEvent(() => OnClickStartButton("RudyPop"));
-        GetButton((int)Buttons.TasteButton).gameObject.BindEvent(() => OnClickStartButton("¸¶½Ãµû"));
+        GetButton((int)Buttons.TasteButton).gameObject.BindEvent(() => OnClickStartButton("ë§ˆì‹œë”°"));
         GetButton((int)Buttons.WouldYouButton).gameObject.BindEvent(() => OnClickStartButton("WouldYou"));
         GetButton((int)Buttons.TickButton).gameObject.BindEvent(() => OnClickStartButton("Tick"));
         return true;

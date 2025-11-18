@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
@@ -24,22 +24,22 @@ public class UI_GameOver : UI_Popup
 
     bool _animating;
 
-    // ¿É¼Ç
+    // ì˜µì…˜
     [SerializeField] float _stepDelay = 0.02f;
     [SerializeField] int _maxSteps = 50;
     [SerializeField] float _bumpScale = 1.15f;
     [SerializeField] float _bumpTime = 0.08f;
 
-    // ¡Ú ÁøÀÔ ¾Ö´Ï¿ë Ä³½Ã
+    // â˜… ì§„ì… ì• ë‹ˆìš© ìºì‹œ
     RectTransform _rtTotal, _rtMatch, _rtAttempts;
     Vector2 _posTotal, _posMatch, _posAttempts;
     bool _enterCached = false;
 
-    // ¡Ú ÁøÀÔ ¾Ö´Ï ¿É¼Ç
+    // â˜… ì§„ì… ì• ë‹ˆ ì˜µì…˜
     [SerializeField] float _enterDuration = 0.35f;
     [SerializeField] float _enterStagger = 0.08f;
-    [SerializeField] float _enterOffsetX = 900f; // ¿À¸¥ÂÊ ¹Ù±ùÀ¸·Î ¹Ğ¾îµÑ X ¿ÀÇÁ¼Â
-    [SerializeField] float _enterDelay = 1f;   //  ÆË¾÷ ÈÄ Áö¿¬ ½Ã°£
+    [SerializeField] float _enterOffsetX = 900f; // ì˜¤ë¥¸ìª½ ë°”ê¹¥ìœ¼ë¡œ ë°€ì–´ë‘˜ X ì˜¤í”„ì…‹
+    [SerializeField] float _enterDelay = 1f;   //  íŒì—… í›„ ì§€ì—° ì‹œê°„
     private void Awake()
     {
         Init();
@@ -52,7 +52,7 @@ public class UI_GameOver : UI_Popup
         BindButton(typeof(Buttons));
         BindText(typeof(Texts));
 
-        //  RectTransform Ä³½Ã
+        //  RectTransform ìºì‹œ
         _rtTotal = GetObject((int)GameObjects.TotalGroup).GetComponent<RectTransform>();
         _rtMatch = GetObject((int)GameObjects.MatchGroup).GetComponent<RectTransform>();
         _rtAttempts = GetObject((int)GameObjects.AttemptsObject).GetComponent<RectTransform>();
@@ -63,7 +63,7 @@ public class UI_GameOver : UI_Popup
     int _matchCoins;
     int _totalCoinsStart;
     int _totalCoinsTarget;
-    Coroutine _enterCo; //  ÄÚ·çÆ¾ ÇÚµé
+    Coroutine _enterCo; //  ì½”ë£¨í‹´ í•¸ë“¤
 
     private void OnEnable()
     {
@@ -71,10 +71,10 @@ public class UI_GameOver : UI_Popup
         GetText((int)Texts.MatchCountText).text = Managers.Game.Combo.ToString();
 
         PopupOpenAnimation(GetObject((int)GameObjects.Content));
-        // ³×°¡ ¾²´Â ´Ù¸¥ Ã³¸® À¯Áö
+        // ë„¤ê°€ ì“°ëŠ” ë‹¤ë¥¸ ì²˜ë¦¬ ìœ ì§€
         Camera.main.GetComponent<FollowPlayer>()._lenderCamera.SetActive(true);
 
-        //  Ã¹ È°¼ºÈ­ ½Ã ¿ø·¡ À§Ä¡ Ä³½Ã
+        //  ì²« í™œì„±í™” ì‹œ ì›ë˜ ìœ„ì¹˜ ìºì‹œ
         if (!_enterCached)
         {
             _posTotal = _rtTotal.anchoredPosition;
@@ -97,11 +97,11 @@ public class UI_GameOver : UI_Popup
         yield return new WaitForSeconds(_enterDelay);
 
         var seq = PlayEnterSlideIn();
-        yield return seq.WaitForCompletion(); //  ½½¶óÀÌµå ÀÎ ³¡³¯ ¶§±îÁö ´ë±â
+        yield return seq.WaitForCompletion(); //  ìŠ¬ë¼ì´ë“œ ì¸ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°
 
 
         yield return new WaitForSeconds(1f);
-       // ½½¶óÀÌµå ³¡³­ ÈÄ ¼ıÀÚ ÀüÈ¯ ½ÃÀÛ
+       // ìŠ¬ë¼ì´ë“œ ëë‚œ í›„ ìˆ«ì ì „í™˜ ì‹œì‘
        ShowAndAnimate(Managers.Game.Combo, Managers.Game.TotalCoins);
         _enterCo = null;
     }
@@ -117,17 +117,17 @@ public class UI_GameOver : UI_Popup
         _rtAttempts.anchoredPosition = _posAttempts + new Vector2(_enterOffsetX, 0f);
     }
 
-    //  ¿À¸¥ÂÊ¿¡¼­ ¿ø·¡ À§Ä¡·Î µé¾î¿À´Â ½½¶óÀÌµå ÀÎ
+    //  ì˜¤ë¥¸ìª½ì—ì„œ ì›ë˜ ìœ„ì¹˜ë¡œ ë“¤ì–´ì˜¤ëŠ” ìŠ¬ë¼ì´ë“œ ì¸
     Sequence PlayEnterSlideIn()
     {
-        // ½ÃÀÛ À§Ä¡
+        // ì‹œì‘ ìœ„ì¹˜
         _rtTotal.anchoredPosition = _posTotal + new Vector2(_enterOffsetX, 0f);
         _rtMatch.anchoredPosition = _posMatch + new Vector2(_enterOffsetX, 0f);
         _rtAttempts.anchoredPosition = _posAttempts + new Vector2(_enterOffsetX, 0f);
 
         _rtTotal.DOKill(); _rtMatch.DOKill(); _rtAttempts.DOKill();
 
-        // ÇÏ³ªÀÇ ½ÃÄö½º·Î ¹­¾î¼­ ¹İÈ¯
+        // í•˜ë‚˜ì˜ ì‹œí€€ìŠ¤ë¡œ ë¬¶ì–´ì„œ ë°˜í™˜
         var seq = DOTween.Sequence();
         seq.Append(_rtTotal.DOAnchorPos(_posTotal, _enterDuration).SetEase(Ease.OutCubic));
         seq.Join(_rtMatch.DOAnchorPos(_posMatch, _enterDuration).SetEase(Ease.OutCubic).SetDelay(_enterStagger));
@@ -135,7 +135,7 @@ public class UI_GameOver : UI_Popup
 
         return seq;
     }
-    // ===== ¿ÜºÎ¿¡¼­ °ª ÁÖÀÔ ÈÄ ÆË¾÷ ¶ç¿ï ¶§ È£Ãâ =====
+    // ===== ì™¸ë¶€ì—ì„œ ê°’ ì£¼ì… í›„ íŒì—… ë„ìš¸ ë•Œ í˜¸ì¶œ =====
     public void ShowAndAnimate(int matchCoins, int totalCoinsBefore)
     {
         _matchCoins = Mathf.Max(0, matchCoins);

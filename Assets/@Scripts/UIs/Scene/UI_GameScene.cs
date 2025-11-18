@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,7 +12,7 @@ public class UI_GameScene : UI_Scene
     UI_GameOver _gameOverPopupUI;
     UI_PausePopup _pausePopup;
     #region Enum
-    enum GameObjects { /* ÇÊ¿ä¿¡ µû¶ó °´Ã¼ Ãß°¡ */ }
+    enum GameObjects { /* í•„ìš”ì— ë”°ë¼ ê°ì²´ ì¶”ê°€ */ }
     enum Buttons 
     {
         JumpButton,
@@ -24,7 +24,7 @@ public class UI_GameScene : UI_Scene
         ComboText,
         CountText
     }
-    enum Images { /* ÇÊ¿ä¿¡ µû¶ó ÀÌ¹ÌÁö Ãß°¡ */ }
+    enum Images { /* í•„ìš”ì— ë”°ë¼ ì´ë¯¸ì§€ ì¶”ê°€ */ }
     #endregion
 
     private void Awake()
@@ -47,7 +47,7 @@ public class UI_GameScene : UI_Scene
     {
         if (!base.Init()) return false;
 
-        // ¹ÙÀÎµù
+        // ë°”ì¸ë”©
         BindObject(typeof(GameObjects));
         BindButton(typeof(Buttons));
         BindText(typeof(Texts));
@@ -59,10 +59,10 @@ public class UI_GameScene : UI_Scene
 
 
 
-        // -------- Blue ¹öÆ°: Á¡ÇÁ Àü¿ë (Pressed = È¦µå ¹İº¹ Á¡ÇÁ) --------
+        // -------- Blue ë²„íŠ¼: ì í”„ ì „ìš© (Pressed = í™€ë“œ ë°˜ë³µ ì í”„) --------
         BindEvent(GetButton((int)Buttons.JumpButton).gameObject, OnJumpPressed, null, Define.EUIEvent.Pressed);
 
-        // -------- Red ¹öÆ°: µÚÁı±â Àü¿ë (PointerDown = 1È¸¸¸ ½ÇÇà) --------
+        // -------- Red ë²„íŠ¼: ë’¤ì§‘ê¸° ì „ìš© (PointerDown = 1íšŒë§Œ ì‹¤í–‰) --------
         BindEvent(GetButton((int)Buttons.FlipButton).gameObject, OnFlipDown, null, Define.EUIEvent.PointerDown);
 
 
@@ -81,7 +81,7 @@ public class UI_GameScene : UI_Scene
     }
 
 
-    // ===== ¹öÆ° Äİ¹é =====
+    // ===== ë²„íŠ¼ ì½œë°± =====
     private void OnJumpPressed()
     {
 
@@ -90,7 +90,7 @@ public class UI_GameScene : UI_Scene
         if (!mv)
             return;
 
-        // ÇöÀç Á¸°ú °°Àº »öÀ» ³ÖÀ¸¸é Movement.OnPressColor ³»ºÎ¿¡¼­ 'Á¡ÇÁ' °æ·Î·Î Å¾½Â
+        // í˜„ì¬ ì¡´ê³¼ ê°™ì€ ìƒ‰ì„ ë„£ìœ¼ë©´ Movement.OnPressColor ë‚´ë¶€ì—ì„œ 'ì í”„' ê²½ë¡œë¡œ íƒ‘ìŠ¹
         EZoneColor current = mv._currentZone;
 
 
@@ -111,21 +111,21 @@ public class UI_GameScene : UI_Scene
         var mv = FindAnyObjectByType<Movement>();
         if (!mv)
             return;
-        // ¹İ´ë »öÀ» ³Ö¾î OnPressColor°¡ ½ºÆÄÀÌ´õ ÇÃ¸³ °æ·Î·Î °¡µµ·Ï
+        // ë°˜ëŒ€ ìƒ‰ì„ ë„£ì–´ OnPressColorê°€ ìŠ¤íŒŒì´ë” í”Œë¦½ ê²½ë¡œë¡œ ê°€ë„ë¡
         EZoneColor opposite = (mv._currentZone == EZoneColor.Red) ? EZoneColor.Blue : EZoneColor.Red;
         mv.OnPressFlip(opposite);
     }
 
     private void Update()
     {
-        //ÄÄÇ»ÅÍ test¿ë
+        //ì»´í“¨í„° testìš©
         var mv = FindAnyObjectByType<Movement>();
 
         if (!mv)
             return;
 
-        // ===== Å°º¸µå =====
-        // A -> Flip(1È¸) 
+        // ===== í‚¤ë³´ë“œ =====
+        // A -> Flip(1íšŒ) 
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (!Managers.Game._isFlip)
@@ -137,14 +137,14 @@ public class UI_GameScene : UI_Scene
             mv.OnPressFlip(opposite);
         }
 
-        // ' (apostrophe) ¶Ç´Â L -> Jump(È¦µå·Î ¹İº¹)
+        // ' (apostrophe) ë˜ëŠ” L -> Jump(í™€ë“œë¡œ ë°˜ë³µ)
         bool jumpHeld = Input.GetKey(KeyCode.Quote) || Input.GetKey(KeyCode.L);
         if (jumpHeld)
         {
             mv.DoJump();
         }
 
-        // (¿É¼Ç) Å°º¸µå·Î Blue ¹öÆ° ´­¸² ºñÁÖ¾ó Èä³»
+        // (ì˜µì…˜) í‚¤ë³´ë“œë¡œ Blue ë²„íŠ¼ ëˆŒë¦¼ ë¹„ì£¼ì–¼ í‰ë‚´
         if (Input.GetKeyDown(KeyCode.Quote) || Input.GetKeyDown(KeyCode.L))
             SimulatePress(GetButton((int)Buttons.JumpButton), true);
         if (Input.GetKeyUp(KeyCode.Quote) || Input.GetKeyUp(KeyCode.L))
@@ -167,14 +167,14 @@ public class UI_GameScene : UI_Scene
         {
             GetText((int)Texts.CountText).text = n.ToString();
 
-            // »ìÂ¦ Ä¿Áö´Â ¿¬Ãâ (¾ğ½ºÄÉÀÏµå ¾÷µ¥ÀÌÆ®)
+            // ì‚´ì§ ì»¤ì§€ëŠ” ì—°ì¶œ (ì–¸ìŠ¤ì¼€ì¼ë“œ ì—…ë°ì´íŠ¸)
             GetText((int)Texts.CountText).rectTransform.localScale = Vector3.one;
             GetText((int)Texts.CountText).rectTransform
                 .DOScale(1.25f, 0.18f)
                 .SetEase(Ease.OutBack)
                 .SetUpdate(true);
 
-            // È¿°úÀ½ ¾²¸é ¿©±â¿¡
+            // íš¨ê³¼ìŒ ì“°ë©´ ì—¬ê¸°ì—
             // Managers.Sound.Play(ESound.Effect, "beep");
 
             yield return new WaitForSecondsRealtime(0.82f);
@@ -192,15 +192,15 @@ public class UI_GameScene : UI_Scene
 
         yield return new WaitForSecondsRealtime(0.35f);
 
-        // ·Îµù Á÷Àü ¼û±è
+        // ë¡œë”© ì§ì „ ìˆ¨ê¹€
         GetText((int)Texts.CountText).gameObject.SetActive(false);
 
-        // Àç»ı¼Óµµ ¿øº¹ ÈÄ ¾À ¸®·Îµå
+        // ì¬ìƒì†ë„ ì›ë³µ í›„ ì”¬ ë¦¬ë¡œë“œ
         Time.timeScale = 1f;
         AudioListener.pause = false;
     }
 
-    // (¿É¼Ç) Å°º¸µå·Îµµ ¹öÆ° '´­¸²' »óÅÂ ¿¬Ãâ
+    // (ì˜µì…˜) í‚¤ë³´ë“œë¡œë„ ë²„íŠ¼ 'ëˆŒë¦¼' ìƒíƒœ ì—°ì¶œ
     private void SimulatePress(Button btn, bool isDown)
     {
         if (btn == null || EventSystem.current == null) return;
@@ -217,14 +217,14 @@ public class UI_GameScene : UI_Scene
         AnimateComboText();
     }
 
-    public float comboScaleFactor = 1.5f;  // ÄŞº¸ UI Ä¿Áú ºñÀ²
-    public float animationDuration = 0.1f; // ¾Ö´Ï¸ŞÀÌ¼Ç Áö¼Ó ½Ã°£
+    public float comboScaleFactor = 1.5f;  // ì½¤ë³´ UI ì»¤ì§ˆ ë¹„ìœ¨
+    public float animationDuration = 0.1f; // ì• ë‹ˆë©”ì´ì…˜ ì§€ì† ì‹œê°„
     private void AnimateComboText()
     {
-        // ÅØ½ºÆ® Å©±â¸¦ Ä¿Á³´Ù°¡ ¿ø·¡ Å©±â·Î µ¹¾Æ°¡´Â ¾Ö´Ï¸ŞÀÌ¼Ç
+        // í…ìŠ¤íŠ¸ í¬ê¸°ë¥¼ ì»¤ì¡Œë‹¤ê°€ ì›ë˜ í¬ê¸°ë¡œ ëŒì•„ê°€ëŠ” ì• ë‹ˆë©”ì´ì…˜
         GetText((int)Texts.ComboText).gameObject.transform.DOScale(comboScaleFactor, animationDuration).OnKill(() =>
         {
-            // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³­ ÈÄ ¿ø·¡ Å©±â·Î µ¹¾Æ°¡µµ·Ï ¼³Á¤
+            // ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚œ í›„ ì›ë˜ í¬ê¸°ë¡œ ëŒì•„ê°€ë„ë¡ ì„¤ì •
             GetText((int)Texts.ComboText).gameObject.transform.DOScale(1f, animationDuration);
         });
     }
